@@ -9,14 +9,25 @@ interface Message {
   timestamp: string;
 }
 
-const DEMO_SCENARIO = [
+interface ScenarioStep {
+  delay: number;
+  action: "user-typing" | "user-send" | "typing" | "bot";
+  text?: string;
+}
+
+const DEMO_SCENARIO: ScenarioStep[] = [
   {
-    delay: 500,
-    action: "user",
+    delay: 800,
+    action: "user-typing",
     text: "Здравствуйте! У вас есть куртки в размере L?",
   },
   {
-    delay: 1500,
+    delay: 300,
+    action: "user-send",
+    text: "Здравствуйте! У вас есть куртки в размере L?",
+  },
+  {
+    delay: 800,
     action: "typing",
   },
   {
@@ -25,12 +36,17 @@ const DEMO_SCENARIO = [
     text: "Здравствуйте! Да, куртки размера L есть в наличии. Сейчас доступны следующие модели:\n\n• Парка зимняя - 8 990 ₽\n• Бомбер демисезонный - 5 490 ₽\n• Пуховик спортивный - 12 990 ₽\n\nКакая модель вас интересует?",
   },
   {
-    delay: 3000,
-    action: "user",
+    delay: 1500, // задержка перед началом печати - пользователь "читает"
+    action: "user-typing",
     text: "А сколько стоит доставка в Москву?",
   },
   {
-    delay: 1200,
+    delay: 300,
+    action: "user-send",
+    text: "А сколько стоит доставка в Москву?",
+  },
+  {
+    delay: 600,
     action: "typing",
   },
   {
@@ -39,12 +55,17 @@ const DEMO_SCENARIO = [
     text: "Доставка по Москве:\n\n📦 Курьером - 350 ₽ (1-2 дня)\n🚚 В пункт выдачи - бесплатно (2-3 дня)\n\nПри заказе от 5000 ₽ курьерская доставка бесплатная!",
   },
   {
-    delay: 2500,
-    action: "user",
+    delay: 1500, // задержка перед началом печати - пользователь "читает"
+    action: "user-typing",
     text: "Отлично! Хочу оформить заказ на парку",
   },
   {
-    delay: 1000,
+    delay: 300,
+    action: "user-send",
+    text: "Отлично! Хочу оформить заказ на парку",
+  },
+  {
+    delay: 500,
     action: "typing",
   },
   {
@@ -58,6 +79,8 @@ export function TelegramChatDemo() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+  const [inputText, setInputText] = useState("");
+  const [isUserTyping, setIsUserTyping] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -79,31 +102,71 @@ export function TelegramChatDemo() {
     setMessages([]);
     setIsTyping(false);
     setCurrentStep(0);
+    setInputText("");
+    setIsUserTyping(false);
   };
 
   useEffect(() => {
     if (currentStep < DEMO_SCENARIO.length) {
       const step = DEMO_SCENARIO[currentStep];
-      const timer = setTimeout(() => {
-        if (step.action === "typing") {
-          setIsTyping(true);
-        } else if (step.action === "user" || step.action === "bot") {
-          setIsTyping(false);
-          const newMessage: Message = {
-            id: Date.now() + Math.random(),
-            text: step.text,
-            isBot: step.action === "bot",
-            timestamp: new Date().toLocaleTimeString("ru-RU", {
-              hour: "2-digit",
-              minute: "2-digit",
-            }),
-          };
-          setMessages((prev) => [...prev, newMessage]);
-        }
-        setCurrentStep((prev) => prev + 1);
-      }, step.delay);
 
-      return () => clearTimeout(timer);
+      if (step.action === "user-typing" && step.text) {
+        // Сначала ждём delay, потом начинаем печатать
+        const startTimer = setTimeout(() => {
+          setIsUserTyping(true);
+          setInputText("");
+          let charIndex = 0;
+          const typingInterval = setInterval(() => {
+            if (charIndex < step.text!.length) {
+              setInputText(step.text!.substring(0, charIndex + 1));
+              charIndex++;
+            } else {
+              clearInterval(typingInterval);
+              // После завершения печати переходим к следующему шагу
+              setTimeout(() => {
+                setCurrentStep((prev) => prev + 1);
+              }, 200);
+            }
+          }, 30);
+        }, step.delay);
+
+        return () => clearTimeout(startTimer);
+      } else {
+        const timer = setTimeout(() => {
+          if (step.action === "user-send" && step.text) {
+            // Отправляем сообщение
+            setIsUserTyping(false);
+            const newMessage: Message = {
+              id: Date.now() + Math.random(),
+              text: step.text,
+              isBot: false,
+              timestamp: new Date().toLocaleTimeString("ru-RU", {
+                hour: "2-digit",
+                minute: "2-digit",
+              }),
+            };
+            setMessages((prev) => [...prev, newMessage]);
+            setInputText("");
+          } else if (step.action === "typing") {
+            setIsTyping(true);
+          } else if (step.action === "bot" && step.text) {
+            setIsTyping(false);
+            const newMessage: Message = {
+              id: Date.now() + Math.random(),
+              text: step.text,
+              isBot: true,
+              timestamp: new Date().toLocaleTimeString("ru-RU", {
+                hour: "2-digit",
+                minute: "2-digit",
+              }),
+            };
+            setMessages((prev) => [...prev, newMessage]);
+          }
+          setCurrentStep((prev) => prev + 1);
+        }, step.delay);
+
+        return () => clearTimeout(timer);
+      }
     } else if (currentStep >= DEMO_SCENARIO.length) {
       // Демо завершено, перезапуск через 3 секунды
       const resetTimer = setTimeout(() => {
@@ -157,7 +220,7 @@ export function TelegramChatDemo() {
 
           {/* Avatar and name */}
           <div className="flex items-center gap-3 flex-1">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white text-lg font-semibold">
+            <div className="w-10 h-10 rounded-full bg-linear-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white text-lg font-semibold">
               🤖
             </div>
             <div className="flex-1">
@@ -220,15 +283,15 @@ export function TelegramChatDemo() {
                 <div className="bg-[#182533] rounded-2xl rounded-tl-md px-4 py-3 shadow-lg">
                   <div className="flex gap-1.5">
                     <div
-                      className="w-2 h-2 bg-[#8E8E93] rounded-full animate-typingDot"
+                      className="w-1.5 h-1.5 bg-[#8E8E93] rounded-full animate-typingDot"
                       style={{ animationDelay: "0ms" }}
                     />
                     <div
-                      className="w-2 h-2 bg-[#8E8E93] rounded-full animate-typingDot"
+                      className="w-1.5 h-1.5 bg-[#8E8E93] rounded-full animate-typingDot"
                       style={{ animationDelay: "160ms" }}
                     />
                     <div
-                      className="w-2 h-2 bg-[#8E8E93] rounded-full animate-typingDot"
+                      className="w-1.5 h-1.5 bg-[#8E8E93] rounded-full animate-typingDot"
                       style={{ animationDelay: "320ms" }}
                     />
                   </div>
@@ -253,22 +316,30 @@ export function TelegramChatDemo() {
           </button>
 
           {/* Message input */}
-          <div className="flex-1 bg-[#232E3C] rounded-3xl px-4 py-2 flex items-center">
-            <input
-              type="text"
-              placeholder="Сообщение"
-              className="flex-1 bg-transparent text-white text-[15px] outline-none placeholder-[#8E8E93]"
-              disabled
-            />
+          <div className="flex-1 bg-[#232E3C] rounded-3xl px-4 py-2 flex items-center min-h-[36px]">
+            {inputText ? (
+              <div className="flex-1 text-white text-[15px]">{inputText}</div>
+            ) : (
+              <div className="flex-1 text-[#8E8E93] text-[15px]">Сообщение</div>
+            )}
+            {isUserTyping && <div className="w-[2px] h-[18px] bg-[#8BBEF6] animate-blink ml-0.5" />}
           </div>
 
-          {/* Voice button */}
-          <button className="w-9 h-9 flex items-center justify-center text-[#8E8E93]">
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
-              <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
-            </svg>
-          </button>
+          {/* Voice/Send button */}
+          {inputText ? (
+            <button className="w-9 h-9 flex items-center justify-center text-[#8BBEF6]">
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+              </svg>
+            </button>
+          ) : (
+            <button className="w-9 h-9 flex items-center justify-center text-[#8E8E93]">
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
+                <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
+              </svg>
+            </button>
+          )}
         </div>
 
         {/* Home indicator */}
@@ -296,11 +367,23 @@ export function TelegramChatDemo() {
             transform: translateY(-8px);
           }
         }
+        @keyframes blink {
+          0%,
+          100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0;
+          }
+        }
         .animate-messageSlide {
           animation: messageSlide 0.3s ease-out;
         }
         .animate-typingDot {
           animation: typingDot 1.4s ease-in-out infinite;
+        }
+        .animate-blink {
+          animation: blink 1s step-end infinite;
         }
       `}</style>
     </div>
