@@ -15,6 +15,12 @@ interface ScenarioStep {
   text?: string;
 }
 
+interface TelegramChatDemoProps {
+  autoStart?: boolean;
+  onComplete?: () => void;
+  startTrigger?: boolean;
+}
+
 const DEMO_SCENARIO: ScenarioStep[] = [
   {
     delay: 800,
@@ -36,7 +42,7 @@ const DEMO_SCENARIO: ScenarioStep[] = [
     text: "Здравствуйте! Да, куртки размера L есть в наличии. Сейчас доступны следующие модели:\n\n• Парка зимняя - 8 990 ₽\n• Бомбер демисезонный - 5 490 ₽\n• Пуховик спортивный - 12 990 ₽\n\nКакая модель вас интересует?",
   },
   {
-    delay: 1500, // задержка перед началом печати - пользователь "читает"
+    delay: 2500, // задержка перед началом печати - пользователь "читает"
     action: "user-typing",
     text: "А сколько стоит доставка в Москву?",
   },
@@ -55,7 +61,7 @@ const DEMO_SCENARIO: ScenarioStep[] = [
     text: "Доставка по Москве:\n\n📦 Курьером - 350 ₽ (1-2 дня)\n🚚 В пункт выдачи - бесплатно (2-3 дня)\n\nПри заказе от 5000 ₽ курьерская доставка бесплатная!",
   },
   {
-    delay: 1500, // задержка перед началом печати - пользователь "читает"
+    delay: 2500, // задержка перед началом печати - пользователь "читает"
     action: "user-typing",
     text: "Отлично! Хочу оформить заказ на парку",
   },
@@ -75,7 +81,7 @@ const DEMO_SCENARIO: ScenarioStep[] = [
   },
 ];
 
-export function TelegramChatDemo() {
+export function TelegramChatDemo({ autoStart = true, onComplete, startTrigger = true }: TelegramChatDemoProps = {}) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -84,12 +90,14 @@ export function TelegramChatDemo() {
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Автоматический старт при монтировании
-    const timer = setTimeout(() => {
-      runDemo();
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
+    // Автоматический старт при монтировании, если autoStart=true и startTrigger=true
+    if (autoStart && startTrigger) {
+      const timer = setTimeout(() => {
+        runDemo();
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [autoStart, startTrigger]);
 
   // Автоскролл вниз при новых сообщениях
   useEffect(() => {
@@ -168,11 +176,16 @@ export function TelegramChatDemo() {
         return () => clearTimeout(timer);
       }
     } else if (currentStep >= DEMO_SCENARIO.length) {
-      // Демо завершено, перезапуск через 3 секунды
-      const resetTimer = setTimeout(() => {
-        runDemo();
-      }, 3000);
-      return () => clearTimeout(resetTimer);
+      // Демо завершено
+      onComplete?.();
+
+      // Перезапуск через 3 секунды (только если autoStart=true)
+      if (autoStart) {
+        const resetTimer = setTimeout(() => {
+          runDemo();
+        }, 3000);
+        return () => clearTimeout(resetTimer);
+      }
     }
   }, [currentStep]);
 

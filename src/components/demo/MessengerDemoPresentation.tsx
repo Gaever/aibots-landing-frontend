@@ -1,173 +1,121 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { StackedCarousel } from "./StackedCarousel";
 import { TelegramChatDemo } from "./TelegramChatDemo";
 import { ManagerTelegramDemo } from "./ManagerTelegramDemo";
 import { AmoCRMDemo } from "./AmoCRMDemo";
 
-type DemoStage = "customer" | "manager" | "crm" | "complete";
-
 export function MessengerDemoPresentation() {
-  const [stage, setStage] = useState<DemoStage>("customer");
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [slideCompletions, setSlideCompletions] = useState<Record<number, boolean>>({});
 
-  useEffect(() => {
-    // Диалог с клиентом длится примерно 25 секунд
-    const customerTimer = setTimeout(() => {
-      setStage("manager");
-    }, 25000);
+  const handleSlideComplete = (slideIndex: number) => {
+    console.log(`Slide ${slideIndex} completed`);
+    setSlideCompletions((prev) => ({ ...prev, [slideIndex]: true }));
 
-    return () => clearTimeout(customerTimer);
-  }, []);
-
-  useEffect(() => {
-    if (stage === "manager") {
-      // Уведомление менеджера показывается 5 секунд
-      const managerTimer = setTimeout(() => {
-        setStage("crm");
-      }, 5000);
-
-      return () => clearTimeout(managerTimer);
-    }
-  }, [stage]);
-
-  useEffect(() => {
-    if (stage === "crm") {
-      // CRM показывается 5 секунд
-      const crmTimer = setTimeout(() => {
-        setStage("complete");
-      }, 5000);
-
-      return () => clearTimeout(crmTimer);
-    }
-  }, [stage]);
-
-  useEffect(() => {
-    if (stage === "complete") {
-      // Перезапуск через 3 секунды
-      const restartTimer = setTimeout(() => {
-        setStage("customer");
+    // Автоматически переходим к следующему слайду
+    if (slideIndex < slides.length - 1) {
+      setTimeout(() => {
+        setCurrentSlide(slideIndex + 1);
+      }, 500);
+    } else {
+      // Последний слайд - перезапуск через 3 секунды
+      setTimeout(() => {
+        setCurrentSlide(0);
+        setSlideCompletions({});
       }, 3000);
-
-      return () => clearTimeout(restartTimer);
     }
-  }, [stage]);
+  };
+
+  const slides = [
+    {
+      id: "customer-chat",
+      title: "Шаг 1: Клиент общается с ИИ-ботом",
+      content: (
+        <div className="flex flex-col items-center justify-center h-full py-8">
+          <div className="mb-6 text-center max-w-2xl">
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">Диалог с клиентом в Telegram</h3>
+            <p className="text-gray-600">
+              ИИ-бот автоматически отвечает на вопросы клиента, помогает с выбором товара и оформляет заказ
+            </p>
+          </div>
+          <TelegramChatDemo
+            autoStart={false}
+            startTrigger={currentSlide === 0}
+            onComplete={() => handleSlideComplete(0)}
+          />
+        </div>
+      ),
+    },
+    {
+      id: "manager-notification",
+      title: "Шаг 2: Уведомление менеджера",
+      content: (
+        <div className="flex flex-col items-center justify-center h-full py-8">
+          <div className="mb-6 text-center max-w-2xl">
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">Менеджер получает уведомление</h3>
+            <p className="text-gray-600">
+              Сразу после оформления заказа менеджер получает уведомление в Telegram с деталями заявки
+            </p>
+          </div>
+          <ManagerTelegramDemo
+            autoStart={false}
+            startTrigger={currentSlide === 1}
+            onComplete={() => handleSlideComplete(1)}
+          />
+        </div>
+      ),
+    },
+    {
+      id: "crm-integration",
+      title: "Шаг 3: Заявка в CRM",
+      content: (
+        <div className="flex flex-col items-center justify-center h-full py-8">
+          <div className="mb-6 text-center max-w-2xl">
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">Автоматическое создание сделки в amoCRM</h3>
+            <p className="text-gray-600">
+              Заявка автоматически создается в CRM со всеми данными: контактом клиента, товаром и суммой сделки
+            </p>
+          </div>
+          <AmoCRMDemo autoStart={false} startTrigger={currentSlide === 2} onComplete={() => handleSlideComplete(2)} />
+        </div>
+      ),
+    },
+  ];
 
   return (
-    <div className="w-full py-12 bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="w-full py-12 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Progress indicator */}
-        <div className="mb-8">
-          <div className="flex items-center justify-center gap-3">
-            <div
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                stage === "customer" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-600"
-              }`}
-            >
-              <div className="w-2 h-2 rounded-full bg-current" />
-              <span className="text-sm font-medium">Диалог с клиентом</span>
-            </div>
-
-            <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-
-            <div
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                stage === "manager" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-600"
-              }`}
-            >
-              <div className="w-2 h-2 rounded-full bg-current" />
-              <span className="text-sm font-medium">Уведомление менеджера</span>
-            </div>
-
-            <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-
-            <div
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                stage === "crm" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-600"
-              }`}
-            >
-              <div className="w-2 h-2 rounded-full bg-current" />
-              <span className="text-sm font-medium">Заявка в CRM</span>
-            </div>
-          </div>
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Как работает автоматизация</h2>
+          <p className="text-xl text-gray-600">От первого сообщения клиента до заявки в CRM за секунды</p>
         </div>
 
-        {/* Demo area */}
-        <div className="relative min-h-[900px]">
-          {/* Stage 1: Customer chat */}
-          <div
-            className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ${
-              stage === "customer" ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
-            }`}
-          >
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">
-                Клиент общается с ИИ-ботом в Telegram
-              </h2>
-              <TelegramChatDemo />
-            </div>
-          </div>
+        {/* Carousel */}
+        <StackedCarousel
+          slides={slides}
+          currentSlide={currentSlide}
+          onSlideChange={setCurrentSlide}
+          autoAdvance={false}
+        />
 
-          {/* Stage 2: Manager and CRM side by side */}
-          <div
-            className={`absolute inset-0 transition-all duration-700 ${
-              stage === "manager" || stage === "crm"
-                ? "opacity-100 scale-100"
-                : "opacity-0 scale-95 pointer-events-none"
-            }`}
-          >
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">
-              {stage === "manager" ? "Менеджер получает уведомление" : "Заявка автоматически создается в CRM"}
-            </h2>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-              {/* Manager notification */}
-              <div
-                className={`transition-all duration-500 ${
-                  stage === "manager" ? "opacity-100 translate-x-0" : "opacity-50 -translate-x-4"
-                }`}
-              >
-                <div className="bg-white p-4 rounded-xl shadow-lg">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                    <span>📱</span>
-                    <span>Telegram менеджера</span>
-                  </h3>
-                  <ManagerTelegramDemo />
-                </div>
-              </div>
-
-              {/* CRM */}
-              <div
-                className={`transition-all duration-500 ${
-                  stage === "crm" ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
-                }`}
-              >
-                <div className="bg-white p-4 rounded-xl shadow-lg">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                    <span>💼</span>
-                    <span>amoCRM</span>
-                  </h3>
-                  <AmoCRMDemo />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Stage 3: Complete message */}
-          <div
-            className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ${
-              stage === "complete" ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
-            }`}
-          >
-            <div className="text-center">
-              <div className="text-6xl mb-6">✅</div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Заявка обработана!</h2>
-              <p className="text-lg text-gray-600 mb-2">Бот принял заказ, уведомил менеджера и создал сделку в CRM</p>
-              <p className="text-sm text-gray-500">Презентация перезапустится через 3 секунды...</p>
-            </div>
+        {/* Info banner */}
+        <div className="mt-8 text-center">
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-blue-100 border border-blue-200 rounded-full">
+            <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <span className="text-sm font-medium text-blue-900">
+              {currentSlide === slides.length - 1
+                ? "Демонстрация завершена. Перезапуск через 3 секунды..."
+                : "Наблюдайте за автоматической обработкой заявки"}
+            </span>
           </div>
         </div>
       </div>

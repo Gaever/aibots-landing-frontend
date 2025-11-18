@@ -10,11 +10,19 @@ interface Lead {
   timestamp: string;
 }
 
-export function AmoCRMDemo() {
+interface AmoCRMDemoProps {
+  autoStart?: boolean;
+  onComplete?: () => void;
+  startTrigger?: boolean;
+}
+
+export function AmoCRMDemo({ autoStart = true, onComplete, startTrigger = true }: AmoCRMDemoProps = {}) {
   const [lead, setLead] = useState<Lead | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    if (!startTrigger) return;
+
     // Показываем новую заявку через 1 секунду
     const timer = setTimeout(() => {
       setLead({
@@ -28,10 +36,15 @@ export function AmoCRMDemo() {
         }),
       });
       setIsVisible(true);
+
+      // Вызываем onComplete через 3 секунды после появления
+      setTimeout(() => {
+        onComplete?.();
+      }, 3000);
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [startTrigger, onComplete]);
 
   return (
     <div className="w-full max-w-[900px] mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">

@@ -8,6 +8,7 @@ import { PainPoints } from "@/components/PainPoints";
 import { ProductsVerticals } from "@/components/ProductsVerticals";
 import { TableOfContents } from "@/components/TableOfContents";
 import { landingContent } from "./landingContent";
+import { MessengerScrollPresentation } from "@/components/demo/MessengerScrollPresentation";
 
 export default function Home() {
   const scrollToSection = (id: string) => {
@@ -30,7 +31,7 @@ export default function Home() {
       {/* <Strategy title={landingContent.strategy.title} paragraphs={landingContent.strategy.paragraphs} /> */}
 
       <TableOfContents verticals={landingContent.verticals} scrollToSection={scrollToSection} />
-
+      <MessengerScrollPresentation />
       <ProductsVerticals verticals={landingContent.verticals} />
 
       <FAQ items={landingContent.faqItems} />
