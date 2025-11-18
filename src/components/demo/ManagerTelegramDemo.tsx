@@ -24,6 +24,10 @@ export function ManagerTelegramDemo({
 }: ManagerTelegramDemoProps = {}) {
   const [notification, setNotification] = useState<ManagerNotification | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [date] = useState(() => {
+    const d = new Date();
+    return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`;
+  });
 
   useEffect(() => {
     if (!startTrigger) return;
@@ -53,57 +57,45 @@ export function ManagerTelegramDemo({
 
   return (
     <TelegramFrame title="Менеджер" subtitle="online" avatar="👤">
-      <div className="flex flex-col justify-end h-full pb-4">
+      <div className="flex flex-col h-full pt-2">
         {!isVisible && (
-          <div className="text-gray-500 text-center mb-8">
-            <div className="text-4xl mb-3">⏳</div>
-            <p className="text-sm">Ожидание заявки...</p>
+          <div className="flex items-center justify-center h-full">
+            <div className="text-gray-500 text-center">
+              <div className="text-4xl mb-3">⏳</div>
+              <p className="text-sm">Ожидание заявки...</p>
+            </div>
           </div>
         )}
 
         {isVisible && notification && (
-          <div className="animate-slideIn space-y-2">
-            {/* Сообщение от бота */}
-            <div className="flex items-start gap-2 mb-2">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-lg flex-shrink-0">
-                🤖
-              </div>
-              <div className="flex-1">
-                <div className="bg-[#182533] rounded-2xl rounded-tl-md px-4 py-3 shadow-lg">
-                  <div className="flex items-start gap-2 mb-3">
-                    <div className="text-2xl">🔔</div>
-                    <div className="flex-1">
-                      <div className="text-white font-semibold text-[15px] mb-1">Новая заявка!</div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2 text-white text-[15px]">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#8E8E93]">👤</span>
-                      <span>{notification.customerName}</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-[#8E8E93]">🛍️</span>
-                      <span>{notification.product}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#8E8E93]">💰</span>
-                      <span className="font-semibold text-green-400">{notification.price}</span>
-                    </div>
-                  </div>
+          <div className="animate-slideIn">
+            {/* Сообщение от бота - используем точно такой же стиль как в TelegramChatDemo */}
+            <div className="flex justify-start">
+              <div className="max-w-[75%] rounded-2xl bg-[#182533] text-white rounded-tl-md px-3 py-2 shadow-lg">
+                <div className="mb-2">
+                  <span className="text-xl mr-1.5">🔔</span>
+                  <span className="text-[15px] font-bold">Новая заявка!</span>
                 </div>
-                <div className="text-[#8E8E93] text-xs mt-1 ml-2">{notification.timestamp}</div>
+
+                <p className="text-[15px] leading-[20px] whitespace-pre-line">
+                  <span className="font-bold">Клиент:</span> Анна Петрова{"\n"}
+                  <span className="font-bold">Позиция:</span> Парка зимняя, размер L{"\n"}
+                  <span className="font-bold">Дата заказа:</span> {date}
+                  {"\n"}
+                  <span className="font-bold">Сумма:</span> 8 990 ₽
+                </p>
+
+                <div className="text-[11px] mt-1 text-[#8E8E93] text-right">{notification.timestamp}</div>
               </div>
             </div>
 
-            {/* Кнопки под сообщением */}
-            <div className="flex items-start gap-2">
-              <div className="w-9 h-9 flex-shrink-0" />
-              <div className="flex-1 grid grid-cols-1 gap-1">
-                <button className="w-full py-3 bg-[#8BBEF6] text-white rounded-lg font-medium text-[15px] hover:bg-[#7AACDC] transition-colors">
+            {/* Кнопки под сообщением - точно такой же цвет как фон сообщения */}
+            <div className="flex justify-start mt-1">
+              <div className="max-w-[75%] space-y-[2px]">
+                <button className="w-full py-2 px-3 bg-[#182533] text-white text-center rounded-lg text-[15px] hover:bg-[#1f2d3d] transition-colors">
                   Связаться с клиентом
                 </button>
-                <button className="w-full py-3 bg-[#8BBEF6] text-white rounded-lg font-medium text-[15px] hover:bg-[#7AACDC] transition-colors">
+                <button className="w-full py-2 px-3 bg-[#182533] text-white text-center rounded-lg text-[15px] hover:bg-[#1f2d3d] transition-colors">
                   Открыть в CRM
                 </button>
               </div>
@@ -116,7 +108,7 @@ export function ManagerTelegramDemo({
         @keyframes slideIn {
           from {
             opacity: 0;
-            transform: translateY(-20px);
+            transform: translateY(-10px);
           }
           to {
             opacity: 1;
@@ -124,7 +116,7 @@ export function ManagerTelegramDemo({
           }
         }
         .animate-slideIn {
-          animation: slideIn 0.5s ease-out;
+          animation: slideIn 0.4s ease-out;
         }
       `}</style>
     </TelegramFrame>

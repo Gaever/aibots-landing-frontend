@@ -10,7 +10,7 @@ const spaceGrotesk = Space_Grotesk({
 
 const inter = Inter({
   variable: "--font-inter",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600", "700"],
 });
 
@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className="scroll-smooth">
-      <body className={`${spaceGrotesk.variable} ${inter.variable} antialiased`}>{children}</body>
+      <body className={`${inter.variable} antialiased`}>{children}</body>
     </html>
   );
 }
