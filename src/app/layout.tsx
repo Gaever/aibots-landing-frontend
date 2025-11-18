@@ -16,7 +16,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "ИИ-боты под ключ | AI Business Solutions",
-  description: "Автоматизируйте продажи, поддержку и аналитику с помощью искусственного интеллекта",
+  description: "Автоматизируйте продажи, поддержку и бизнес с помощью искусственного интеллекта",
 };
 
 export default function RootLayout({
