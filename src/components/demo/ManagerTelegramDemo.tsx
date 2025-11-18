@@ -52,44 +52,59 @@ export function ManagerTelegramDemo({
   }, [startTrigger, onComplete]);
 
   return (
-    <TelegramFrame title="ИИ-бот (менеджер)" subtitle="online">
-      <div className="flex items-center justify-center h-full">
+    <TelegramFrame title="Менеджер" subtitle="online" avatar="👤">
+      <div className="flex flex-col justify-end h-full pb-4">
         {!isVisible && (
-          <div className="text-gray-500 text-center">
+          <div className="text-gray-500 text-center mb-8">
             <div className="text-4xl mb-3">⏳</div>
             <p className="text-sm">Ожидание заявки...</p>
           </div>
         )}
 
         {isVisible && notification && (
-          <div className="w-full animate-slideIn">
-            <div className="bg-[#182533] rounded-2xl rounded-tl-md px-4 py-3 shadow-lg">
-              <div className="flex items-start gap-3 mb-3">
-                <div className="text-3xl">🔔</div>
-                <div className="flex-1">
-                  <div className="text-white font-semibold text-base mb-1">Новая заявка!</div>
-                  <div className="text-[#8E8E93] text-xs">{notification.timestamp}</div>
-                </div>
+          <div className="animate-slideIn space-y-2">
+            {/* Сообщение от бота */}
+            <div className="flex items-start gap-2 mb-2">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-lg flex-shrink-0">
+                🤖
               </div>
+              <div className="flex-1">
+                <div className="bg-[#182533] rounded-2xl rounded-tl-md px-4 py-3 shadow-lg">
+                  <div className="flex items-start gap-2 mb-3">
+                    <div className="text-2xl">🔔</div>
+                    <div className="flex-1">
+                      <div className="text-white font-semibold text-[15px] mb-1">Новая заявка!</div>
+                    </div>
+                  </div>
 
-              <div className="space-y-2 text-white text-[15px]">
-                <div className="flex items-center gap-2">
-                  <span className="text-[#8E8E93]">👤</span>
-                  <span>{notification.customerName}</span>
+                  <div className="space-y-2 text-white text-[15px]">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#8E8E93]">👤</span>
+                      <span>{notification.customerName}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-[#8E8E93]">🛍️</span>
+                      <span>{notification.product}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#8E8E93]">💰</span>
+                      <span className="font-semibold text-green-400">{notification.price}</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-[#8E8E93]">🛍️</span>
-                  <span>{notification.product}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[#8E8E93]">💰</span>
-                  <span className="font-semibold text-green-400">{notification.price}</span>
-                </div>
+                <div className="text-[#8E8E93] text-xs mt-1 ml-2">{notification.timestamp}</div>
               </div>
+            </div>
 
-              <div className="mt-4 pt-3 border-t border-gray-700">
-                <button className="w-full py-2 bg-[#8BBEF6] text-white rounded-lg font-semibold text-sm hover:bg-[#7AACDC] transition-colors">
+            {/* Кнопки под сообщением */}
+            <div className="flex items-start gap-2">
+              <div className="w-9 h-9 flex-shrink-0" />
+              <div className="flex-1 grid grid-cols-1 gap-1">
+                <button className="w-full py-3 bg-[#8BBEF6] text-white rounded-lg font-medium text-[15px] hover:bg-[#7AACDC] transition-colors">
                   Связаться с клиентом
+                </button>
+                <button className="w-full py-3 bg-[#8BBEF6] text-white rounded-lg font-medium text-[15px] hover:bg-[#7AACDC] transition-colors">
+                  Открыть в CRM
                 </button>
               </div>
             </div>

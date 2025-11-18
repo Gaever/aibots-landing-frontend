@@ -76,10 +76,10 @@ export function MessengerScrollPresentation() {
         "Окупается за 2-3 месяца",
       ],
       demoComponent: (
-        <div className="flex flex-col items-center justify-center text-center space-y-8 p-8">
+        <div className="flex flex-col items-center justify-center text-center space-y-8 p-8 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 rounded-2xl shadow-2xl">
           <div className="text-6xl mb-4">🚀</div>
           <h3 className="text-4xl font-bold text-white mb-4">Готовы автоматизировать?</h3>
-          <p className="text-xl text-white/80 max-w-md mb-8">Начните получать заявки на автопилоте уже через неделю</p>
+          <p className="text-xl text-white/90 max-w-md mb-8">Начните получать заявки на автопилоте уже через неделю</p>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
               href="https://t.me/yourusername"
@@ -91,12 +91,12 @@ export function MessengerScrollPresentation() {
             </a>
             <a
               href="#pricing"
-              className="px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white rounded-xl font-bold text-lg hover:bg-white/20 transition-all duration-200"
+              className="px-8 py-4 bg-white/20 backdrop-blur-sm border-2 border-white/50 text-white rounded-xl font-bold text-lg hover:bg-white/30 transition-all duration-200"
             >
               Узнать цену
             </a>
           </div>
-          <div className="mt-8 flex items-center gap-8 text-white/60 text-sm">
+          <div className="mt-8 flex items-center gap-8 text-white/80 text-sm">
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path

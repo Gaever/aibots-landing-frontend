@@ -60,9 +60,9 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
     <div ref={containerRef} className="relative w-full bg-white">
       <div className="grid lg:grid-cols-2 gap-0">
         {/* Left side - Text content */}
-        <div className="relative px-6 lg:px-12 py-12">
+        <div className="relative py-12">
           {/* Sticky header */}
-          <div className="sticky top-0 z-20 bg-white pt-8 pb-8 mb-8 border-b border-gray-200 -mt-8">
+          <div className="sticky top-0 z-20 bg-white pt-8 pb-8 mb-8 border-b border-gray-200 w-full px-6 lg:px-12">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
                 <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,7 +82,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
           </div>
 
           {/* Sections */}
-          <div className="space-y-32">
+          <div className="space-y-32 px-6 lg:px-12">
             {sections.map((section, index) => (
               <div
                 key={section.id}
@@ -189,7 +189,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
                   <div
                     key={index}
                     className={`h-2 rounded-full transition-all duration-300 ${
-                      index === activeSection ? "w-12 bg-blue-600" : "w-2 bg-gray-300"
+                      index === activeSection ? "w-12 bg-gray-900" : "w-2 bg-gray-400"
                     }`}
                   />
                 ))}

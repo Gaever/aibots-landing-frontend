@@ -8,6 +8,7 @@ interface TelegramFrameProps {
   children: ReactNode;
   showInput?: boolean;
   inputPlaceholder?: string;
+  avatar?: string;
 }
 
 export function TelegramFrame({
@@ -16,6 +17,7 @@ export function TelegramFrame({
   children,
   showInput = true,
   inputPlaceholder = "Сообщение",
+  avatar = "🤖",
 }: TelegramFrameProps) {
   return (
     <div className="w-full max-w-[390px] mx-auto">
@@ -62,7 +64,7 @@ export function TelegramFrame({
           {/* Avatar and name */}
           <div className="flex items-center gap-3 flex-1">
             <div className="w-10 h-10 rounded-full bg-linear-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white text-lg font-semibold">
-              🤖
+              {avatar}
             </div>
             <div className="flex-1">
               <div className="text-white font-semibold text-base">{title}</div>
