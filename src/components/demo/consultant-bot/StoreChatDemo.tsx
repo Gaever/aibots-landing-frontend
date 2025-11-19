@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Message {
@@ -12,13 +12,21 @@ interface Message {
     name: string;
     price: string;
     image: string;
+    url: string;
   };
 }
 
 export function StoreChatDemo({ autoStart = false }: { autoStart?: boolean }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
-  const [step, setStep] = useState(0);
+  const chatRef = useRef<HTMLDivElement | null>(null);
+
+  // автоскролл к низу при новых сообщениях / индикаторе печати
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [messages, isTyping]);
 
   useEffect(() => {
     if (!autoStart) return;
@@ -55,6 +63,7 @@ export function StoreChatDemo({ autoStart = false }: { autoStart?: boolean }) {
                 name: "SoundPro X1",
                 price: "12 990 ₽",
                 image: "🎧",
+                url: "https://shop.example.com/products/soundpro-x1",
               },
             },
           ]);
@@ -79,23 +88,28 @@ export function StoreChatDemo({ autoStart = false }: { autoStart?: boolean }) {
   }, [autoStart]);
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 font-sans">
-      {/* Header */}
+    <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 font-sans flex flex-col h-[500px]">
+      {/* Header - единый для всех слайдов консультанта */}
       <div className="bg-blue-600 p-4 flex items-center gap-3">
         <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white text-xl">
           🤖
         </div>
-        <div>
-          <h3 className="text-white font-bold">Онлайн-консультант</h3>
+        <div className="flex-1">
+          <h3 className="text-white font-bold text-sm sm:text-base">
+            Онлайн-консультант
+          </h3>
           <p className="text-blue-100 text-xs flex items-center gap-1">
             <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-            Online
+            Бот отвечает за секунды
           </p>
         </div>
       </div>
 
       {/* Chat Area */}
-      <div className="h-[400px] bg-gray-50 p-4 overflow-y-auto flex flex-col gap-4">
+      <div
+        ref={chatRef}
+        className="flex-1 bg-gray-50 p-4 overflow-y-auto flex flex-col gap-4"
+      >
         <AnimatePresence mode="popLayout">
           {messages.map((msg) => (
             <motion.div
@@ -112,21 +126,32 @@ export function StoreChatDemo({ autoStart = false }: { autoStart?: boolean }) {
                   }`}
               >
                 <p className="text-sm leading-relaxed">{msg.text}</p>
-                {msg.type === "product" && msg.product && (
-                  <div className="mt-3 p-3 bg-gray-50 rounded-xl border border-gray-100 flex gap-3 items-center">
-                    <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-2xl shadow-sm">
-                      {msg.product.image}
+                {msg.type === "product" &&
+                  msg.product && (
+                    <div className="mt-3 p-3 bg-gray-50 rounded-xl border border-gray-100 flex flex-col gap-2">
+                      <div className="flex gap-3 items-center">
+                        <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-2xl shadow-sm">
+                          {msg.product.image}
+                        </div>
+                        <div>
+                          <p className="font-bold text-sm text-gray-900">
+                            {msg.product.name}
+                          </p>
+                          <p className="text-blue-600 font-bold text-sm">
+                            {msg.product.price}
+                          </p>
+                        </div>
+                      </div>
+                      <a
+                        href={msg.product.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-blue-600 underline break-all"
+                      >
+                        {msg.product.url}
+                      </a>
                     </div>
-                    <div>
-                      <p className="font-bold text-sm text-gray-900">
-                        {msg.product.name}
-                      </p>
-                      <p className="text-blue-600 font-bold text-sm">
-                        {msg.product.price}
-                      </p>
-                    </div>
-                  </div>
-                )}
+                  )}
               </div>
             </motion.div>
           ))}
