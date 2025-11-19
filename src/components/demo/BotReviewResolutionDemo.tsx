@@ -2,9 +2,11 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { landingContent } from "@/app/landingContent";
 
 export function BotReviewResolutionDemo() {
   const [step, setStep] = useState(0);
+  const content = landingContent.demoComponents;
 
   useEffect(() => {
     const sequence = async () => {
@@ -12,78 +14,37 @@ export function BotReviewResolutionDemo() {
       await new Promise((r) => setTimeout(r, 1000));
       // Step 1: Bot replies
       setStep(1);
-      await new Promise((r) => setTimeout(r, 2500));
-      // Step 2: User updates rating
+      await new Promise((r) => setTimeout(r, 3000));
+      // Step 2: User adds new positive comment
       setStep(2);
     };
     sequence();
   }, []);
 
   return (
-    <div className="w-full h-full bg-white rounded-xl shadow-lg overflow-hidden flex flex-col font-sans text-sm p-4">
+    <div className="w-full h-full bg-white rounded-xl overflow-hidden flex flex-col font-sans text-sm p-4 overflow-y-auto border border-gray-200">
       {/* Review Thread */}
-      <div className="flex-1 space-y-4">
-        {/* Original Review */}
+      <div className="flex-1 space-y-6">
+        {/* Original Negative Review */}
         <div className="bg-red-50 border border-red-100 rounded-xl p-4">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-600 font-bold text-xs">
-                И
+                {content.reviews.negative.author[0]}
               </div>
               <div>
-                <div className="font-medium text-gray-900">Иван П.</div>
-                <AnimatePresence mode="wait">
-                  {step < 2 ? (
-                    <motion.div
-                      key="bad-rating"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0, scale: 0.5 }}
-                      className="flex text-red-500 text-xs"
-                    >
-                      {"★".repeat(1)}
-                      <span className="text-gray-300">{"★".repeat(4)}</span>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="good-rating"
-                      initial={{ opacity: 0, scale: 1.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="flex text-yellow-400 text-xs"
-                    >
-                      {"★".repeat(5)}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div className="font-medium text-gray-900">{content.reviews.negative.author}</div>
+                <div className="flex text-yellow-400 text-xs">
+                  {"★".repeat(1)}
+                  <span className="text-gray-300">{"★".repeat(4)}</span>
+                </div>
               </div>
             </div>
-            <div className="text-xs text-gray-400">
-              {step === 2 ? "Изменено только что" : "10 мин назад"}
-            </div>
+            <div className="text-xs text-gray-400">10 мин назад</div>
           </div>
-          <AnimatePresence mode="wait">
-            {step < 2 ? (
-              <motion.p
-                key="bad-text"
-                exit={{ opacity: 0, height: 0 }}
-                className="text-gray-800"
-              >
-                Ужасное качество! Пришла поцарапанная, коробка мятая. Включается
-                через раз. Не советую покупать.
-              </motion.p>
-            ) : (
-              <motion.p
-                key="good-text"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-gray-800"
-              >
-                Проблема решена! Продавец связался, извинился и оперативно
-                заменил товар на новый. Колонка отличная, звук супер. Спасибо за
-                сервис!
-              </motion.p>
-            )}
-          </AnimatePresence>
+          <p className="text-gray-800">
+            {content.reviews.negative.title} {content.reviews.negative.text}
+          </p>
         </div>
 
         {/* Bot Reply */}
@@ -103,15 +64,41 @@ export function BotReviewResolutionDemo() {
                   🤖
                 </div>
                 <div className="font-bold text-blue-700 text-xs">
-                  Представитель бренда (AI Bot)
+                  {content.reviews.botReply.author}
                 </div>
               </div>
               <p className="text-gray-700 text-xs leading-relaxed">
-                Иван, здравствуйте! Нам очень жаль, что вы столкнулись с такой
-                ситуацией. 😔 Это недопустимо. Мы уже оформили для вас отправку
-                новой колонки (трек-номер отправили в личные сообщения), а также
-                дарим промокод на скидку 20% на следующую покупку. Надеемся, вы
-                дадите нам второй шанс! 🙏
+                {content.reviews.botReply.text}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* User New Positive Comment */}
+        <AnimatePresence>
+          {step >= 2 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring" }}
+              className="bg-green-50 border border-green-100 rounded-xl p-4"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold text-xs">
+                    {content.reviews.resolution.author[0]}
+                  </div>
+                  <div>
+                    <div className="font-medium text-gray-900">{content.reviews.resolution.author}</div>
+                    <div className="flex text-yellow-400 text-xs">
+                      {"★".repeat(5)}
+                    </div>
+                  </div>
+                </div>
+                <div className="text-xs text-gray-400">{content.reviews.resolution.date}</div>
+              </div>
+              <p className="text-gray-800">
+                {content.reviews.resolution.text}
               </p>
             </motion.div>
           )}

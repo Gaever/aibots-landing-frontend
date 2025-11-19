@@ -5,79 +5,85 @@ import { OzonReviewDemo } from "./OzonReviewDemo";
 import { ReviewProcessingFlowDemo } from "./ReviewProcessingFlowDemo";
 import { AmoCRMReviewNotificationDemo } from "./AmoCRMReviewNotificationDemo";
 import { BotReviewResolutionDemo } from "./BotReviewResolutionDemo";
+import { landingContent } from "@/app/landingContent";
 
 export function MarketplaceReviewsPresentation() {
+  const content = landingContent.marketplacePresentation;
   const sections = [
     {
-      id: "ozon-review",
-      subtitle: "Этап 1",
-      title: "Покупатель оставляет негативный отзыв",
-      description: [
-        "Покупатель приобрел товар, но остался недоволен качеством или доставкой. Он заходит на маркетплейс (например, Ozon) и оставляет негативный отзыв с оценкой 1 звезда.",
-        "Обычно такие отзывы висят часами или днями, отпугивая новых клиентов и снижая рейтинг карточки товара.",
-        "В нашем случае система мониторинга работает мгновенно.",
-      ],
-      highlights: [
-        "Мгновенная фиксация отзыва",
-        "Работает с Ozon, Wildberries и др.",
-        "Мониторинг 24/7",
-      ],
+      ...content.sections[0],
       demoComponent: <OzonReviewDemo />,
     },
     {
-      id: "processing-flow",
-      subtitle: "Этап 2",
-      title: "ИИ анализирует отзыв",
-      description: [
-        "Система получает уведомление о новом отзыве через API. Отзыв передается в LLM (Large Language Model) для анализа.",
-        "ИИ определяет тональность (негативная), выделяет суть претензии и формирует стратегию ответа.",
-        "Это происходит за доли секунды, пока конкуренты даже не знают о проблеме.",
-      ],
-      highlights: [
-        "Анализ тональности",
-        "Выделение сути проблемы",
-        "Автоматическая классификация",
-      ],
+      ...content.sections[1],
       demoComponent: <ReviewProcessingFlowDemo />,
     },
     {
-      id: "crm-notification",
-      subtitle: "Этап 3",
-      title: "Уведомление в CRM",
-      description: [
-        "Информация о негативном отзыве мгновенно попадает в вашу CRM (например, amoCRM). Создается задача для менеджера или автоматический триггер.",
-        "Вы видите не просто текст отзыва, а уже проанализированные данные: причина недовольства, ссылка на заказ, статус клиента.",
-        "Ни один негатив не потеряется в потоке уведомлений.",
-      ],
-      highlights: [
-        "Интеграция с amoCRM",
-        "Автоматическая постановка задач",
-        "Полный контекст проблемы",
-      ],
+      ...content.sections[2],
       demoComponent: <AmoCRMReviewNotificationDemo />,
     },
     {
-      id: "bot-resolution",
-      subtitle: "Этап 4",
-      title: "Бот решает проблему",
-      description: [
-        "Бот автоматически вступает в диалог с клиентом в комментариях или личном чате. Он приносит извинения, предлагает решение (обмен, возврат, бонус) и вежливо просит изменить оценку.",
-        "В большинстве случаев, видя быструю и адекватную реакцию, клиент меняет гнев на милость и исправляет 1 звезду на 5.",
-        "Конфликт исчерпан, репутация спасена.",
-      ],
-      highlights: [
-        "Автоматический ответ",
-        "Решение конфликта",
-        "Повышение рейтинга",
-      ],
+      ...content.sections[3],
       demoComponent: <BotReviewResolutionDemo />,
+    },
+    {
+      ...content.sections[4],
+      demoComponent: (
+        <div className="flex flex-col items-center justify-center text-center space-y-8 p-8 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 rounded-2xl w-full h-full">
+          <div className="text-6xl mb-4">🚀</div>
+          <h3 className="text-4xl font-bold text-white mb-4">
+            Готовы автоматизировать?
+          </h3>
+          <p className="text-xl text-white/90 max-w-md mb-8">
+            Начните получать заявки на автопилоте уже через неделю
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href="https://t.me/yourusername"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-200 hover:scale-105 shadow-xl"
+            >
+              Записаться на демо
+            </a>
+            <a
+              href="#pricing"
+              className="px-8 py-4 bg-white/20 backdrop-blur-sm border-2 border-white/50 text-white rounded-xl font-bold text-lg hover:bg-white/30 transition-all duration-200"
+            >
+              Узнать цену
+            </a>
+          </div>
+          <div className="mt-8 flex items-center gap-8 text-white/80 text-sm">
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <span>Запуск за 7 дней</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <span>Поддержка 24/7</span>
+            </div>
+          </div>
+        </div>
+      ),
     },
   ];
 
   return (
     <ScrollBasedDemo
-      headerTitle="Автоматизация работы с отзывами"
-      headerSubtitle="Превращаем негатив в лояльность на автопилоте"
+      headerTitle={content.headerTitle}
+      headerSubtitle={content.headerSubtitle}
       sections={sections}
     />
   );

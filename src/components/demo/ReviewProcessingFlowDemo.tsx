@@ -2,9 +2,11 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { landingContent } from "@/app/landingContent";
 
 export function ReviewProcessingFlowDemo() {
   const [step, setStep] = useState(0);
+  const content = landingContent.demoComponents.flow;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -16,32 +18,32 @@ export function ReviewProcessingFlowDemo() {
   const steps = [
     {
       id: "api",
-      label: "Ozon API",
+      label: content.steps[0].label,
       icon: "🛍️",
       color: "bg-blue-100 text-blue-600 border-blue-200",
     },
     {
       id: "server",
-      label: "Bot Server",
+      label: content.steps[1].label,
       icon: "🤖",
       color: "bg-purple-100 text-purple-600 border-purple-200",
     },
     {
       id: "llm",
-      label: "LLM Analysis",
+      label: content.steps[2].label,
       icon: "🧠",
       color: "bg-indigo-100 text-indigo-600 border-indigo-200",
     },
     {
       id: "result",
-      label: "Negative Detected",
+      label: content.steps[3].label,
       icon: "⚠️",
       color: "bg-red-100 text-red-600 border-red-200",
     },
   ];
 
   return (
-    <div className="w-full h-full bg-white rounded-xl shadow-lg p-8 flex flex-col items-center justify-center font-sans relative overflow-hidden">
+    <div className="w-full h-full bg-white rounded-xl p-8 flex flex-col items-center justify-center font-sans relative overflow-hidden border border-gray-200">
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:2rem_2rem] opacity-30" />
 
@@ -82,26 +84,12 @@ export function ReviewProcessingFlowDemo() {
               className="flex-1 bg-white p-3 rounded-lg border border-gray-100 shadow-sm"
             >
               <div className="font-bold text-gray-800">{s.label}</div>
-              {index === 0 && (
-                <div className="text-xs text-gray-500">
-                  New review received: ID #9921
-                </div>
-              )}
-              {index === 1 && (
-                <div className="text-xs text-gray-500">
-                  Processing payload...
-                </div>
-              )}
-              {index === 2 && (
-                <div className="text-xs text-gray-500">
-                  Sentiment: Negative (0.98)
-                  <br />
-                  Topic: Product Quality
-                </div>
-              )}
+              <div className="text-xs text-gray-500 whitespace-pre-line">
+                {content.steps[index].details}
+              </div>
               {index === 3 && (
-                <div className="text-xs text-red-500 font-medium">
-                  Action: Trigger Alert
+                <div className="text-xs text-red-500 font-medium mt-1">
+                  {content.steps[3].details}
                 </div>
               )}
             </motion.div>
@@ -116,7 +104,7 @@ export function ReviewProcessingFlowDemo() {
         className="absolute bottom-8 bg-green-50 text-green-700 px-4 py-2 rounded-full border border-green-200 font-medium flex items-center gap-2"
       >
         <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-        Process Complete
+        {content.complete}
       </motion.div>
     </div>
   );

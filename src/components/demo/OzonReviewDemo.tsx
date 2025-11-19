@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { landingContent } from "@/app/landingContent";
 
 export function OzonReviewDemo() {
   const [showReview, setShowReview] = useState(false);
+  const content = landingContent.demoComponents;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -14,10 +16,10 @@ export function OzonReviewDemo() {
   }, []);
 
   return (
-    <div className="w-full h-full bg-white rounded-xl shadow-lg overflow-hidden flex flex-col font-sans text-sm">
-      {/* Header imitating Ozon app header */}
-      <div className="bg-[#005bff] text-white p-3 flex items-center justify-between">
-        <div className="font-bold text-lg">OZON</div>
+    <div className="w-full h-full bg-white rounded-xl overflow-hidden flex flex-col font-sans text-sm border border-gray-200">
+      {/* Header imitating Generic Marketplace header */}
+      <div className="bg-[#1a1a1a] text-white p-3 flex items-center justify-between">
+        <div className="font-bold text-lg">{content.common.marketplaceHeader}</div>
         <div className="text-xs">9:41</div>
       </div>
 
@@ -28,7 +30,7 @@ export function OzonReviewDemo() {
         </div>
         <div>
           <div className="font-medium text-gray-900 line-clamp-2">
-            Умная колонка с голосовым помощником, черная
+            {content.common.productName}
           </div>
           <div className="text-xs text-gray-500 mt-1">Артикул: 12345678</div>
           <div className="flex items-center gap-1 mt-1">
@@ -36,24 +38,20 @@ export function OzonReviewDemo() {
               {"★".repeat(4)}
               <span className="text-gray-300">★</span>
             </div>
-            <span className="text-xs text-gray-400">(142 отзыва)</span>
+            <span className="text-xs text-gray-400">{content.common.reviewCount}</span>
           </div>
         </div>
       </div>
 
       {/* Reviews Header */}
       <div className="p-4 pb-2">
-        <h3 className="font-bold text-lg text-gray-900">Отзывы о товаре</h3>
+        <h3 className="font-bold text-lg text-gray-900">{content.common.reviewsHeader}</h3>
         <div className="flex gap-2 mt-3 overflow-x-auto pb-2">
-          <span className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium whitespace-nowrap">
-            Все
-          </span>
-          <span className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium whitespace-nowrap">
-            С фото
-          </span>
-          <span className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium whitespace-nowrap">
-            Негативные
-          </span>
+          {content.common.filters.map((filter, i) => (
+            <span key={i} className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium whitespace-nowrap">
+              {filter}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -64,19 +62,19 @@ export function OzonReviewDemo() {
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold text-xs">
-                А
+                {content.reviews.positive.author[0]}
               </div>
               <div>
-                <div className="font-medium text-gray-900">Анна М.</div>
+                <div className="font-medium text-gray-900">{content.reviews.positive.author}</div>
                 <div className="flex text-yellow-400 text-xs">
                   {"★".repeat(5)}
                 </div>
               </div>
             </div>
-            <div className="text-xs text-gray-400">2 дня назад</div>
+            <div className="text-xs text-gray-400">{content.reviews.positive.date}</div>
           </div>
           <p className="text-gray-600">
-            Отличная колонка! Звук супер, подключилась быстро. Рекомендую!
+            {content.reviews.positive.text}
           </p>
         </div>
 
@@ -90,26 +88,26 @@ export function OzonReviewDemo() {
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-600 font-bold text-xs">
-                И
+                {content.reviews.negative.author[0]}
               </div>
               <div>
-                <div className="font-medium text-gray-900">Иван П.</div>
-                <div className="flex text-red-500 text-xs">
+                <div className="font-medium text-gray-900">{content.reviews.negative.author}</div>
+                <div className="flex text-yellow-400 text-xs">
                   {"★".repeat(1)}
                   <span className="text-gray-300">{"★".repeat(4)}</span>
                 </div>
               </div>
             </div>
-            <div className="text-xs text-gray-400">Только что</div>
+            <div className="text-xs text-gray-400">{content.reviews.negative.date}</div>
           </div>
-          <p className="text-gray-800 font-medium mb-1">Ужасное качество!</p>
+          <p className="text-gray-800 font-medium mb-1">{content.reviews.negative.title}</p>
           <p className="text-gray-600">
-            Пришла поцарапанная, коробка мятая. Включается через раз. Не советую
-            покупать у этого продавца, полное разочарование. Верните деньги!
+            {content.reviews.negative.text}
           </p>
           <div className="mt-3 flex gap-2">
-            <div className="w-16 h-16 bg-gray-200 rounded-md flex items-center justify-center text-xs text-gray-400">Фото 1</div>
-            <div className="w-16 h-16 bg-gray-200 rounded-md flex items-center justify-center text-xs text-gray-400">Фото 2</div>
+            <div className="w-16 h-16 bg-gray-200 rounded-md flex items-center justify-center text-xs text-gray-400">
+              Фото 1
+            </div>
           </div>
         </motion.div>
       </div>

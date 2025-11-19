@@ -210,9 +210,9 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
         {/* Right side - Sticky demo area */}
         <div className="relative hidden lg:block">
           <div className="sticky top-0 h-screen w-full">
-            <div className="relative w-full h-full bg-white flex items-center justify-center p-8">
+            <div className="relative w-full h-full bg-white flex flex-col items-center justify-center p-8">
               {/* Demo content - показываем только активную секцию */}
-              <div className="relative z-10 w-full h-full flex items-center justify-center">
+              <div className="relative z-10 w-full flex-1 flex items-center justify-center min-h-0">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={sections[activeSection].id}
@@ -228,7 +228,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
               </div>
 
               {/* Progress indicator */}
-              <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-2">
+              <div className="flex items-center gap-2 mt-6 flex-shrink-0 z-50">
                 {sections.map((_, index) => (
                   <div
                     key={index}
