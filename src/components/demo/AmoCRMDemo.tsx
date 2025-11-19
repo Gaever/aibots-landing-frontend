@@ -28,14 +28,14 @@ export function AmoCRMDemo({ autoStart = true, onComplete, startTrigger = true }
     const timer = setTimeout(() => {
       const newLead: Lead = {
         id: 142345,
-        name: "Заявка с сайта #42",
+        name: "Заявка из ИИ-менеджера #42",
         budget: "8 990 ₽",
         status: "Неразобранное",
-        timestamp: "14:30",
-        tags: ["Сайт", "Парка"],
-        company: "Иван Петров",
+        timestamp: "9:41",
+        tags: ["ИИ-менеджер", "Парка"],
+        company: "Анна",
       };
-      
+
       setLeads((prev) => [...prev, newLead]);
 
       // Вызываем onComplete через 3 секунды после появления
@@ -62,12 +62,12 @@ export function AmoCRMDemo({ autoStart = true, onComplete, startTrigger = true }
           A
         </div>
         <div className="flex flex-col gap-3 mt-2 w-full items-center">
-           {/* Mock Icons */}
-           {[...Array(5)].map((_, i) => (
-             <div key={i} className={`w-full h-8 flex items-center justify-center border-l-2 ${i === 1 ? 'border-blue-500 bg-[#354050]' : 'border-transparent opacity-50 hover:opacity-100'}`}>
-                <div className="w-4 h-4 bg-gray-400 rounded-sm" />
-             </div>
-           ))}
+          {/* Mock Icons */}
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className={`w-full h-8 flex items-center justify-center border-l-2 ${i === 1 ? 'border-blue-500 bg-[#354050]' : 'border-transparent opacity-50 hover:opacity-100'}`}>
+              <div className="w-4 h-4 bg-gray-400 rounded-sm" />
+            </div>
+          ))}
         </div>
       </div>
 
@@ -75,19 +75,19 @@ export function AmoCRMDemo({ autoStart = true, onComplete, startTrigger = true }
       <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
         <div className="h-12 bg-white border-b border-gray-200 flex items-center justify-between px-4 flex-shrink-0">
-           <div className="flex items-center gap-4">
-             <h1 className="font-bold text-gray-700 text-sm md:text-base truncate">Сделки</h1>
-             <div className="hidden md:flex items-center bg-gray-100 rounded px-2 py-1 gap-2">
-                <span className="w-3 h-3 bg-gray-400 rounded-full"></span>
-                <span className="text-gray-500">Поиск и фильтр</span>
-             </div>
-           </div>
-           <div className="flex items-center gap-3">
-              <button className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded text-xs font-medium transition-colors">
-                + Новая сделка
-              </button>
-              <div className="w-6 h-6 rounded-full bg-gray-300"></div>
-           </div>
+          <div className="flex items-center gap-4">
+            <h1 className="font-bold text-gray-700 text-sm md:text-base truncate">Сделки</h1>
+            <div className="hidden md:flex items-center bg-gray-100 rounded px-2 py-1 gap-2">
+              <span className="w-3 h-3 bg-gray-400 rounded-full"></span>
+              <span className="text-gray-500">Поиск и фильтр</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <button className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded text-xs font-medium transition-colors">
+              + Новая сделка
+            </button>
+            <div className="w-6 h-6 rounded-full bg-gray-300"></div>
+          </div>
         </div>
 
         {/* Pipeline (Kanban) */}
@@ -109,9 +109,9 @@ export function AmoCRMDemo({ autoStart = true, onComplete, startTrigger = true }
                 {/* Column Content */}
                 <div className="flex-1 bg-transparent rounded-lg flex flex-col gap-2 overflow-y-auto pb-2">
                   {stage.id === "unsorted" && leads.map((lead) => (
-                    <div 
-                      key={lead.id} 
-                      className="bg-white p-3 rounded shadow-sm border border-gray-200 hover:shadow-md transition-all cursor-pointer animate-slideInLeft"
+                    <div
+                      key={lead.id}
+                      className="bg-white p-3 rounded shadow-sm border border-gray-200 hover:shadow-md transition-all cursor-pointer animate-newLead"
                     >
                       <div className="flex flex-wrap gap-1 mb-2">
                         {lead.tags.map(tag => (
@@ -122,7 +122,7 @@ export function AmoCRMDemo({ autoStart = true, onComplete, startTrigger = true }
                       </div>
                       <div className="font-medium text-blue-600 mb-1 truncate">{lead.name}</div>
                       <div className="text-gray-900 font-bold mb-2">{lead.budget}</div>
-                      
+
                       <div className="flex items-center gap-2 mt-2 pt-2 border-t border-gray-100">
                         <div className="w-4 h-4 bg-gray-200 rounded-full flex-shrink-0"></div>
                         <div className="text-gray-500 truncate">{lead.company}</div>
@@ -130,12 +130,12 @@ export function AmoCRMDemo({ autoStart = true, onComplete, startTrigger = true }
                       </div>
                     </div>
                   ))}
-                  
+
                   {/* Empty State Placeholder for visual structure */}
                   {stage.id !== "unsorted" && (
-                     <div className="h-full border-2 border-dashed border-gray-200 rounded-lg flex items-center justify-center opacity-30">
-                        <span className="text-gray-400">Пусто</span>
-                     </div>
+                    <div className="h-full border-2 border-dashed border-gray-200 rounded-lg flex items-center justify-center opacity-30">
+                      <span className="text-gray-400">Пусто</span>
+                    </div>
                   )}
                 </div>
               </div>
@@ -143,6 +143,29 @@ export function AmoCRMDemo({ autoStart = true, onComplete, startTrigger = true }
           </div>
         </div>
       </div>
+      <style jsx>{`
+        @keyframes newLead {
+          0% {
+            opacity: 0;
+            transform: translateX(-50px) scale(0.8);
+            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+          }
+          50% {
+            opacity: 1;
+            transform: translateX(0) scale(1.05);
+            box-shadow: 0 0 20px 0 rgba(59, 130, 246, 0.3);
+            background-color: #eff6ff;
+          }
+          100% {
+            transform: scale(1);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            background-color: white;
+          }
+        }
+        .animate-newLead {
+          animation: newLead 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+      `}</style>
     </div>
   );
 }

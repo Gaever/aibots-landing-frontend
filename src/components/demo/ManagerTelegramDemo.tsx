@@ -58,14 +58,7 @@ export function ManagerTelegramDemo({
   return (
     <TelegramFrame title="Менеджер" subtitle="online" avatar="👤">
       <div className="flex flex-col h-full pt-2">
-        {!isVisible && (
-          <div className="flex items-center justify-center h-full">
-            <div className="text-gray-500 text-center">
-              <div className="text-4xl mb-3">⏳</div>
-              <p className="text-sm">Ожидание заявки...</p>
-            </div>
-          </div>
-        )}
+        {!isVisible && <div className="flex items-center justify-center h-full" />}
 
         {isVisible && notification && (
           <div className="animate-slideIn">
@@ -78,7 +71,7 @@ export function ManagerTelegramDemo({
                 </div>
 
                 <p className="text-[15px] leading-[20px] whitespace-pre-line">
-                  <span className="font-bold">Клиент:</span> Анна Петрова{"\n"}
+                  <span className="font-bold">Клиент:</span> Анна{"\n"}
                   <span className="font-bold">Позиция:</span> Парка зимняя, размер L{"\n"}
                   <span className="font-bold">Дата заказа:</span> {date}
                   {"\n"}
