@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { landingContent } from "@/app/landingContent";
 
 interface Message {
   id: number;
@@ -21,66 +22,6 @@ interface TelegramChatDemoProps {
   startTrigger?: boolean;
 }
 
-const DEMO_SCENARIO: ScenarioStep[] = [
-  {
-    delay: 800,
-    action: "user-typing",
-    text: "Здравствуйте! У вас есть куртки в размере L?",
-  },
-  {
-    delay: 300,
-    action: "user-send",
-    text: "Здравствуйте! У вас есть куртки в размере L?",
-  },
-  {
-    delay: 800,
-    action: "typing",
-  },
-  {
-    delay: 2000,
-    action: "bot",
-    text: "Здравствуйте! Да, куртки размера L есть в наличии. Сейчас доступны следующие модели:\n\n• Парка зимняя - 8 990 ₽\n• Бомбер демисезонный - 5 490 ₽\n• Пуховик спортивный - 12 990 ₽\n\nКакая модель вас интересует?",
-  },
-  {
-    delay: 2500, // задержка перед началом печати - пользователь "читает"
-    action: "user-typing",
-    text: "А сколько стоит доставка в Москву?",
-  },
-  {
-    delay: 300,
-    action: "user-send",
-    text: "А сколько стоит доставка в Москву?",
-  },
-  {
-    delay: 600,
-    action: "typing",
-  },
-  {
-    delay: 1800,
-    action: "bot",
-    text: "Доставка по Москве:\n\n📦 Курьером - 350 ₽ (1-2 дня)\n🚚 В пункт выдачи - бесплатно (2-3 дня)\n\nПри заказе от 5000 ₽ курьерская доставка бесплатная!",
-  },
-  {
-    delay: 2500, // задержка перед началом печати - пользователь "читает"
-    action: "user-typing",
-    text: "Отлично! Хочу оформить заказ на парку",
-  },
-  {
-    delay: 300,
-    action: "user-send",
-    text: "Отлично! Хочу оформить заказ на парку",
-  },
-  {
-    delay: 500,
-    action: "typing",
-  },
-  {
-    delay: 1500,
-    action: "bot",
-    text: "Отлично! Передаю ваш заказ менеджеру. Он свяжется с вами в течение 5 минут для уточнения деталей.\n\n✅ Парка зимняя, размер L\n💰 8 990 ₽\n\nПожалуйста, оставайтесь на связи!",
-  },
-];
-
 export function TelegramChatDemo({ autoStart = true, onComplete, startTrigger = true }: TelegramChatDemoProps = {}) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -88,6 +29,68 @@ export function TelegramChatDemo({ autoStart = true, onComplete, startTrigger = 
   const [inputText, setInputText] = useState("");
   const [isUserTyping, setIsUserTyping] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const content = landingContent.demoComponents.telegramChat;
+
+  // Transform landingContent scenario to the format required by the component
+  const DEMO_SCENARIO: ScenarioStep[] = [
+    {
+      delay: 800,
+      action: "user-typing",
+      text: content.scenario[0].text,
+    },
+    {
+      delay: 300,
+      action: "user-send",
+      text: content.scenario[0].text,
+    },
+    {
+      delay: 800,
+      action: "typing",
+    },
+    {
+      delay: 2000,
+      action: "bot",
+      text: content.scenario[1].text,
+    },
+    {
+      delay: 2500, // задержка перед началом печати - пользователь "читает"
+      action: "user-typing",
+      text: content.scenario[2].text,
+    },
+    {
+      delay: 300,
+      action: "user-send",
+      text: content.scenario[2].text,
+    },
+    {
+      delay: 600,
+      action: "typing",
+    },
+    {
+      delay: 1800,
+      action: "bot",
+      text: content.scenario[3].text,
+    },
+    {
+      delay: 2500, // задержка перед началом печати - пользователь "читает"
+      action: "user-typing",
+      text: content.scenario[4].text,
+    },
+    {
+      delay: 300,
+      action: "user-send",
+      text: content.scenario[4].text,
+    },
+    {
+      delay: 500,
+      action: "typing",
+    },
+    {
+      delay: 1500,
+      action: "bot",
+      text: content.scenario[5].text,
+    },
+  ];
 
   useEffect(() => {
     // Автоматический старт при монтировании, если autoStart=true и startTrigger=true
@@ -279,9 +282,8 @@ export function TelegramChatDemo({ autoStart = true, onComplete, startTrigger = 
                 className={`flex ${message.isBot ? "justify-start" : "justify-end"} animate-messageSlide`}
               >
                 <div
-                  className={`max-w-[75%] rounded-2xl px-3 py-2 shadow-lg ${
-                    message.isBot ? "bg-[#182533] text-white rounded-tl-md" : "bg-[#8774E1] text-white rounded-tr-md"
-                  }`}
+                  className={`max-w-[75%] rounded-2xl px-3 py-2 shadow-lg ${message.isBot ? "bg-[#182533] text-white rounded-tl-md" : "bg-[#8774E1] text-white rounded-tr-md"
+                    }`}
                 >
                   <p className="text-[15px] leading-[20px] whitespace-pre-line">{message.text}</p>
                   <div className={`text-[11px] mt-1 ${message.isBot ? "text-[#8E8E93]" : "text-white/70"} text-right`}>

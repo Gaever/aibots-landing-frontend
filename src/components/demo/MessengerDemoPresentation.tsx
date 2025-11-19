@@ -5,10 +5,12 @@ import { StackedCarousel } from "./StackedCarousel";
 import { TelegramChatDemo } from "./TelegramChatDemo";
 import { ManagerTelegramDemo } from "./ManagerTelegramDemo";
 import { AmoCRMDemo } from "./AmoCRMDemo";
+import { landingContent } from "@/app/landingContent";
 
 export function MessengerDemoPresentation() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideCompletions, setSlideCompletions] = useState<Record<number, boolean>>({});
+  const content = landingContent.demoComponents.messengerPresentation;
 
   const handleSlideComplete = (slideIndex: number) => {
     console.log(`Slide ${slideIndex} completed`);
@@ -31,13 +33,13 @@ export function MessengerDemoPresentation() {
   const slides = [
     {
       id: "customer-chat",
-      title: "Шаг 1: Клиент общается с ИИ-ботом",
+      title: content.slides[0].title,
       content: (
         <div className="flex flex-col items-center justify-center h-full py-8">
           <div className="mb-6 text-center max-w-2xl">
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">Диалог с клиентом в Telegram</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">{content.slides[0].heading}</h3>
             <p className="text-gray-600">
-              ИИ-бот автоматически отвечает на вопросы клиента, помогает с выбором товара и оформляет заказ
+              {content.slides[0].description}
             </p>
           </div>
           <TelegramChatDemo
@@ -50,13 +52,13 @@ export function MessengerDemoPresentation() {
     },
     {
       id: "manager-notification",
-      title: "Шаг 2: Уведомление менеджера",
+      title: content.slides[1].title,
       content: (
         <div className="flex flex-col items-center justify-center h-full py-8">
           <div className="mb-6 text-center max-w-2xl">
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">Менеджер получает уведомление</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">{content.slides[1].heading}</h3>
             <p className="text-gray-600">
-              Сразу после оформления заказа менеджер получает уведомление в Telegram с деталями заявки
+              {content.slides[1].description}
             </p>
           </div>
           <ManagerTelegramDemo
@@ -69,13 +71,13 @@ export function MessengerDemoPresentation() {
     },
     {
       id: "crm-integration",
-      title: "Шаг 3: Заявка в CRM",
+      title: content.slides[2].title,
       content: (
         <div className="flex flex-col items-center justify-center h-full py-8">
           <div className="mb-6 text-center max-w-2xl">
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">Автоматическое создание сделки в amoCRM</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">{content.slides[2].heading}</h3>
             <p className="text-gray-600">
-              Заявка автоматически создается в CRM со всеми данными: контактом клиента, товаром и суммой сделки
+              {content.slides[2].description}
             </p>
           </div>
           <AmoCRMDemo autoStart={false} startTrigger={currentSlide === 2} onComplete={() => handleSlideComplete(2)} />
@@ -89,8 +91,8 @@ export function MessengerDemoPresentation() {
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Как работает автоматизация</h2>
-          <p className="text-xl text-gray-600">От первого сообщения клиента до заявки в CRM за секунды</p>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">{content.header.title}</h2>
+          <p className="text-xl text-gray-600">{content.header.subtitle}</p>
         </div>
 
         {/* Carousel */}
@@ -113,8 +115,8 @@ export function MessengerDemoPresentation() {
             </svg>
             <span className="text-sm font-medium text-blue-900">
               {currentSlide === slides.length - 1
-                ? "Демонстрация завершена. Перезапуск через 3 секунды..."
-                : "Наблюдайте за автоматической обработкой заявки"}
+                ? content.banner.completed
+                : content.banner.watching}
             </span>
           </div>
         </div>
