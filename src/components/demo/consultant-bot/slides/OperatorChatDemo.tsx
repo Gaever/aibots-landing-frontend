@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { OnlineConsultantWidget } from "@/components/demo/OnlineConsultantWidget";
+import { OnlineConsultantWidget } from "@/components/demo/shared/OnlineConsultantWidget";
 
 interface Message {
   id: number;
@@ -107,10 +107,10 @@ export function OperatorChatDemo({ autoStart = false }: { autoStart?: boolean })
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className={`flex flex-col ${msg.sender === "user"
-                ? "items-end"
-                : msg.sender === "system"
-                  ? "items-center"
-                  : "items-start"
+              ? "items-end"
+              : msg.sender === "system"
+                ? "items-center"
+                : "items-start"
               }`}
           >
             {msg.sender === "system" ? (
@@ -128,10 +128,10 @@ export function OperatorChatDemo({ autoStart = false }: { autoStart?: boolean })
                 </span>
                 <div
                   className={`max-w-[85%] p-3 rounded-2xl text-sm ${msg.sender === "user"
-                      ? "bg-blue-600 text-white rounded-tr-none"
-                      : msg.sender === "bot"
-                        ? "bg-white text-gray-800 border border-gray-200 rounded-tl-none"
-                        : "bg-purple-600 text-white rounded-tl-none"
+                    ? "bg-blue-600 text-white rounded-tr-none"
+                    : msg.sender === "bot"
+                      ? "bg-white text-gray-800 border border-gray-200 rounded-tl-none"
+                      : "bg-purple-600 text-white rounded-tl-none"
                     }`}
                 >
                   <p>{msg.text}</p>
