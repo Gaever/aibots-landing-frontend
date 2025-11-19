@@ -10,6 +10,7 @@ import { TableOfContents } from "@/components/TableOfContents";
 import { landingContent } from "./landingContent";
 import { MessengerAutoreviewScrollPresentation } from "@/components/demo/messenger-autoresponse/MessengerAutoreviewScrollPresentation";
 import { MarketplaceReviewsScrollPresentation } from "@/components/demo/marketplace-reviews/MarketplaceReviewsScrollPresentation";
+import { ConsultantBotScrollPresentation } from "@/components/demo/consultant-bot/ConsultantBotScrollPresentation";
 
 export default function Home() {
   const scrollToSection = (id: string) => {
@@ -32,8 +33,9 @@ export default function Home() {
       {/* <Strategy title={landingContent.strategy.title} paragraphs={landingContent.strategy.paragraphs} /> */}
 
       <TableOfContents verticals={landingContent.verticals} scrollToSection={scrollToSection} />
-      <MessengerAutoreviewScrollPresentation />
-      <MarketplaceReviewsScrollPresentation />
+      {/* <MessengerAutoreviewScrollPresentation />
+      <MarketplaceReviewsScrollPresentation /> */}
+      <ConsultantBotScrollPresentation />
       <ProductsVerticals verticals={landingContent.verticals} />
 
       <FAQ items={landingContent.faqItems} />
