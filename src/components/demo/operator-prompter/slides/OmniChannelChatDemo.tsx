@@ -137,8 +137,13 @@ export function OmniChannelChatDemo({
       }, 50);
     }, 12000);
 
-    // Шаг 8: Отправляем сообщение (14s)
+    // Шаг 8: Задержка перед отправкой (14s)
     const timer8 = setTimeout(() => {
+      // Просто показываем что готовимся отправить
+    }, 14000);
+
+    // Шаг 9: Отправляем сообщение (15.5s)
+    const timer9 = setTimeout(() => {
       setMessages((prev) => [
         ...prev,
         {
@@ -150,15 +155,16 @@ export function OmniChannelChatDemo({
       ]);
       setInputText("");
       setIsEditing(false);
-      setAiStatus("idle");
-      setSuggestedResponses([]);
-      setKnowledgeBase([]);
+      // НЕ очищаем виджет AI - оставляем информацию видимой
+      // setAiStatus("idle");
+      // setSuggestedResponses([]);
+      // setKnowledgeBase([]);
 
       // Вызываем onComplete
       setTimeout(() => {
         onComplete?.();
       }, 1000);
-    }, 14000);
+    }, 15500);
 
     return () => {
       clearTimeout(timer1);
@@ -169,6 +175,7 @@ export function OmniChannelChatDemo({
       clearTimeout(timer6);
       clearTimeout(timer7);
       clearTimeout(timer8);
+      clearTimeout(timer9);
     };
   }, [autoStart, startTrigger, onComplete]);
 

@@ -37,8 +37,7 @@ export default function Home() {
       <TableOfContents verticals={landingContent.verticals} scrollToSection={scrollToSection} />
       {/* <MessengerAutoreviewScrollPresentation />
       <MarketplaceReviewsScrollPresentation /> */}
-      {/* <ConsultantBotScrollPresentation /> */}
-      {/* <OperatorPrompterScrollPresentation /> */}
+      <ConsultantBotScrollPresentation />
       <OperatorPrompterScrollPresentation />
       <ProductsVerticals verticals={landingContent.verticals} />
 
