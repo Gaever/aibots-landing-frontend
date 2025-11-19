@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { TelegramFrame } from "./TelegramFrame";
 import { landingContent } from "@/app/landingContent";
-import ReactMarkdown from "react-markdown";
 
 interface ManagerNotification {
   id: number;
@@ -16,6 +15,30 @@ interface ManagerTelegramDemoProps {
   onComplete?: () => void;
   startTrigger?: boolean;
 }
+
+// Simple markdown parser for bold (**text**) and newlines (\n)
+const SimpleMarkdown = ({ content }: { content: string }) => {
+  const lines = content.split('\n');
+
+  return (
+    <>
+      {lines.map((line, i) => {
+        // Split by bold markers
+        const parts = line.split(/(\*\*.*?\*\*)/g);
+        return (
+          <p key={i} className="m-0">
+            {parts.map((part, j) => {
+              if (part.startsWith('**') && part.endsWith('**')) {
+                return <span key={j} className="font-bold">{part.slice(2, -2)}</span>;
+              }
+              return part;
+            })}
+          </p>
+        );
+      })}
+    </>
+  );
+};
 
 export function ManagerTelegramDemo({
   autoStart = true,
@@ -71,14 +94,7 @@ export function ManagerTelegramDemo({
                 </div>
 
                 <div className="text-[15px] leading-[20px] whitespace-pre-line [&>p]:mb-0 [&>p]:leading-[20px]">
-                  <ReactMarkdown
-                    components={{
-                      strong: ({ node, ...props }) => <span className="font-bold" {...props} />,
-                      p: ({ node, ...props }) => <p className="m-0" {...props} />,
-                    }}
-                  >
-                    {notification.contentMd}
-                  </ReactMarkdown>
+                  <SimpleMarkdown content={notification.contentMd} />
                 </div>
 
                 <div className="text-[11px] mt-1 text-[#8E8E93] text-right">{notification.timestamp}</div>

@@ -240,9 +240,9 @@ export function TelegramChatDemo({ autoStart = true, onComplete, startTrigger = 
               🤖
             </div>
             <div className="flex-1">
-              <div className="text-white font-semibold text-base">ИИ-менеджер</div>
+              <div className="text-white font-semibold text-base">{content.header.botName}</div>
               <div className={`text-xs ${isTyping ? "text-[#8BBEF6]" : "text-[#8BBEF6]"}`}>
-                {isTyping ? "печатает..." : "online"}
+                {isTyping ? content.header.status.typing : content.header.status.online}
               </div>
             </div>
           </div>
@@ -335,7 +335,7 @@ export function TelegramChatDemo({ autoStart = true, onComplete, startTrigger = 
             {inputText ? (
               <div className="flex-1 text-white text-[15px]">{inputText}</div>
             ) : (
-              <div className="flex-1 text-[#8E8E93] text-[15px]">Сообщение</div>
+              <div className="flex-1 text-[#8E8E93] text-[15px]">{content.ui.inputPlaceholder}</div>
             )}
             {isUserTyping && <div className="w-[2px] h-[18px] bg-[#8BBEF6] animate-blink ml-0.5" />}
           </div>
