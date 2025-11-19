@@ -1,0 +1,94 @@
+"use client";
+
+import { ReactNode, useEffect, useRef } from "react";
+
+export interface OnlineConsultantWidgetProps {
+  variant?: "bot" | "operator";
+  title?: string;
+  statusText?: string;
+  isTyping?: boolean;
+  children: ReactNode;
+  inputPlaceholder?: string;
+}
+
+export function OnlineConsultantWidget(props: OnlineConsultantWidgetProps) {
+  const {
+    variant = "bot",
+    title,
+    statusText,
+    isTyping,
+    children,
+    inputPlaceholder,
+  } = props;
+
+  const chatRef = useRef<HTMLDivElement | null>(null);
+
+  // автоскролл к низу при новых сообщениях / индикаторе печати
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [children, isTyping]);
+
+  const headerTitle = title ?? "Онлайн-консультант";
+  const headerStatus =
+    statusText ??
+    (variant === "operator"
+      ? "Подключён живой оператор"
+      : "Бот отвечает за секунды");
+
+  return (
+    <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 font-sans flex flex-col h-[500px]">
+      {/* header */}
+      <div className="bg-blue-600 p-4 flex items-center gap-3">
+        <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white text-xl">
+          🤖
+        </div>
+        <div className="flex-1">
+          <h3 className="text-white font-bold text-sm sm:text-base">
+            {headerTitle}
+          </h3>
+          <p className="text-blue-100 text-xs flex items-center gap-1">
+            <span className="w-2 h-2 bg-green-400 rounded-full" />
+            {headerStatus}
+          </p>
+        </div>
+      </div>
+
+      {/* chat area */}
+      <div
+        ref={chatRef}
+        className="flex-1 bg-gray-50 p-4 overflow-y-auto flex flex-col gap-4"
+      >
+        {children}
+      </div>
+
+      {/* input */}
+      <div className="p-4 bg-white border-t border-gray-100">
+        <div className="flex gap-2">
+          <input
+            type="text"
+            placeholder={inputPlaceholder ?? "Напишите сообщение..."}
+            className="flex-1 bg-gray-100 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 text-gray-900 placeholder-gray-500"
+            disabled
+          />
+          <button className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
+            <svg
+              className="w-5 h-5 transform rotate-90"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
