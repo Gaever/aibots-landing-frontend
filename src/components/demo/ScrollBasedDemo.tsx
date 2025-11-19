@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface DemoSection {
   id: string;
@@ -212,28 +213,18 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
             <div className="relative w-full h-full bg-white flex items-center justify-center p-8">
               {/* Demo content - показываем только активную секцию */}
               <div className="relative z-10 w-full h-full flex items-center justify-center">
-                {sections.map((section, index) => {
-                  // Показываем демо только если opacity > 0.1
-                  const shouldRender = (sectionOpacities[index] || 0) > 0.1;
-                  const currentOpacity = sectionOpacities[index] || 0;
-
-                  if (!shouldRender) return null;
-
-                  return (
-                    <div
-                      key={section.id}
-                      className="absolute inset-0 flex items-center justify-center transition-all duration-700"
-                      style={{
-                        opacity: currentOpacity,
-                        transform: `scale(${0.95 + currentOpacity * 0.05})`,
-                        pointerEvents: currentOpacity > 0.5 ? 'auto' : 'none',
-                        zIndex: Math.round(currentOpacity * 100) // Более прозрачные - ниже
-                      }}
-                    >
-                      {section.demoComponent}
-                    </div>
-                  );
-                })}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={sections[activeSection].id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    {sections[activeSection].demoComponent}
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
               {/* Progress indicator */}
