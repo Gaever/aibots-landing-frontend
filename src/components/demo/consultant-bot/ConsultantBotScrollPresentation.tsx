@@ -1,8 +1,8 @@
 "use client";
 
 import { ScrollBasedDemo } from "../ScrollBasedDemo";
-import { StoreChatDemo } from "./StoreChatDemo";
-import { OperatorChatDemo } from "./OperatorChatDemo";
+import { StoreChatDemo } from "./slides/StoreChatDemo";
+import { OperatorChatDemo } from "./slides/OperatorChatDemo";
 import { landingContent } from "@/app/landingContent";
 
 export function ConsultantBotScrollPresentation() {

@@ -11,6 +11,7 @@ import { landingContent } from "./landingContent";
 import { MessengerAutoreviewScrollPresentation } from "@/components/demo/messenger-autoresponse/MessengerAutoreviewScrollPresentation";
 import { MarketplaceReviewsScrollPresentation } from "@/components/demo/marketplace-reviews/MarketplaceReviewsScrollPresentation";
 import { ConsultantBotScrollPresentation } from "@/components/demo/consultant-bot/ConsultantBotScrollPresentation";
+import { OperatorPrompterScrollPresentation } from "@/components/demo/operator-prompter/OperatorPrompterScrollPresentation";
 
 export default function Home() {
   const scrollToSection = (id: string) => {
@@ -36,6 +37,7 @@ export default function Home() {
       {/* <MessengerAutoreviewScrollPresentation />
       <MarketplaceReviewsScrollPresentation /> */}
       <ConsultantBotScrollPresentation />
+      {/* <OperatorPrompterScrollPresentation /> */}
       <ProductsVerticals verticals={landingContent.verticals} />
 
       <FAQ items={landingContent.faqItems} />
