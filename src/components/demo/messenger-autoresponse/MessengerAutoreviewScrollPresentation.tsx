@@ -1,12 +1,12 @@
 "use client";
 
-import { ScrollBasedDemo } from "./ScrollBasedDemo";
-import { TelegramChatDemo } from "./TelegramChatDemo";
-import { ManagerTelegramDemo } from "./ManagerTelegramDemo";
-import { AmoCRMDemo } from "./AmoCRMDemo";
+import { ScrollBasedDemo } from "../ScrollBasedDemo";
+import { TelegramChatDemo } from "./slides/TelegramChatDemo";
+import { ManagerTelegramDemo } from "./slides/ManagerTelegramDemo";
+import { AmoCRMDemo } from "./slides/AmoCRMDemo";
 import { landingContent } from "@/app/landingContent";
 
-export function MessengerScrollPresentation() {
+export function MessengerAutoreviewScrollPresentation() {
   const content = landingContent.messengerPresentation;
   const sections = [
     {

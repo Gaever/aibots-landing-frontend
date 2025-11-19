@@ -1,13 +1,13 @@
 "use client";
 
-import { ScrollBasedDemo } from "./ScrollBasedDemo";
-import { OzonReviewDemo } from "./OzonReviewDemo";
-import { ReviewProcessingFlowDemo } from "./ReviewProcessingFlowDemo";
-import { AmoCRMReviewNotificationDemo } from "./AmoCRMReviewNotificationDemo";
-import { BotReviewResolutionDemo } from "./BotReviewResolutionDemo";
+import { ScrollBasedDemo } from "@/components/demo/ScrollBasedDemo";
+import { OzonReviewDemo } from "./slides/OzonReviewDemo";
+import { ReviewProcessingFlowDemo } from "./slides/ReviewProcessingFlowDemo";
+import { AmoCRMReviewNotificationDemo } from "./slides/AmoCRMReviewNotificationDemo";
+import { BotReviewResolutionDemo } from "./slides/BotReviewResolutionDemo";
 import { landingContent } from "@/app/landingContent";
 
-export function MarketplaceReviewsPresentation() {
+export function MarketplaceReviewsScrollPresentation() {
   const content = landingContent.marketplacePresentation;
   const sections = [
     {

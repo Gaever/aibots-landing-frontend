@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { AmoCRMFrame } from "./AmoCRMFrame";
+import { AmoCRMFrame } from "@/components/demo/shared/AmoCRMFrame";
 import { landingContent } from "@/app/landingContent";
 
 export function AmoCRMReviewNotificationDemo() {

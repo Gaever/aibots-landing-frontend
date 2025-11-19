@@ -426,7 +426,7 @@ export const landingContent = {
 
   demoComponents: {
     common: {
-      marketplaceHeader: "Marketplace",
+      // marketplaceHeader: "Marketplace",
       reviewsHeader: "Отзывы о товаре",
       filters: ["Все", "С фото", "Негативные"],
       productName: "Умная колонка с голосовым помощником, черная",

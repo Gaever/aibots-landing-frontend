@@ -18,9 +18,9 @@ export function OzonReviewDemo() {
   return (
     <div className="w-full h-full bg-white rounded-xl overflow-hidden flex flex-col font-sans text-sm border border-gray-200">
       {/* Header imitating Generic Marketplace header */}
-      <div className="bg-[#1a1a1a] text-white p-3 flex items-center justify-between">
-        <div className="font-bold text-lg">{content.common.marketplaceHeader}</div>
-        <div className="text-xs">9:41</div>
+      <div className="bg-blue-500 text-white p-3 min-h-10 flex items-center justify-between">
+        {/* <div className="font-bold text-lg">{content.common.marketplaceHeader}</div> */}
+        {/* <div className="text-xs">9:41</div> */}
       </div>
 
       {/* Product Info */}

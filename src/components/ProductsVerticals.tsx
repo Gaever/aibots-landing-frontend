@@ -1,5 +1,3 @@
-import { MessengerDemoPresentation } from "./demo/MessengerDemoPresentation";
-import { TelegramChatDemo } from "./demo/TelegramChatDemo";
 import { ProductCard } from "./ProductCard";
 
 interface Product {

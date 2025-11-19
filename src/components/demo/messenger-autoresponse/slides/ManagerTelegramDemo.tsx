@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TelegramFrame } from "./TelegramFrame";
+import { TelegramFrame } from "@/components/demo/shared/TelegramFrame";
 import { landingContent } from "@/app/landingContent";
 
 interface ManagerNotification {
