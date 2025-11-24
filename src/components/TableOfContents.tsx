@@ -1,3 +1,6 @@
+import { motion } from "framer-motion";
+import { MessagesSquare, Star, ShoppingBag, Headphones, Building2, Users, FileText, ShieldCheck, ArrowRight } from "lucide-react";
+
 interface Product {
   id: string;
   title: string;
@@ -15,8 +18,6 @@ interface TableOfContentsProps {
   verticals: Vertical[];
   scrollToSection: (id: string) => void;
 }
-
-import { MessagesSquare, Star, ShoppingBag, Headphones, Building2, Users, FileText, ShieldCheck } from "lucide-react";
 
 // Map product ids to the same icons used in their ScrollPresentations' headers
 const productIcons: Record<string, React.ReactNode> = {
@@ -39,43 +40,71 @@ const productIcons: Record<string, React.ReactNode> = {
 
 export function TableOfContents({ verticals, scrollToSection }: TableOfContentsProps) {
   return (
-    <section className="relative px-4 py-10 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">Наши решения</h2>
-          {/* <p className="text-lg text-gray-600 font-light">Выберите интересующее направление</p> */}
+    <section className="relative px-4 py-20 bg-gradient-to-b from-white to-gray-50">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 tracking-tight"
+          >
+            Наши решения
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-xl text-gray-500 max-w-2xl mx-auto"
+          >
+            Комплексная автоматизация коммуникаций для роста вашего бизнеса
+          </motion.p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {verticals.map((vertical) => (
-            <div key={vertical.id} className="space-y-3">
-              <button
-                onClick={() => scrollToSection(vertical.id)}
-                className="w-full text-left p-6 rounded-xl bg-white border border-gray-200 hover:border-indigo-300 hover:shadow-md transition-all duration-200 group"
-              >
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
-                  {vertical.label}
-                </h3>
-                <p className="text-sm text-gray-600 font-light">{vertical.description}</p>
-              </button>
+        <div className="grid md:grid-cols-2 gap-8">
+          {verticals.map((vertical, index) => (
+            <motion.div
+              key={vertical.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="group relative bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50/50 rounded-full blur-3xl -mr-32 -mt-32 transition-opacity opacity-0 group-hover:opacity-100 duration-700" />
 
-              <div className="ml-4 space-y-2">
-                {vertical.products.map((product) => (
-                  <button
-                    key={product.id}
-                    onClick={() => scrollToSection(product.id)}
-                    className="w-full text-left px-4 py-3 rounded-lg bg-gray-50 border border-gray-100 hover:border-gray-200 hover:bg-white transition-all duration-200 group"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-xl">{productIcons[product.id] ?? product.icon}</span>
-                      <span className="text-sm font-medium text-gray-700 group-hover:text-indigo-600 transition-colors">
-                        {product.title}
-                      </span>
-                    </div>
-                  </button>
-                ))}
+              <div className="relative z-10">
+                <div className="mb-8">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors">
+                    {vertical.label}
+                  </h3>
+                  <p className="text-gray-500 leading-relaxed text-lg">
+                    {vertical.description}
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  {vertical.products.map((product) => (
+                    <button
+                      key={product.id}
+                      onClick={() => scrollToSection(product.id)}
+                      className="w-full flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-indigo-50/80 border border-transparent hover:border-indigo-100 transition-all duration-300 group/item text-left"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-gray-400 group-hover/item:text-indigo-600 group-hover/item:scale-110 transition-all duration-300">
+                          {productIcons[product.id] ?? product.icon}
+                        </div>
+                        <span className="font-semibold text-gray-700 group-hover/item:text-gray-900">
+                          {product.title}
+                        </span>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-gray-300 group-hover/item:text-indigo-600 transform translate-x-0 group-hover/item:translate-x-1 transition-all duration-300" />
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
