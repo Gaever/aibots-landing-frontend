@@ -9,6 +9,7 @@ import { ProductsVerticals } from "@/components/ProductsVerticals";
 import { TableOfContents } from "@/components/TableOfContents";
 import { landingContent } from "./landingContent";
 import { MessengerAutoreviewScrollPresentation } from "@/components/demo/messenger-autoresponse/MessengerAutoreviewScrollPresentation";
+import { InternalAssistantScrollPresentation } from "@/components/demo/internal-assistant/InternalAssistantScrollPresentation";
 import { MarketplaceReviewsScrollPresentation } from "@/components/demo/marketplace-reviews/MarketplaceReviewsScrollPresentation";
 import { ConsultantBotScrollPresentation } from "@/components/demo/consultant-bot/ConsultantBotScrollPresentation";
 import { OperatorPrompterScrollPresentation } from "@/components/demo/operator-prompter/OperatorPrompterScrollPresentation";
@@ -35,7 +36,7 @@ export default function Home() {
       {/* <Strategy title={landingContent.strategy.title} paragraphs={landingContent.strategy.paragraphs} /> */}
 
       <TableOfContents verticals={landingContent.verticals} scrollToSection={scrollToSection} />
-      <div id="messengers">
+      <div id="messengers" className="snap-start">
         <MessengerAutoreviewScrollPresentation />
       </div>
       <div id="reviews">
@@ -46,6 +47,9 @@ export default function Home() {
       </div>
       <div id="operator-souffleur">
         <OperatorPrompterScrollPresentation />
+      </div>
+      <div id="internal-assistant">
+        <InternalAssistantScrollPresentation />
       </div>
 
       <ProductsVerticals verticals={landingContent.verticals} />
