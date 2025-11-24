@@ -15,6 +15,7 @@ import { ConsultantBotScrollPresentation } from "@/components/demo/consultant-bo
 import { OperatorPrompterScrollPresentation } from "@/components/demo/operator-prompter/OperatorPrompterScrollPresentation";
 import { HrBotScrollPresentation } from "@/components/demo/hr-bot/HrBotScrollPresentation";
 import { DocumentBotScrollPresentation } from "@/components/demo/document-bot/DocumentBotScrollPresentation";
+import { QualityControlScrollPresentation } from "@/components/demo/quality-control/QualityControlScrollPresentation";
 // import { OperatorPrompterScrollPresentation } from "@/components/demo/operator-prompter/OperatorPrompterScrollPresentation";
 
 export default function Home() {
@@ -58,6 +59,9 @@ export default function Home() {
       </div>
       <div id="doc-bot">
         <DocumentBotScrollPresentation />
+      </div>
+      <div id="quality-control">
+        <QualityControlScrollPresentation />
       </div>
 
       <ProductsVerticals verticals={landingContent.verticals} />
