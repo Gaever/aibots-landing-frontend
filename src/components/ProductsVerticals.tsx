@@ -26,7 +26,7 @@ export function ProductsVerticals({ verticals }: ProductsVerticalsProps) {
       <div className="max-w-7xl mx-auto">
         <div className="space-y-24">
           {verticals.map((vertical) => (
-            <div key={vertical.id} id={vertical.id} className="space-y-12 scroll-mt-20">
+            <div key={vertical.id} id={`vertical-${vertical.id}`} className="space-y-12 scroll-mt-20">
               {/* Vertical Header */}
               <div className="text-center max-w-4xl mx-auto">
                 <h3 className="text-3xl md:text-4xl font-bold mb-3 text-gray-900">{vertical.label}</h3>

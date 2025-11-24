@@ -35,10 +35,19 @@ export default function Home() {
       {/* <Strategy title={landingContent.strategy.title} paragraphs={landingContent.strategy.paragraphs} /> */}
 
       <TableOfContents verticals={landingContent.verticals} scrollToSection={scrollToSection} />
-      {/* <MessengerAutoreviewScrollPresentation />
-      <MarketplaceReviewsScrollPresentation /> */}
-      <ConsultantBotScrollPresentation />
-      <OperatorPrompterScrollPresentation />
+      <div id="messengers">
+        <MessengerAutoreviewScrollPresentation />
+      </div>
+      <div id="reviews">
+        <MarketplaceReviewsScrollPresentation />
+      </div>
+      <div id="ecommerce">
+        <ConsultantBotScrollPresentation />
+      </div>
+      <div id="operator-souffleur">
+        <OperatorPrompterScrollPresentation />
+      </div>
+
       <ProductsVerticals verticals={landingContent.verticals} />
 
       <FAQ items={landingContent.faqItems} />
