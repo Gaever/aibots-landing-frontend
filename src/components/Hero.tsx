@@ -20,7 +20,7 @@ export function Hero({ title, subtitle }: HeroProps) {
   }, []);
 
   return (
-    <section className="relative min-h-[50vh] flex items-center overflow-hidden bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
+    <section className="relative min-h-dvh lg:min-h-[50vh] flex items-center overflow-hidden bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
