@@ -8,6 +8,8 @@ import { BotReviewResolutionDemo } from "./slides/BotReviewResolutionDemo";
 import { CTASection } from "@/components/demo/shared/CTASection";
 import { landingContent } from "@/app/landingContent";
 
+import { Star } from "lucide-react";
+
 export function MarketplaceReviewsScrollPresentation() {
   const content = landingContent.marketplacePresentation;
   const sections = [
@@ -41,6 +43,7 @@ export function MarketplaceReviewsScrollPresentation() {
     <ScrollBasedDemo
       headerTitle={content.headerTitle}
       headerSubtitle={content.headerSubtitle}
+      headerIcon={<Star className="w-7 h-7" />}
       sections={sections}
     />
   );

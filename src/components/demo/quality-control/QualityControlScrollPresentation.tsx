@@ -6,6 +6,8 @@ import { QualityDashboardDemo } from "./slides/QualityDashboardDemo";
 import { CTASection } from "@/components/demo/shared/CTASection";
 import { landingContent } from "@/app/landingContent";
 
+import { ShieldCheck } from "lucide-react";
+
 export function QualityControlScrollPresentation() {
   const content = landingContent.qualityControlPresentation;
   const sections = [
@@ -39,6 +41,7 @@ export function QualityControlScrollPresentation() {
     <ScrollBasedDemo
       headerTitle={content.headerTitle}
       headerSubtitle={content.headerSubtitle}
+      headerIcon={<ShieldCheck className="w-7 h-7" />}
       sections={sections}
     />
   );

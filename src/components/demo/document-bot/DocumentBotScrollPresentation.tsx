@@ -7,6 +7,8 @@ import { ContractReviewDemo } from "./slides/ContractReviewDemo";
 import { CTASection } from "../shared/CTASection";
 import { landingContent } from "@/app/landingContent";
 
+import { FileText } from "lucide-react";
+
 export function DocumentBotScrollPresentation() {
   const content = landingContent.documentBotPresentation;
   const sections = [
@@ -36,6 +38,7 @@ export function DocumentBotScrollPresentation() {
     <ScrollBasedDemo
       headerTitle={content.headerTitle}
       headerSubtitle={content.headerSubtitle}
+      headerIcon={<FileText className="w-7 h-7" />}
       sections={sections}
     />
   );

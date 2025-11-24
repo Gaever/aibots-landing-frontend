@@ -7,6 +7,8 @@ import { AmoCRMDemo } from "./slides/AmoCRMDemo";
 import { CTASection } from "../shared/CTASection";
 import { landingContent } from "@/app/landingContent";
 
+import { MessageCircle } from "lucide-react";
+
 export function MessengerAutoreviewScrollPresentation() {
   const content = landingContent.messengerPresentation;
   const sections = [
@@ -46,6 +48,7 @@ export function MessengerAutoreviewScrollPresentation() {
     <ScrollBasedDemo
       headerTitle={content.headerTitle}
       headerSubtitle={content.headerSubtitle}
+      headerIcon={<MessageCircle className="w-7 h-7" />}
       sections={sections}
     />
   );

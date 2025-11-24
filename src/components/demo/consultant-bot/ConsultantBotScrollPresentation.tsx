@@ -6,6 +6,8 @@ import { OperatorChatDemo } from "./slides/OperatorChatDemo";
 import { CTASection } from "../shared/CTASection";
 import { landingContent } from "@/app/landingContent";
 
+import { ShoppingBag } from "lucide-react";
+
 export function ConsultantBotScrollPresentation() {
   const content = landingContent.consultantPresentation;
   const sections = [
@@ -31,6 +33,7 @@ export function ConsultantBotScrollPresentation() {
     <ScrollBasedDemo
       headerTitle={content.headerTitle}
       headerSubtitle={content.headerSubtitle}
+      headerIcon={<ShoppingBag className="w-7 h-7" />}
       sections={sections}
     />
   );

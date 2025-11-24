@@ -6,6 +6,8 @@ import { HuntflowCrmDemo } from "./HuntflowCrmDemo";
 import { CTASection } from "../shared/CTASection";
 import { landingContent } from "@/app/landingContent";
 
+import { Users } from "lucide-react";
+
 export function HrBotScrollPresentation() {
   const content = landingContent.hrBotPresentation;
 
@@ -35,6 +37,7 @@ export function HrBotScrollPresentation() {
     <ScrollBasedDemo
       headerTitle={content.headerTitle}
       headerSubtitle={content.headerSubtitle}
+      headerIcon={<Users className="w-7 h-7" />}
       sections={sections}
     />
   );

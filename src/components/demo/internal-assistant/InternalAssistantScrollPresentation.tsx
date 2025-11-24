@@ -5,6 +5,8 @@ import { InternalChatDemo } from "./InternalChatDemo";
 import { CTASection } from "../shared/CTASection";
 import { landingContent } from "@/app/landingContent";
 
+import { Building2 } from "lucide-react";
+
 export function InternalAssistantScrollPresentation() {
   const content = landingContent.internalAssistantPresentation;
   const sections = [
@@ -26,6 +28,7 @@ export function InternalAssistantScrollPresentation() {
     <ScrollBasedDemo
       headerTitle={content.headerTitle}
       headerSubtitle={content.headerSubtitle}
+      headerIcon={<Building2 className="w-7 h-7" />}
       sections={sections}
     />
   );

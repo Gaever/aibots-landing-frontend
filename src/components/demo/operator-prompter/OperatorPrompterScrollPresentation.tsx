@@ -6,6 +6,8 @@ import { RAGSchemaDemo } from "./slides/RAGSchemaDemo";
 import { CTASection } from "../shared/CTASection";
 import { landingContent, operatorPrompterPresentation } from "@/app/landingContent";
 
+import { Headphones } from "lucide-react";
+
 export function OperatorPrompterScrollPresentation() {
   const content = operatorPrompterPresentation;
   const sections = [
@@ -37,6 +39,11 @@ export function OperatorPrompterScrollPresentation() {
   ];
 
   return (
-    <ScrollBasedDemo headerTitle={content.headerTitle} headerSubtitle={content.headerSubtitle} sections={sections} />
+    <ScrollBasedDemo
+      headerTitle={content.headerTitle}
+      headerSubtitle={content.headerSubtitle}
+      headerIcon={<Headphones className="w-7 h-7" />}
+      sections={sections}
+    />
   );
 }
