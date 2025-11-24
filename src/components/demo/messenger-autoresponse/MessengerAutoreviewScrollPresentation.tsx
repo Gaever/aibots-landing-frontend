@@ -12,14 +12,24 @@ export function MessengerAutoreviewScrollPresentation() {
     {
       ...content.sections[0],
       demoComponent: <TelegramChatDemo autoStart={true} />,
+      mobileConfig: {
+        className: 'mt-8',
+      },
     },
     {
       ...content.sections[1],
       demoComponent: <AmoCRMDemo autoStart={true} />,
+      mobileConfig: {
+        noScale: true, // amoCRM demo displays well at full size on mobile
+        className: 'my-16',
+      },
     },
     {
       ...content.sections[2],
       demoComponent: <ManagerTelegramDemo autoStart={true} />,
+      mobileConfig: {
+        className: 'mt-8',
+      },
     },
     {
       ...content.sections[3],

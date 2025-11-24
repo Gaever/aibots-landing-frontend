@@ -10,6 +10,12 @@ interface DemoSection {
   description: string[];
   demoComponent: React.ReactNode;
   highlights?: string[];
+  mobileConfig?: {
+    scale?: number;        // Scale value (default: 0.8)
+    noScale?: boolean;     // If true, don't apply any scaling
+    marginBottom?: string; // Custom negative margin (default: '-mb-48')
+    className?: string;    // Custom class name
+  };
 }
 
 interface ScrollBasedDemoProps {
@@ -106,7 +112,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
     <div ref={containerRef} className="relative w-full bg-white">
       <div className="grid lg:grid-cols-2 gap-0">
         {/* Left side - Text content */}
-        <div className="relative py-12">
+        <div className="relative py-12 hidden lg:block">
           {/* Sticky header */}
           <div className="sticky top-0 z-20 bg-white pt-4 pb-3 mb-8 w-full px-6 lg:px-12">
             <div className="flex items-center gap-3 mb-4">
@@ -189,7 +195,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
                           }`}
                         style={{ transitionDelay: `${idx * 100}ms` }}
                       >
-                        <div className="w-6 h-6 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <div className="w-6 h-6 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
                           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
@@ -242,18 +248,79 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
         </div>
       </div>
 
-      {/* Mobile demo - shown below each text section */}
-      <div className="lg:hidden px-6 py-12 space-y-16 bg-gray-50">
-        {sections.map((section, index) => (
-          <div key={section.id}>
-            <div className="mb-4">
-              <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
-                Шаг {index + 1}
-              </span>
+      {/* Mobile demo - shown with scaled demo and condensed text */}
+      <div className="lg:hidden bg-gray-50">
+        {/* Mobile header */}
+        <div className="bg-white px-4 py-6 mb-8">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                />
+              </svg>
             </div>
-            <div className="flex items-center justify-center">{section.demoComponent}</div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">{headerTitle}</h2>
+              {headerSubtitle && <p className="text-sm text-gray-600 mt-0.5">{headerSubtitle}</p>}
+            </div>
           </div>
-        ))}
+        </div>
+
+        {/* Sections */}
+        <div className="space-y-6 pb-4">
+          {sections.map((section, index) => (
+            <div key={section.id} className="px-4">
+              {/* Condensed text content - moved before demo */}
+              <div className="space-y-2 mb-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-600 to-purple-600 text-white flex items-center justify-center font-bold text-sm">
+                    {index + 1}
+                  </div>
+                  {section.subtitle && (
+                    <span className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                      {section.subtitle}
+                    </span>
+                  )}
+                </div>
+
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  {section.title}
+                </h3>
+
+                {/* Show only first 3-4 highlights as key value propositions */}
+                {section.highlights && section.highlights.length > 0 && (
+                  <div className="space-y-1.5">
+                    {section.highlights.slice(0, 4).map((highlight, idx) => (
+                      <div key={idx} className="flex items-start gap-2">
+                        <div className="w-5 h-5 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="text-sm text-gray-700 leading-snug">{highlight}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Scaled demo component - moved after text */}
+              <div
+                className={`overflow-hidden rounded-xl bg-white shadow-lg ${section.mobileConfig?.noScale ? '' : (section.mobileConfig?.marginBottom || '')}${section.mobileConfig?.className ? section.mobileConfig?.className : ''}`}
+                style={section.mobileConfig?.noScale ? {} : {
+                  transform: `scale(${section.mobileConfig?.scale || 0.9})`,
+                  transformOrigin: 'top center',
+                }}
+              >
+                {section.demoComponent}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
