@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Space_Grotesk, Inter, Unbounded } from "next/font/google";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -10,6 +10,12 @@ const spaceGrotesk = Space_Grotesk({
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
   subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600", "700"],
 });
@@ -26,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className="scroll-smooth">
-      <body className={`${inter.variable} antialiased`}>{children}</body>
+      <body className={`${inter.variable} ${unbounded.variable} antialiased`}>{children}</body>
     </html>
   );
 }
