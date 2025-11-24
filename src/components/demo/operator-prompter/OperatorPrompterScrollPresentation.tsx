@@ -19,7 +19,7 @@ export function OperatorPrompterScrollPresentation() {
     {
       ...content.sections[2],
       demoComponent: (
-        <div className="flex flex-col items-center justify-center text-center space-y-8 p-8 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-2xl w-full h-full">
+        <div className="flex flex-col items-center justify-center text-center space-y-8 p-8 bg-linear-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-2xl w-full h-full">
           <div className="text-6xl mb-4">🚀</div>
           <h3 className="text-4xl font-bold text-white mb-4">
             {landingContent.demoComponents.common.cta.title}

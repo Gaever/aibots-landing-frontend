@@ -200,8 +200,8 @@ export function OmniChannelChatDemo({
             >
               <div
                 className={`max-w-[75%] rounded-2xl px-4 py-2.5 ${message.type === "user"
-                    ? "bg-white text-gray-800 rounded-tl-sm shadow-md border border-gray-100"
-                    : "bg-blue-600 text-white rounded-tr-sm shadow-md"
+                  ? "bg-white text-gray-800 rounded-tl-sm shadow-md border border-gray-100"
+                  : "bg-blue-600 text-white rounded-tr-sm shadow-md"
                   }`}
               >
                 <div className="text-sm whitespace-pre-line leading-relaxed">{message.text}</div>
@@ -220,7 +220,7 @@ export function OmniChannelChatDemo({
       {/* AI Assistant Widget */}
       <div className="w-80 bg-white rounded-xl shadow-lg border border-gray-200 flex flex-col overflow-hidden">
         {/* Widget Header */}
-        <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-3">
+        <div className="bg-linear-to-r from-purple-600 to-pink-600 text-white px-4 py-3">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
               <span className="text-lg">🤖</span>
@@ -235,10 +235,10 @@ export function OmniChannelChatDemo({
             </div>
             <div
               className={`w-3 h-3 rounded-full ${aiStatus === "idle"
-                  ? "bg-gray-400"
-                  : aiStatus === "processing"
-                    ? "bg-yellow-400 animate-pulse"
-                    : "bg-green-400"
+                ? "bg-gray-400"
+                : aiStatus === "processing"
+                  ? "bg-yellow-400 animate-pulse"
+                  : "bg-green-400"
                 }`}
             />
           </div>
@@ -327,9 +327,9 @@ export function OmniChannelChatDemo({
                           delay: 0.6 + idx * 0.15,
                           scale: { duration: 0.1 }
                         }}
-                        className={`w-full text-left bg-gradient-to-br from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 border rounded-lg p-3 transition-all group relative ${clickedButton === response.id
-                            ? "border-indigo-500 ring-2 ring-indigo-300"
-                            : "border-indigo-200"
+                        className={`w-full text-left bg-linear-to-br from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 border rounded-lg p-3 transition-all group relative ${clickedButton === response.id
+                          ? "border-indigo-500 ring-2 ring-indigo-300"
+                          : "border-indigo-200"
                           }`}
                       >
                         {clickedButton === response.id && (

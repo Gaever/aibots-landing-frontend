@@ -3,8 +3,17 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
+interface Candidate {
+  id: number;
+  name: string;
+  role: string;
+  company: string;
+  initial: string;
+  isNew?: boolean;
+}
+
 export function HuntflowCrmDemo({ autoStart = false }: { autoStart?: boolean }) {
-  const [candidates, setCandidates] = useState([
+  const [candidates, setCandidates] = useState<Candidate[]>([
     { id: 1, name: "Щерица Василий", role: "Дизайнер интерфейсов", company: "Актион-Диджитал", initial: "Щ" },
     { id: 2, name: "Крюков Сергей", role: "Ведущий дизайнер", company: "Циан", initial: "К" },
     { id: 3, name: "Рогачев Роман", role: "Дизайнер продукта", company: "Яндекс", initial: "Р" },
@@ -27,7 +36,7 @@ export function HuntflowCrmDemo({ autoStart = false }: { autoStart?: boolean }) 
   return (
     <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-2xl overflow-hidden font-sans text-sm flex h-[400px]">
       {/* Sidebar (Dark) */}
-      <div className="w-64 bg-[#2c2d32] text-[#9a9b9d] flex flex-col shrink-0 hidden sm:flex">
+      <div className="w-64 bg-[#2c2d32] text-[#9a9b9d] flex-col shrink-0 hidden sm:flex">
         <div className="p-4 text-white font-bold text-lg border-b border-gray-700">Хантфлоу</div>
         <div className="p-4 space-y-6 overflow-y-auto">
           <div>

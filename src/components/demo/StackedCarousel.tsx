@@ -82,7 +82,7 @@ export function StackedCarousel({
               >
                 {/* Заголовок слайда (опционально) */}
                 {slide.title && (
-                  <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4">
+                  <div className="bg-linear-to-r from-blue-600 to-purple-600 px-6 py-4">
                     <h3 className="text-xl font-bold text-white">{slide.title}</h3>
                   </div>
                 )}
@@ -94,7 +94,7 @@ export function StackedCarousel({
               {/* Боковая граница (корешок) для неактивных слайдов */}
               {!isActive && (
                 <div
-                  className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-400 to-purple-600 rounded-l-2xl"
+                  className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-blue-400 to-purple-600 rounded-l-2xl"
                   style={{
                     boxShadow: "2px 0 8px rgba(0,0,0,0.2)",
                   }}

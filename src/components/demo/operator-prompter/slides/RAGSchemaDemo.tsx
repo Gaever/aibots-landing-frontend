@@ -57,7 +57,7 @@ export function RAGSchemaDemo({
   }, [autoStart, startTrigger, onComplete]);
 
   return (
-    <div className="w-full max-w-5xl mx-auto h-[600px] bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-8 flex items-center justify-center">
+    <div className="w-full max-w-5xl mx-auto h-[600px] bg-linear-to-br from-slate-50 to-blue-50 rounded-2xl p-8 flex items-center justify-center">
       <div className="w-full flex flex-col items-center gap-6">
         {/* Row 1: Request Processing */}
         <div className="flex items-center gap-3">
@@ -65,7 +65,7 @@ export function RAGSchemaDemo({
             initial={{ opacity: 0.3, scale: 0.95 }}
             animate={{ opacity: activeStep >= 1 ? 1 : 0.3, scale: activeStep >= 1 ? 1 : 0.95 }}
             transition={{ duration: 0.3 }}
-            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 1 ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg" : "bg-white text-gray-400 border-2 border-gray-200"
+            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 1 ? "bg-linear-to-r from-blue-500 to-blue-600 text-white shadow-lg" : "bg-white text-gray-400 border-2 border-gray-200"
               }`}
           >
             Вопрос клиента
@@ -85,7 +85,7 @@ export function RAGSchemaDemo({
             initial={{ opacity: 0.3, scale: 0.95 }}
             animate={{ opacity: activeStep >= 2 ? 1 : 0.3, scale: activeStep >= 2 ? 1 : 0.95 }}
             transition={{ duration: 0.3 }}
-            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 2 ? "bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg" : "bg-white text-gray-400 border-2 border-gray-200"
+            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 2 ? "bg-linear-to-r from-purple-500 to-purple-600 text-white shadow-lg" : "bg-white text-gray-400 border-2 border-gray-200"
               }`}
           >
             Анализ вопроса
@@ -105,7 +105,7 @@ export function RAGSchemaDemo({
             initial={{ opacity: 0.3, scale: 0.95 }}
             animate={{ opacity: activeStep >= 3 ? 1 : 0.3, scale: activeStep >= 3 ? 1 : 0.95 }}
             transition={{ duration: 0.3 }}
-            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 3 ? "bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-lg" : "bg-white text-gray-400 border-2 border-gray-200"
+            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 3 ? "bg-linear-to-r from-indigo-500 to-indigo-600 text-white shadow-lg" : "bg-white text-gray-400 border-2 border-gray-200"
               }`}
           >
             Поиск информации
@@ -166,7 +166,7 @@ export function RAGSchemaDemo({
             initial={{ opacity: 0.3, scale: 0.95 }}
             animate={{ opacity: activeStep >= 4 ? 1 : 0.3, scale: activeStep >= 4 ? 1 : 0.95 }}
             transition={{ duration: 0.3 }}
-            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 4 ? "bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg" : "bg-white text-gray-400 border-2 border-gray-200"
+            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 4 ? "bg-linear-to-r from-green-500 to-green-600 text-white shadow-lg" : "bg-white text-gray-400 border-2 border-gray-200"
               }`}
           >
             Генерация подсказки
@@ -186,7 +186,7 @@ export function RAGSchemaDemo({
             initial={{ opacity: 0.3, scale: 0.95 }}
             animate={{ opacity: activeStep >= 5 ? 1 : 0.3, scale: activeStep >= 5 ? 1 : 0.95 }}
             transition={{ duration: 0.3 }}
-            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 5 ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg" : "bg-white text-gray-400 border-2 border-gray-200"
+            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 5 ? "bg-linear-to-r from-blue-500 to-blue-600 text-white shadow-lg" : "bg-white text-gray-400 border-2 border-gray-200"
               }`}
           >
             Ответ пользователю
