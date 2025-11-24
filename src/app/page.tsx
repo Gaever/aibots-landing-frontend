@@ -64,7 +64,7 @@ export default function Home() {
         <QualityControlScrollPresentation />
       </div>
 
-      <ProductsVerticals verticals={landingContent.verticals} />
+      {/* <ProductsVerticals verticals={landingContent.verticals} /> */}
 
       <FAQ items={landingContent.faqItems} />
 
