@@ -12,10 +12,19 @@ export function OperatorPrompterScrollPresentation() {
     {
       ...content.sections[0],
       demoComponent: <OmniChannelChatDemo autoStart={true} />,
+      mobileConfig: {
+        scale: 0.95,
+        marginBottom: "",
+      },
     },
     {
       ...content.sections[1],
       demoComponent: <RAGSchemaDemo autoStart={true} />,
+      mobileConfig: {
+        fullWidth: true,
+        noScale: true,
+        className: "bg-transparent shadow-none rounded-2xl",
+      },
     },
     {
       ...content.sections[2],
@@ -23,15 +32,11 @@ export function OperatorPrompterScrollPresentation() {
       mobileConfig: {
         fullWidth: true,
         noScale: true,
-      }
+      },
     },
   ];
 
   return (
-    <ScrollBasedDemo
-      headerTitle={content.headerTitle}
-      headerSubtitle={content.headerSubtitle}
-      sections={sections}
-    />
+    <ScrollBasedDemo headerTitle={content.headerTitle} headerSubtitle={content.headerSubtitle} sections={sections} />
   );
 }

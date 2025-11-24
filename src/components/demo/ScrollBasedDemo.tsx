@@ -11,11 +11,11 @@ interface DemoSection {
   demoComponent: React.ReactNode;
   highlights?: string[];
   mobileConfig?: {
-    scale?: number;        // Scale value (default: 0.8)
-    noScale?: boolean;     // If true, don't apply any scaling
+    scale?: number; // Scale value (default: 0.8)
+    noScale?: boolean; // If true, don't apply any scaling
     marginBottom?: string; // Custom negative margin (default: '-mb-48')
-    className?: string;    // Custom class name
-    fullWidth?: boolean;   // If true, remove padding and rounded corners for full-width display
+    className?: string; // Custom class name
+    fullWidth?: boolean; // If true, remove padding and rounded corners for full-width display
   };
 }
 
@@ -79,7 +79,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
 
       // Нормализуем opacity - только одна секция может иметь высокую opacity
       const maxOpacity = Math.max(...newOpacities);
-      const normalizedOpacities = newOpacities.map(op => {
+      const normalizedOpacities = newOpacities.map((op) => {
         if (maxOpacity === 0) return 0;
         // Усиливаем контраст - активная секция ярче, остальные тусклее
         const normalized = op / maxOpacity;
@@ -148,17 +148,19 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
                 {/* Section number badge */}
                 <div className="flex items-center gap-3 mb-4">
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-300 ${activeSection === index
-                      ? "bg-linear-to-br from-blue-600 to-purple-600 text-white scale-110"
-                      : "bg-gray-200 text-gray-600"
-                      }`}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-300 ${
+                      activeSection === index
+                        ? "bg-linear-to-br from-blue-600 to-purple-600 text-white scale-110"
+                        : "bg-gray-200 text-gray-600"
+                    }`}
                   >
                     {index + 1}
                   </div>
                   {section.subtitle && (
                     <span
-                      className={`text-sm font-semibold uppercase tracking-wide transition-colors ${activeSection === index ? "text-blue-600" : "text-gray-400"
-                        }`}
+                      className={`text-sm font-semibold uppercase tracking-wide transition-colors ${
+                        activeSection === index ? "text-blue-600" : "text-gray-400"
+                      }`}
                     >
                       {section.subtitle}
                     </span>
@@ -167,8 +169,9 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
 
                 {/* Section title */}
                 <h3
-                  className={`text-2xl lg:text-3xl font-bold mb-6 transition-colors ${activeSection === index ? "text-gray-900" : "text-gray-500"
-                    }`}
+                  className={`text-2xl lg:text-3xl font-bold mb-6 transition-colors ${
+                    activeSection === index ? "text-gray-900" : "text-gray-500"
+                  }`}
                 >
                   {section.title}
                 </h3>
@@ -178,8 +181,9 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
                   {section.description.map((paragraph, idx) => (
                     <p
                       key={idx}
-                      className={`text-base leading-relaxed transition-colors ${activeSection === index ? "text-gray-700" : "text-gray-400"
-                        }`}
+                      className={`text-base leading-relaxed transition-colors ${
+                        activeSection === index ? "text-gray-700" : "text-gray-400"
+                      }`}
                     >
                       {paragraph}
                     </p>
@@ -192,8 +196,9 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
                     {section.highlights.map((highlight, idx) => (
                       <div
                         key={idx}
-                        className={`flex items-start gap-3 transition-all duration-300 ${activeSection === index ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
-                          }`}
+                        className={`flex items-start gap-3 transition-all duration-300 ${
+                          activeSection === index ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                        }`}
                         style={{ transitionDelay: `${idx * 100}ms` }}
                       >
                         <div className="w-6 h-6 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
@@ -239,8 +244,9 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
                 {sections.map((_, index) => (
                   <div
                     key={index}
-                    className={`h-2 rounded-full transition-all duration-300 ${index === activeSection ? "w-12 bg-black" : "w-2 bg-gray-400"
-                      }`}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      index === activeSection ? "w-12 bg-black" : "w-2 bg-gray-400"
+                    }`}
                   />
                 ))}
               </div>
@@ -274,50 +280,54 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
         {/* Sections */}
         <div className="space-y-6 pb-4">
           {sections.map((section, index) => (
-            <div key={section.id} className={section.mobileConfig?.fullWidth ? '' : 'px-4'}>
+            <div key={section.id} className={section.mobileConfig?.fullWidth ? "" : "px-4"}>
               {/* Condensed text content - moved before demo */}
-              {!section.mobileConfig?.fullWidth && (
-                <div className="space-y-2 mb-3">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-600 to-purple-600 text-white flex items-center justify-center font-bold text-sm">
-                      {index + 1}
-                    </div>
-                    {section.subtitle && (
-                      <span className="text-xs font-semibold uppercase tracking-wide text-blue-600">
-                        {section.subtitle}
-                      </span>
-                    )}
+              <div className={`space-y-2 mb-3 ${section.mobileConfig?.fullWidth ? "px-4" : ""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-600 to-purple-600 text-white flex items-center justify-center font-bold text-sm">
+                    {index + 1}
                   </div>
-
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {section.title}
-                  </h3>
-
-                  {/* Show only first 3-4 highlights as key value propositions */}
-                  {section.highlights && section.highlights.length > 0 && (
-                    <div className="space-y-1.5">
-                      {section.highlights.slice(0, 4).map((highlight, idx) => (
-                        <div key={idx} className="flex items-start gap-2">
-                          <div className="w-5 h-5 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
-                            <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                          </div>
-                          <span className="text-sm text-gray-700 leading-snug">{highlight}</span>
-                        </div>
-                      ))}
-                    </div>
+                  {section.subtitle && (
+                    <span className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                      {section.subtitle}
+                    </span>
                   )}
                 </div>
-              )}
+
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{section.title}</h3>
+
+                {/* Show only first 3-4 highlights as key value propositions */}
+                {section.highlights && section.highlights.length > 0 && (
+                  <div className="space-y-1.5">
+                    {section.highlights.slice(0, 4).map((highlight, idx) => (
+                      <div key={idx} className="flex items-start gap-2">
+                        <div className="w-5 h-5 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="text-sm text-gray-700 leading-snug">{highlight}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
 
               {/* Scaled demo component - moved after text */}
               <div
-                className={`overflow-hidden ${section.mobileConfig?.fullWidth ? 'rounded-none' : 'rounded-xl'} bg-white shadow-lg ${section.mobileConfig?.noScale ? '' : (section.mobileConfig?.marginBottom || '')} ${section.mobileConfig?.className || ''}`}
-                style={section.mobileConfig?.noScale ? {} : {
-                  transform: `scale(${section.mobileConfig?.scale || 0.9})`,
-                  transformOrigin: 'top center',
-                }}
+                className={`overflow-hidden ${
+                  section.mobileConfig?.fullWidth ? "rounded-none" : "rounded-xl"
+                } bg-white shadow-lg ${section.mobileConfig?.noScale ? "" : section.mobileConfig?.marginBottom || ""} ${
+                  section.mobileConfig?.className || ""
+                }`}
+                style={
+                  section.mobileConfig?.noScale
+                    ? {}
+                    : {
+                        transform: `scale(${section.mobileConfig?.scale || 0.9})`,
+                        transformOrigin: "top center",
+                      }
+                }
               >
                 {section.demoComponent}
               </div>
