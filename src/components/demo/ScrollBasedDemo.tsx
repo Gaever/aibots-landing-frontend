@@ -15,6 +15,7 @@ interface DemoSection {
     noScale?: boolean;     // If true, don't apply any scaling
     marginBottom?: string; // Custom negative margin (default: '-mb-48')
     className?: string;    // Custom class name
+    fullWidth?: boolean;   // If true, remove padding and rounded corners for full-width display
   };
 }
 
@@ -273,44 +274,46 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
         {/* Sections */}
         <div className="space-y-6 pb-4">
           {sections.map((section, index) => (
-            <div key={section.id} className="px-4">
+            <div key={section.id} className={section.mobileConfig?.fullWidth ? '' : 'px-4'}>
               {/* Condensed text content - moved before demo */}
-              <div className="space-y-2 mb-3">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-600 to-purple-600 text-white flex items-center justify-center font-bold text-sm">
-                    {index + 1}
+              {!section.mobileConfig?.fullWidth && (
+                <div className="space-y-2 mb-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-600 to-purple-600 text-white flex items-center justify-center font-bold text-sm">
+                      {index + 1}
+                    </div>
+                    {section.subtitle && (
+                      <span className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                        {section.subtitle}
+                      </span>
+                    )}
                   </div>
-                  {section.subtitle && (
-                    <span className="text-xs font-semibold uppercase tracking-wide text-blue-600">
-                      {section.subtitle}
-                    </span>
+
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    {section.title}
+                  </h3>
+
+                  {/* Show only first 3-4 highlights as key value propositions */}
+                  {section.highlights && section.highlights.length > 0 && (
+                    <div className="space-y-1.5">
+                      {section.highlights.slice(0, 4).map((highlight, idx) => (
+                        <div key={idx} className="flex items-start gap-2">
+                          <div className="w-5 h-5 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
+                            <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                          <span className="text-sm text-gray-700 leading-snug">{highlight}</span>
+                        </div>
+                      ))}
+                    </div>
                   )}
                 </div>
-
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  {section.title}
-                </h3>
-
-                {/* Show only first 3-4 highlights as key value propositions */}
-                {section.highlights && section.highlights.length > 0 && (
-                  <div className="space-y-1.5">
-                    {section.highlights.slice(0, 4).map((highlight, idx) => (
-                      <div key={idx} className="flex items-start gap-2">
-                        <div className="w-5 h-5 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
-                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                        </div>
-                        <span className="text-sm text-gray-700 leading-snug">{highlight}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+              )}
 
               {/* Scaled demo component - moved after text */}
               <div
-                className={`overflow-hidden rounded-xl bg-white shadow-lg ${section.mobileConfig?.noScale ? '' : (section.mobileConfig?.marginBottom || '')}${section.mobileConfig?.className ? section.mobileConfig?.className : ''}`}
+                className={`overflow-hidden ${section.mobileConfig?.fullWidth ? 'rounded-none' : 'rounded-xl'} bg-white shadow-lg ${section.mobileConfig?.noScale ? '' : (section.mobileConfig?.marginBottom || '')} ${section.mobileConfig?.className || ''}`}
                 style={section.mobileConfig?.noScale ? {} : {
                   transform: `scale(${section.mobileConfig?.scale || 0.9})`,
                   transformOrigin: 'top center',
