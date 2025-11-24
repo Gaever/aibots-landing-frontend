@@ -148,19 +148,17 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
                 {/* Section number badge */}
                 <div className="flex items-center gap-3 mb-4">
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-300 ${
-                      activeSection === index
-                        ? "bg-linear-to-br from-blue-600 to-purple-600 text-white scale-110"
-                        : "bg-gray-200 text-gray-600"
-                    }`}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-300 ${activeSection === index
+                      ? "bg-linear-to-br from-blue-600 to-purple-600 text-white scale-110"
+                      : "bg-gray-200 text-gray-600"
+                      }`}
                   >
                     {index + 1}
                   </div>
                   {section.subtitle && (
                     <span
-                      className={`text-sm font-semibold uppercase tracking-wide transition-colors ${
-                        activeSection === index ? "text-blue-600" : "text-gray-400"
-                      }`}
+                      className={`text-sm font-semibold uppercase tracking-wide transition-colors ${activeSection === index ? "text-blue-600" : "text-gray-400"
+                        }`}
                     >
                       {section.subtitle}
                     </span>
@@ -169,9 +167,8 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
 
                 {/* Section title */}
                 <h3
-                  className={`text-2xl lg:text-3xl font-bold mb-6 transition-colors ${
-                    activeSection === index ? "text-gray-900" : "text-gray-500"
-                  }`}
+                  className={`text-2xl lg:text-3xl font-bold mb-6 transition-colors ${activeSection === index ? "text-gray-900" : "text-gray-500"
+                    }`}
                 >
                   {section.title}
                 </h3>
@@ -181,9 +178,8 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
                   {section.description.map((paragraph, idx) => (
                     <p
                       key={idx}
-                      className={`text-base leading-relaxed transition-colors ${
-                        activeSection === index ? "text-gray-700" : "text-gray-400"
-                      }`}
+                      className={`text-base leading-relaxed transition-colors ${activeSection === index ? "text-gray-700" : "text-gray-400"
+                        }`}
                     >
                       {paragraph}
                     </p>
@@ -196,9 +192,8 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
                     {section.highlights.map((highlight, idx) => (
                       <div
                         key={idx}
-                        className={`flex items-start gap-3 transition-all duration-300 ${
-                          activeSection === index ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
-                        }`}
+                        className={`flex items-start gap-3 transition-all duration-300 ${activeSection === index ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                          }`}
                         style={{ transitionDelay: `${idx * 100}ms` }}
                       >
                         <div className="w-6 h-6 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
@@ -244,9 +239,8 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
                 {sections.map((_, index) => (
                   <div
                     key={index}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      index === activeSection ? "w-12 bg-black" : "w-2 bg-gray-400"
-                    }`}
+                    className={`h-2 rounded-full transition-all duration-300 ${index === activeSection ? "w-12 bg-black" : "w-2 bg-gray-400"
+                      }`}
                   />
                 ))}
               </div>
@@ -258,9 +252,9 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
       {/* Mobile demo - shown with scaled demo and condensed text */}
       <div className="lg:hidden bg-gray-50">
         {/* Mobile header */}
-        <div className="bg-white px-4 py-6 mb-8">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+        <div className="sticky top-0 z-30 bg-white border-b border-gray-100 px-4 py-3 mb-6 shadow-xs transition-all duration-200">
+          <div className="flex items-center gap-3">
+            <div className="hidden w-10 h-10 rounded-xl bg-linear-to-br from-blue-600 to-purple-600 items-center justify-center">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -271,8 +265,8 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
               </svg>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">{headerTitle}</h2>
-              {headerSubtitle && <p className="text-sm text-gray-600 mt-0.5">{headerSubtitle}</p>}
+              <h2 className="text-xl font-bold text-gray-900 leading-tight">{headerTitle}</h2>
+              {headerSubtitle && <p className="hidden text-sm text-gray-600 mt-0.5">{headerSubtitle}</p>}
             </div>
           </div>
         </div>
@@ -315,18 +309,16 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle }: Scrol
 
               {/* Scaled demo component - moved after text */}
               <div
-                className={`overflow-hidden ${
-                  section.mobileConfig?.fullWidth ? "rounded-none" : "rounded-xl"
-                } bg-white shadow-lg ${section.mobileConfig?.noScale ? "" : section.mobileConfig?.marginBottom || ""} ${
-                  section.mobileConfig?.className || ""
-                }`}
+                className={`overflow-hidden ${section.mobileConfig?.fullWidth ? "rounded-none" : "rounded-xl"
+                  } bg-white shadow-lg ${section.mobileConfig?.noScale ? "" : section.mobileConfig?.marginBottom || ""} ${section.mobileConfig?.className || ""
+                  }`}
                 style={
                   section.mobileConfig?.noScale
                     ? {}
                     : {
-                        transform: `scale(${section.mobileConfig?.scale || 0.9})`,
-                        transformOrigin: "top center",
-                      }
+                      transform: `scale(${section.mobileConfig?.scale || 0.9})`,
+                      transformOrigin: "top center",
+                    }
                 }
               >
                 {section.demoComponent}
