@@ -16,6 +16,27 @@ interface TableOfContentsProps {
   scrollToSection: (id: string) => void;
 }
 
+import { MessagesSquare, Star, ShoppingBag, Headphones, Building2, Users, FileText, ShieldCheck } from "lucide-react";
+
+// Map product ids to the same icons used in their ScrollPresentations' headers
+const productIcons: Record<string, React.ReactNode> = {
+  // client-comms
+  messengers: <MessagesSquare className="w-5 h-5" />,
+  reviews: <Star className="w-5 h-5" />,
+  ecommerce: <ShoppingBag className="w-5 h-5" />,
+
+  // team-internal
+  "operator-souffleur": <Headphones className="w-5 h-5" />,
+  "internal-assistant": <Building2 className="w-5 h-5" />,
+  "hr-bot": <Users className="w-5 h-5" />,
+
+  // knowledge-docs
+  "doc-bot": <FileText className="w-5 h-5" />,
+
+  // analytics-quality
+  "quality-control": <ShieldCheck className="w-5 h-5" />,
+};
+
 export function TableOfContents({ verticals, scrollToSection }: TableOfContentsProps) {
   return (
     <section className="relative px-4 py-10 bg-gray-50">
@@ -46,7 +67,7 @@ export function TableOfContents({ verticals, scrollToSection }: TableOfContentsP
                     className="w-full text-left px-4 py-3 rounded-lg bg-gray-50 border border-gray-100 hover:border-gray-200 hover:bg-white transition-all duration-200 group"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-xl">{product.icon}</span>
+                      <span className="text-xl">{productIcons[product.id] ?? product.icon}</span>
                       <span className="text-sm font-medium text-gray-700 group-hover:text-indigo-600 transition-colors">
                         {product.title}
                       </span>
