@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { landingContent } from "@/app/landingContent";
 
 interface HeroProps {
@@ -6,6 +7,18 @@ interface HeroProps {
 }
 
 export function Hero({ title, subtitle }: HeroProps) {
+  const [particles, setParticles] = useState<Array<React.CSSProperties>>([]);
+
+  useEffect(() => {
+    const newParticles = [...Array(20)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 5}s`,
+      animationDuration: `${3 + Math.random() * 4}s`,
+    }));
+    setParticles(newParticles);
+  }, []);
+
   return (
     <section className="relative min-h-[50vh] flex items-center overflow-hidden bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Animated background elements */}
@@ -37,16 +50,11 @@ export function Hero({ title, subtitle }: HeroProps) {
       </div>
       {/* Floating particles */}
       <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
+        {particles.map((style, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-cyan-400 rounded-full animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 4}s`,
-            }}
+            style={style}
           />
         ))}
       </div>
