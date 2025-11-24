@@ -34,65 +34,35 @@ export function InternalChatDemo({ autoStart = true, onComplete, startTrigger = 
   const content = landingContent.internalAssistantPresentation.demo.chat;
 
   // Transform landingContent scenario to the format required by the component
-  const DEMO_SCENARIO: ScenarioStep[] = [
-    {
-      delay: 800,
-      action: "user-typing",
-      text: content.scenario[0].text,
-    },
-    {
-      delay: 300,
-      action: "user-send",
-      text: content.scenario[0].text,
-    },
-    {
-      delay: 800,
-      action: "typing",
-    },
-    {
-      delay: 1500,
-      action: "bot",
-      text: content.scenario[1].text,
-    },
-    {
-      delay: 2000,
-      action: "user-typing",
-      text: content.scenario[2].text,
-    },
-    {
-      delay: 300,
-      action: "user-send",
-      text: content.scenario[2].text,
-    },
-    {
-      delay: 600,
-      action: "typing",
-    },
-    {
-      delay: 1200,
-      action: "bot",
-      text: content.scenario[3].text,
-    },
-    {
-      delay: 2000,
-      action: "user-typing",
-      text: content.scenario[4].text,
-    },
-    {
-      delay: 300,
-      action: "user-send",
-      text: content.scenario[4].text,
-    },
-    {
-      delay: 500,
-      action: "typing",
-    },
-    {
-      delay: 1500,
-      action: "bot",
-      text: content.scenario[5].text,
-    },
-  ];
+  // @ts-ignore - handling both legacy 'scenario' and new 'messages' structure
+  const rawMessages = content.messages || content.scenario || [];
+
+  const DEMO_SCENARIO: ScenarioStep[] = [];
+
+  rawMessages.forEach((msg: any, index: number) => {
+    if (msg.role === "user") {
+      DEMO_SCENARIO.push({
+        delay: index === 0 ? 800 : 2000,
+        action: "user-typing",
+        text: msg.text,
+      });
+      DEMO_SCENARIO.push({
+        delay: 300,
+        action: "user-send",
+        text: msg.text,
+      });
+    } else {
+      DEMO_SCENARIO.push({
+        delay: 600,
+        action: "typing",
+      });
+      DEMO_SCENARIO.push({
+        delay: 1500,
+        action: "bot",
+        text: msg.text,
+      });
+    }
+  });
 
   useEffect(() => {
     if (autoStart && startTrigger) {
@@ -228,9 +198,9 @@ export function InternalChatDemo({ autoStart = true, onComplete, startTrigger = 
               🤖
             </div>
             <div className="flex-1">
-              <div className="text-white font-semibold text-base">{content.header.botName}</div>
+              <div className="text-white font-semibold text-base">{content.header.title}</div>
               <div className={`text-xs ${isTyping ? "text-[#8BBEF6]" : "text-[#8BBEF6]"}`}>
-                {isTyping ? content.header.status.typing : content.header.status.online}
+                {isTyping ? "печатает..." : content.header.subtitle}
               </div>
             </div>
           </div>
@@ -319,7 +289,7 @@ export function InternalChatDemo({ autoStart = true, onComplete, startTrigger = 
             {inputText ? (
               <div className="flex-1 text-white text-[15px]">{inputText}</div>
             ) : (
-              <div className="flex-1 text-[#8E8E93] text-[15px]">{content.ui.inputPlaceholder}</div>
+              <div className="flex-1 text-[#8E8E93] text-[15px]">{content.ui?.inputPlaceholder || "Сообщение"}</div>
             )}
             {isUserTyping && <div className="w-[2px] h-[18px] bg-[#8BBEF6] animate-blink ml-0.5" />}
           </div>
