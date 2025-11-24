@@ -12,6 +12,7 @@ export interface OnlineConsultantWidgetProps {
   inputValue?: string;
   onInputChange?: (value: string) => void;
   showInput?: boolean;
+  className?: string;
 }
 
 export function OnlineConsultantWidget(props: OnlineConsultantWidgetProps) {
@@ -25,6 +26,7 @@ export function OnlineConsultantWidget(props: OnlineConsultantWidgetProps) {
     inputValue = "",
     onInputChange,
     showInput = true,
+    className = "",
   } = props;
 
   const chatRef = useRef<HTMLDivElement | null>(null);
@@ -44,7 +46,7 @@ export function OnlineConsultantWidget(props: OnlineConsultantWidgetProps) {
       : "Бот отвечает за секунды");
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 font-sans flex flex-col h-[600px]">
+    <div className={`w-full max-w-md mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 font-sans flex flex-col h-[600px] ${className}`}>
       {/* header */}
       <div className="bg-blue-600 p-4 flex items-center gap-3">
         <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white text-xl">
