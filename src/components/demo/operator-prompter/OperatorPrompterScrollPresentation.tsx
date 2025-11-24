@@ -20,6 +20,10 @@ export function OperatorPrompterScrollPresentation() {
     {
       ...content.sections[2],
       demoComponent: <CTASection colorScheme="indigo-purple-pink" />,
+      mobileConfig: {
+        fullWidth: true,
+        noScale: true,
+      }
     },
   ];
 

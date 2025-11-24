@@ -21,8 +21,8 @@ export function ConsultantBotScrollPresentation() {
       ...content.sections[2],
       demoComponent: <CTASection colorScheme="blue-purple-indigo" />,
       mobileConfig: {
-        fullWidth: true,  // Full-width CTA on mobile
-        noScale: true,    // No scaling needed
+        fullWidth: true,
+        noScale: true,
       },
     },
   ];

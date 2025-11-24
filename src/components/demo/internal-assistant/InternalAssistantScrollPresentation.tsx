@@ -15,6 +15,10 @@ export function InternalAssistantScrollPresentation() {
     {
       ...content.sections[1],
       demoComponent: <CTASection colorScheme="purple-indigo-blue" />,
+      mobileConfig: {
+        fullWidth: true,
+        noScale: true,
+      }
     },
   ];
 

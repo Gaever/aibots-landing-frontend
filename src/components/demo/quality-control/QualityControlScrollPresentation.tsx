@@ -28,6 +28,10 @@ export function QualityControlScrollPresentation() {
     {
       ...content.sections[3],
       demoComponent: <CTASection colorScheme="blue-purple-indigo" />,
+      mobileConfig: {
+        fullWidth: true,
+        noScale: true,
+      }
     },
   ];
 

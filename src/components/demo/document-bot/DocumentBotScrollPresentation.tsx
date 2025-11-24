@@ -25,6 +25,10 @@ export function DocumentBotScrollPresentation() {
     {
       ...content.sections[3],
       demoComponent: <CTASection colorScheme="emerald-teal-cyan" />,
+      mobileConfig: {
+        fullWidth: true,
+        noScale: true,
+      }
     },
   ];
 

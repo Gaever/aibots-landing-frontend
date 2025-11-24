@@ -24,6 +24,10 @@ export function HrBotScrollPresentation() {
     {
       ...content.sections[2],
       demoComponent: <CTASection colorScheme="teal-emerald-green" />,
+      mobileConfig: {
+        fullWidth: true,
+        noScale: true,
+      }
     },
   ];
 
