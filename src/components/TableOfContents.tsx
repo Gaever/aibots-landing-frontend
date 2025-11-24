@@ -40,14 +40,21 @@ const productIcons: Record<string, React.ReactNode> = {
 
 export function TableOfContents({ verticals, scrollToSection }: TableOfContentsProps) {
   return (
-    <section className="relative px-4 py-20 bg-gradient-to-b from-white to-gray-50">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative px-4 py-20 bg-linear-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000" />
+        <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 tracking-tight"
+            className="text-4xl md:text-5xl font-bold mb-6 text-white tracking-tight"
           >
             Наши решения
           </motion.h2>
@@ -56,7 +63,7 @@ export function TableOfContents({ verticals, scrollToSection }: TableOfContentsP
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-gray-500 max-w-2xl mx-auto"
+            className="text-xl text-gray-300 max-w-2xl mx-auto"
           >
             Комплексная автоматизация коммуникаций для роста вашего бизнеса
           </motion.p>
@@ -70,7 +77,7 @@ export function TableOfContents({ verticals, scrollToSection }: TableOfContentsP
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group relative bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 overflow-hidden"
+              className="group relative bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/10 overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50/50 rounded-full blur-3xl -mr-32 -mt-32 transition-opacity opacity-0 group-hover:opacity-100 duration-700" />
 
