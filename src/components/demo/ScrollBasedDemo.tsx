@@ -27,7 +27,7 @@ interface ScrollBasedDemoProps {
 }
 
 export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerIcon }: ScrollBasedDemoProps) {
-  const [activeSection, setActiveSection] = useState(0);
+  const [activeSection, setActiveSection] = useState(-1);
   const [sectionOpacities, setSectionOpacities] = useState<number[]>(sections.map(() => 0));
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -37,6 +37,14 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
       if (!containerRef.current) return;
 
       const viewportHeight = window.innerHeight;
+      const containerRect = containerRef.current.getBoundingClientRect();
+
+      // Если компонент полностью ушел с экрана, сбрасываем активную секцию
+      if (containerRect.top > viewportHeight || containerRect.bottom < 0) {
+        setActiveSection(-1);
+        return;
+      }
+
       const newOpacities: number[] = [];
 
       // Для каждой секции вычисляем её opacity на основе прокрутки
@@ -242,16 +250,18 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
               {/* Demo content - показываем только активную секцию */}
               <div className="relative z-10 w-full flex-1 flex items-center justify-center min-h-0">
                 <AnimatePresence mode="wait">
-                  <motion.div
-                    key={sections[activeSection].id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2, ease: "easeInOut" }}
-                    className="absolute inset-0 flex items-center justify-center"
-                  >
-                    {sections[activeSection].demoComponent}
-                  </motion.div>
+                  {activeSection !== -1 && sections[activeSection] && (
+                    <motion.div
+                      key={sections[activeSection].id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                      className="absolute inset-0 flex items-center justify-center"
+                    >
+                      {sections[activeSection].demoComponent}
+                    </motion.div>
+                  )}
                 </AnimatePresence>
               </div>
 
