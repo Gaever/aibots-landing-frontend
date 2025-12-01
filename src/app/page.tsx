@@ -21,9 +21,29 @@ import { QualityControlScrollPresentation } from "@/components/demo/quality-cont
 export default function Home() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    if (!element) return;
+    const rect = element.getBoundingClientRect();
+    const absoluteTop = window.scrollY + rect.top;
+    const offset = window.innerWidth >= 1280 ? 144 : window.innerWidth >= 1024 ? 120 : 88;
+
+    const targetTop = Math.max(absoluteTop - offset, 0);
+    window.scrollTo({ top: targetTop, behavior: "smooth" });
+
+    // Post-scroll settling correction (handles sticky headers, animations)
+    const start = performance.now();
+    const durationMs = 800;
+    const correct = () => {
+      const now = performance.now();
+      const el = document.getElementById(id);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const desired = Math.max(window.scrollY + r.top - offset, 0);
+      if (Math.abs(desired - window.scrollY) > 2) {
+        window.scrollTo({ top: desired, behavior: "auto" });
+      }
+      if (now - start < durationMs) requestAnimationFrame(correct);
+    };
+    requestAnimationFrame(correct);
   };
 
   return (
@@ -39,30 +59,30 @@ export default function Home() {
       {/* <Strategy title={landingContent.strategy.title} paragraphs={landingContent.strategy.paragraphs} /> */}
 
       <TableOfContents verticals={landingContent.verticals} scrollToSection={scrollToSection} />
-      <div id="messengers" className="snap-start">
-        <MessengerAutoreviewScrollPresentation />
-      </div>
-      <div id="reviews">
-        <MarketplaceReviewsScrollPresentation />
-      </div>
-      <div id="ecommerce">
-        <ConsultantBotScrollPresentation />
-      </div>
-      <div id="operator-souffleur">
-        <OperatorPrompterScrollPresentation />
-      </div>
-      <div id="internal-assistant">
-        <InternalAssistantScrollPresentation />
-      </div>
-      <div id="hr-bot">
-        <HrBotScrollPresentation />
-      </div>
-      <div id="doc-bot">
-        <DocumentBotScrollPresentation />
-      </div>
-      <div id="quality-control">
-        {/* <QualityControlScrollPresentation /> */}
-      </div>
+
+      <div id="messengers" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <MessengerAutoreviewScrollPresentation />
+
+      <div id="reviews" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <MarketplaceReviewsScrollPresentation />
+
+      <div id="ecommerce" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <ConsultantBotScrollPresentation />
+
+      <div id="operator-souffleur" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <OperatorPrompterScrollPresentation />
+
+      <div id="internal-assistant" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <InternalAssistantScrollPresentation />
+
+      <div id="hr-bot" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <HrBotScrollPresentation />
+
+      <div id="doc-bot" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <DocumentBotScrollPresentation />
+
+      <div id="quality-control" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      {/* <QualityControlScrollPresentation /> */}
 
       {/* <ProductsVerticals verticals={landingContent.verticals} /> */}
 
