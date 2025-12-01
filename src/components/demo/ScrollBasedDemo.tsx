@@ -87,19 +87,37 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
         return normalized > 0.7 ? normalized : normalized * 0.3;
       });
 
-      // Определяем активную секцию - берем ту, у которой наибольшая opacity
-      let maxOpacityIndex = 0;
-      let maxValue = 0;
+      setSectionOpacities(normalizedOpacities);
 
-      normalizedOpacities.forEach((opacity, idx) => {
-        if (opacity > maxValue) {
-          maxValue = opacity;
-          maxOpacityIndex = idx;
+      // Определяем активную секцию на основе видимости (80% правило)
+      let bestCandidateIndex = -1;
+      let maxVisibility = 0;
+
+      sectionsRef.current.forEach((section, index) => {
+        if (!section) return;
+
+        const rect = section.getBoundingClientRect();
+        const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+        const validVisibleHeight = Math.max(0, visibleHeight);
+
+        // Считаем процент видимости самой секции и процент покрытия экрана
+        const sectionVisibilityRatio = validVisibleHeight / rect.height;
+        const viewportCoverageRatio = validVisibleHeight / viewportHeight;
+
+        // Используем максимум из двух метрик (для поддержки длинных секций)
+        const effectiveVisibility = Math.max(sectionVisibilityRatio, viewportCoverageRatio);
+
+        if (effectiveVisibility > maxVisibility) {
+          maxVisibility = effectiveVisibility;
+          bestCandidateIndex = index;
         }
       });
 
-      setSectionOpacities(normalizedOpacities);
-      setActiveSection(maxOpacityIndex);
+      // Переключаем только если кандидат достаточно виден (>80%)
+      // Или если это первая секция и мы в самом верху (чтобы не было пустого состояния)
+      if (bestCandidateIndex !== -1 && (maxVisibility > 0.8 || (bestCandidateIndex === 0 && window.scrollY < 100))) {
+        setActiveSection(bestCandidateIndex);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -326,12 +344,30 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                     }
                 }
               >
-                {section.demoComponent}
+                <MobileDemoItem>
+                  {section.demoComponent}
+                </MobileDemoItem>
               </div>
             </div>
           ))}
         </div>
       </div>
     </div>
+  );
+}
+
+function MobileDemoItem({ children }: { children: React.ReactNode }) {
+  const [key, setKey] = useState(0);
+
+  return (
+    <motion.div
+      onViewportEnter={() => setKey((k) => k + 1)}
+      viewport={{ amount: 0.2 }}
+      className="w-full h-full"
+    >
+      <div key={key} className="w-full h-full">
+        {children}
+      </div>
+    </motion.div>
   );
 }
