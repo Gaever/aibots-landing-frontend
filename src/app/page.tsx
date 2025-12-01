@@ -24,7 +24,9 @@ export default function Home() {
     if (!element) return;
     const rect = element.getBoundingClientRect();
     const absoluteTop = window.scrollY + rect.top;
-    const offset = window.innerWidth >= 1280 ? 144 : window.innerWidth >= 1024 ? 120 : 88;
+    // For zero-height anchor elements we want strict alignment at viewport top
+    const isAnchor = element.classList.contains("toc-anchor") || element.offsetHeight === 0;
+    const offset = isAnchor ? 0 : window.innerWidth >= 1280 ? 144 : window.innerWidth >= 1024 ? 120 : 88;
 
     const targetTop = Math.max(absoluteTop - offset, 0);
     window.scrollTo({ top: targetTop, behavior: "smooth" });
@@ -60,28 +62,28 @@ export default function Home() {
 
       <TableOfContents verticals={landingContent.verticals} scrollToSection={scrollToSection} />
 
-      <div id="messengers" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <div id="messengers" className="toc-anchor h-0" />
       <MessengerAutoreviewScrollPresentation />
 
-      <div id="reviews" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <div id="reviews" className="toc-anchor h-0" />
       <MarketplaceReviewsScrollPresentation />
 
-      <div id="ecommerce" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <div id="ecommerce" className="toc-anchor h-0" />
       <ConsultantBotScrollPresentation />
 
-      <div id="operator-souffleur" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <div id="operator-souffleur" className="toc-anchor h-0" />
       <OperatorPrompterScrollPresentation />
 
-      <div id="internal-assistant" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <div id="internal-assistant" className="toc-anchor h-0" />
       <InternalAssistantScrollPresentation />
 
-      <div id="hr-bot" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <div id="hr-bot" className="toc-anchor h-0" />
       <HrBotScrollPresentation />
 
-      <div id="doc-bot" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <div id="doc-bot" className="toc-anchor h-0" />
       <DocumentBotScrollPresentation />
 
-      <div id="quality-control" className="scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-40 xl:scroll-mt-48 h-0" />
+      <div id="quality-control" className="toc-anchor h-0" />
       {/* <QualityControlScrollPresentation /> */}
 
       {/* <ProductsVerticals verticals={landingContent.verticals} /> */}
