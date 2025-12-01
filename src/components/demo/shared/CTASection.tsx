@@ -27,10 +27,10 @@ export function CTASection({ colorScheme = "blue-purple-indigo" }: CTASectionPro
   return (
     <div className={`flex flex-col items-center justify-center text-center space-y-8 p-8 bg-linear-to-br ${gradientClasses} lg:rounded-2xl w-full h-full`}>
       <div className="text-6xl mb-4">🚀</div>
-      <h3 className="text-4xl font-bold text-white mb-4">
+      <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
         {landingContent.demoComponents.common.cta.title}
       </h3>
-      <p className="text-xl text-white/90 max-w-md mb-8">
+      <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-md mb-8">
         {landingContent.demoComponents.common.cta.subtitle}
       </p>
       <div className="flex flex-col sm:flex-row gap-4">
@@ -38,13 +38,13 @@ export function CTASection({ colorScheme = "blue-purple-indigo" }: CTASectionPro
           href="https://t.me/yourusername"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-200 hover:scale-105 shadow-xl"
+          className="px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-base md:text-lg hover:bg-gray-100 transition-all duration-200 hover:scale-105 shadow-xl"
         >
           {landingContent.demoComponents.common.cta.primaryBtn}
         </a>
         <a
           href="#pricing"
-          className="px-8 py-4 bg-white/20 backdrop-blur-sm border-2 border-white/50 text-white rounded-xl font-bold text-lg hover:bg-white/30 transition-all duration-200"
+          className="px-8 py-4 bg-white/20 backdrop-blur-sm border-2 border-white/50 text-white rounded-xl font-bold text-base md:text-lg hover:bg-white/30 transition-all duration-200"
         >
           {landingContent.demoComponents.common.cta.secondaryBtn}
         </a>

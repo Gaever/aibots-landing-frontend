@@ -76,7 +76,7 @@ export function ContactForm({
     <section className="relative px-4 py-20">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900">{title}</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-gray-900">{title}</h2>
           {/* <p className="text-xl text-gray-600 font-light mb-3">{subtitle}</p> */}
           {/* <div className="inline-block px-5 py-2 rounded-full bg-emerald-100 border border-emerald-200">
             <p className="text-sm text-emerald-800 font-medium">{note}</p>

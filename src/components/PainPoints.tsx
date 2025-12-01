@@ -33,7 +33,7 @@ export function PainPoints({ title, items, growthBlock }: PainPointsProps) {
 
         <div className="relative p-10 rounded-2xl bg-linear-to-br from-indigo-600 to-purple-700 shadow-xl max-w-4xl mx-auto">
           <div className="relative">
-            <h3 className="text-3xl font-bold mb-4 text-white">{growthBlock.title}</h3>
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white">{growthBlock.title}</h3>
             <MarkdownText text={growthBlock.body} className="text-lg text-white/95 leading-relaxed font-light" />
           </div>
         </div>

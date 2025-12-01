@@ -293,7 +293,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                   )}
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{section.title}</h3>
+                <h3 className="text-md font-bold text-gray-900 mb-2">{section.title}</h3>
 
                 {/* Show only first 3-4 highlights as key value propositions */}
                 {section.highlights && section.highlights.length > 0 && (
