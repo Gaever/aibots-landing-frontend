@@ -16,6 +16,7 @@ interface DemoSection {
     marginBottom?: string; // Custom negative margin (default: '-mb-48')
     className?: string; // Custom class name
     fullWidth?: boolean; // If true, remove padding and rounded corners for full-width display
+    height?: string; // Custom height class (default: 'h-[500px]')
   };
 }
 
@@ -344,7 +345,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
               <div
                 className={`overflow-hidden ${section.mobileConfig?.fullWidth ? "rounded-none" : "rounded-xl"
                   } bg-white shadow-lg ${section.mobileConfig?.noScale ? "" : section.mobileConfig?.marginBottom || ""} ${section.mobileConfig?.className || ""
-                  }`}
+                  } ${section.mobileConfig?.height || ""}`}
                 style={
                   section.mobileConfig?.noScale
                     ? {}

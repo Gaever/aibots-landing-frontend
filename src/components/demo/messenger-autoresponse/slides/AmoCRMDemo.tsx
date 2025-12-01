@@ -55,7 +55,7 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
 
   return (
     <AmoCRMFrame>
-      <div className="flex-1 p-4 overflow-x-auto flex gap-4 h-full">
+      <div className="flex-1 p-4 overflow-hidden md:overflow-x-auto flex gap-4 h-full">
         {/* Column: New Leads */}
         <div className="w-64 flex-shrink-0 flex flex-col gap-3 h-full">
           <div className="font-bold text-gray-500 uppercase text-xs mb-1 flex justify-between">

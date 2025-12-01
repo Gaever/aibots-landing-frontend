@@ -24,10 +24,16 @@ export function MarketplaceReviewsScrollPresentation() {
     {
       ...content.sections[2],
       demoComponent: <AmoCRMReviewNotificationDemo />,
+      mobileConfig: {
+        height: 'h-[60vh]',
+      },
     },
     {
       ...content.sections[3],
       demoComponent: <BotReviewResolutionDemo />,
+      mobileConfig: {
+        height: 'h-[80vh]',
+      },
     },
     {
       ...content.sections[4],

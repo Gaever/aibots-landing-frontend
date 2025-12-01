@@ -59,11 +59,10 @@ export function RAGSchemaDemo({ autoStart = false, onComplete, startTrigger = tr
             initial={{ opacity: 0.3, scale: 0.95 }}
             animate={{ opacity: activeStep >= 1 ? 1 : 0.3, scale: activeStep >= 1 ? 1 : 0.95 }}
             transition={{ duration: 0.3 }}
-            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${
-              activeStep >= 1
+            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 1
                 ? "bg-linear-to-r from-blue-500 to-blue-600 text-white shadow-lg"
                 : "bg-white text-gray-400 border-2 border-gray-200"
-            }`}
+              }`}
           >
             Вопрос клиента
           </motion.div>
@@ -100,11 +99,10 @@ export function RAGSchemaDemo({ autoStart = false, onComplete, startTrigger = tr
             initial={{ opacity: 0.3, scale: 0.95 }}
             animate={{ opacity: activeStep >= 2 ? 1 : 0.3, scale: activeStep >= 2 ? 1 : 0.95 }}
             transition={{ duration: 0.3 }}
-            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${
-              activeStep >= 2
+            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 2
                 ? "bg-linear-to-r from-purple-500 to-purple-600 text-white shadow-lg"
                 : "bg-white text-gray-400 border-2 border-gray-200"
-            }`}
+              }`}
           >
             Анализ вопроса
           </motion.div>
@@ -141,11 +139,10 @@ export function RAGSchemaDemo({ autoStart = false, onComplete, startTrigger = tr
             initial={{ opacity: 0.3, scale: 0.95 }}
             animate={{ opacity: activeStep >= 3 ? 1 : 0.3, scale: activeStep >= 3 ? 1 : 0.95 }}
             transition={{ duration: 0.3 }}
-            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${
-              activeStep >= 3
+            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 3
                 ? "bg-linear-to-r from-indigo-500 to-indigo-600 text-white shadow-lg"
                 : "bg-white text-gray-400 border-2 border-gray-200"
-            }`}
+              }`}
           >
             Поиск информации
           </motion.div>
@@ -174,19 +171,17 @@ export function RAGSchemaDemo({ autoStart = false, onComplete, startTrigger = tr
               initial={{ opacity: 0.3, scale: 0.95 }}
               animate={{ opacity: source.isActive ? 1 : 0.3, scale: source.isActive ? 1 : 0.95 }}
               transition={{ duration: 0.4 }}
-              className={`flex flex-col items-center gap-2 px-3 md:px-4 py-3 rounded-xl md:min-w-[100px] ${
-                source.isActive
+              className={`flex flex-col items-center gap-2 px-3 md:px-4 py-3 rounded-xl md:min-w-[100px] ${source.isActive
                   ? "bg-white shadow-lg border-2 border-indigo-300"
                   : "bg-white/50 border-2 border-gray-200"
-              }`}
+                }`}
             >
               <div className={`text-xl md:text-2xl ${source.isActive ? "" : "grayscale opacity-50"}`}>
                 {source.icon}
               </div>
               <div
-                className={`text-[10px] md:text-xs font-semibold text-center leading-tight ${
-                  source.isActive ? "text-gray-900" : "text-gray-400"
-                }`}
+                className={`text-[10px] md:text-xs font-semibold text-center leading-tight ${source.isActive ? "text-gray-900" : "text-gray-400"
+                  }`}
               >
                 {source.title}
               </div>
@@ -222,11 +217,10 @@ export function RAGSchemaDemo({ autoStart = false, onComplete, startTrigger = tr
             initial={{ opacity: 0.3, scale: 0.95 }}
             animate={{ opacity: activeStep >= 4 ? 1 : 0.3, scale: activeStep >= 4 ? 1 : 0.95 }}
             transition={{ duration: 0.3 }}
-            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${
-              activeStep >= 4
+            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 4
                 ? "bg-linear-to-r from-green-500 to-green-600 text-white shadow-lg"
                 : "bg-white text-gray-400 border-2 border-gray-200"
-            }`}
+              }`}
           >
             Генерация подсказки
           </motion.div>
@@ -263,11 +257,10 @@ export function RAGSchemaDemo({ autoStart = false, onComplete, startTrigger = tr
             initial={{ opacity: 0.3, scale: 0.95 }}
             animate={{ opacity: activeStep >= 5 ? 1 : 0.3, scale: activeStep >= 5 ? 1 : 0.95 }}
             transition={{ duration: 0.3 }}
-            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${
-              activeStep >= 5
+            className={`px-6 py-3 rounded-xl text-center font-bold text-sm ${activeStep >= 5
                 ? "bg-linear-to-r from-blue-500 to-blue-600 text-white shadow-lg"
                 : "bg-white text-gray-400 border-2 border-gray-200"
-            }`}
+              }`}
           >
             Ответ пользователю
           </motion.div>

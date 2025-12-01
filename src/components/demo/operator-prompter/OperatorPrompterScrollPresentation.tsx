@@ -15,8 +15,11 @@ export function OperatorPrompterScrollPresentation() {
       ...content.sections[0],
       demoComponent: <OmniChannelChatDemo autoStart={true} />,
       mobileConfig: {
-        scale: 0.95,
+        // scale: 0.95,
+        noScale: true,
         marginBottom: "",
+        height: 'h-[80vh]',
+        className: "shadow-none",
       },
     },
     {
@@ -26,6 +29,7 @@ export function OperatorPrompterScrollPresentation() {
         fullWidth: true,
         noScale: true,
         className: "bg-transparent shadow-none rounded-2xl",
+        height: 'h-[90vh]',
       },
     },
     {

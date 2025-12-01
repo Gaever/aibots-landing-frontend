@@ -211,7 +211,7 @@ export function OmniChannelChatDemo({
           {aiStatus === "ready" && (
             <>
               {/* KNOWLEDGE BASE */}
-              {knowledgeBase.length > 0 && (
+              {/* {knowledgeBase.length > 0 && (
                 <div className="space-y-2">
                   <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide flex items-center gap-2">
                     База знаний
@@ -234,7 +234,7 @@ export function OmniChannelChatDemo({
                     </motion.div>
                   ))}
                 </div>
-              )}
+              )} */}
 
               {/* SUGGESTED RESPONSES */}
               {suggestedResponses.length > 0 && (
