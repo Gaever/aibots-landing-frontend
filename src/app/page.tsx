@@ -29,11 +29,29 @@ export default function Home() {
     const offset = isAnchor ? 0 : window.innerWidth >= 1280 ? 144 : window.innerWidth >= 1024 ? 120 : 88;
 
     const targetTop = Math.max(absoluteTop - offset, 0);
+    const isSmallScreen = window.matchMedia("(max-width: 767px)").matches;
+
+    if (isSmallScreen) {
+      // On mobile: jump instantly to avoid sluggish smooth scrolling
+      window.scrollTo({ top: targetTop, behavior: "auto" });
+      // Single-frame correction after layout settles
+      requestAnimationFrame(() => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const desired = Math.max(window.scrollY + r.top - offset, 0);
+        if (Math.abs(desired - window.scrollY) > 1) {
+          window.scrollTo({ top: desired, behavior: "auto" });
+        }
+      });
+      return;
+    }
+
     window.scrollTo({ top: targetTop, behavior: "smooth" });
 
     // Post-scroll settling correction (handles sticky headers, animations)
     const start = performance.now();
-    const durationMs = 800;
+    const durationMs = 400;
     const correct = () => {
       const now = performance.now();
       const el = document.getElementById(id);
