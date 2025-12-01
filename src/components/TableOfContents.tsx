@@ -60,7 +60,7 @@ export function TableOfContents({ verticals, scrollToSection }: TableOfContentsP
           >
             Наши решения
           </motion.h2>
-          <motion.p
+          {/* <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
@@ -68,7 +68,7 @@ export function TableOfContents({ verticals, scrollToSection }: TableOfContentsP
             className="text-xl text-gray-300 max-w-2xl mx-auto opacity-0"
           >
             Комплексная автоматизация коммуникаций для роста вашего бизнеса
-          </motion.p>
+          </motion.p> */}
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
