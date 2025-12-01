@@ -24,7 +24,7 @@ export function PainPoints({ title, items, growthBlock }: PainPointsProps) {
               className="group p-5 rounded-xl bg-white border border-gray-200 hover:border-red-200 hover:shadow-md transition-all duration-200"
             >
               <div className="flex items-start gap-4">
-                <span className="text-2xl flex-shrink-0">⚠️</span>
+                <span className="text-2xl shrink-0">⚠️</span>
                 <p className="text-base text-gray-700 leading-relaxed">{item}</p>
               </div>
             </div>

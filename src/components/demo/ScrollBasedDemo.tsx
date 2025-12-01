@@ -238,7 +238,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
               </div>
 
               {/* Progress indicator */}
-              <div className="flex items-center gap-2 mt-6 flex-shrink-0 z-50">
+              <div className="flex items-center gap-2 mt-6 shrink-0 z-50">
                 {sections.map((_, index) => (
                   <div
                     key={index}
