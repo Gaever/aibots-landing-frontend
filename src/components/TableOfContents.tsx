@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { MessagesSquare, Star, ShoppingBag, Headphones, Building2, Users, FileText, ShieldCheck, ArrowRight } from "lucide-react";
 
@@ -53,17 +55,17 @@ export function TableOfContents({ verticals, scrollToSection }: TableOfContentsP
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold mb-6 text-white tracking-tight"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-4xl md:text-5xl font-bold mb-6 text-white tracking-tight opacity-0"
           >
             Наши решения
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-gray-300 max-w-2xl mx-auto"
+            className="text-xl text-gray-300 max-w-2xl mx-auto opacity-0"
           >
             Комплексная автоматизация коммуникаций для роста вашего бизнеса
           </motion.p>
@@ -75,9 +77,9 @@ export function TableOfContents({ verticals, scrollToSection }: TableOfContentsP
               key={vertical.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group relative bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/10 overflow-hidden"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group relative bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl border border-white/10 overflow-hidden opacity-0"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50/50 rounded-full blur-3xl -mr-32 -mt-32 transition-opacity opacity-0 group-hover:opacity-100 duration-700" />
 
