@@ -144,7 +144,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
         <div className="relative py-12 hidden lg:block">
           {/* Sticky header */}
           <div className="sticky top-0 z-20 bg-white pt-4 pb-3 mb-8 w-full px-6 lg:px-12">
-            <div className="flex items-start gap-3 mb-4">
+            <div className="flex items-start gap-3">
               <div className="w-12 h-12 aspect-square rounded-xl bg-linear-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white shrink-0">
                 {headerIcon || (
                   <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -176,29 +176,32 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                 style={{ opacity: sectionOpacities[index] || 0 }}
               >
                 {/* Section number badge */}
-                <div className="flex items-center gap-3 mb-4">
+                {/* <div className="flex items-center gap-3 mb-4">
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-300 ${activeSection === index
-                      ? "bg-linear-to-br from-blue-600 to-purple-600 text-white scale-110"
-                      : "bg-gray-200 text-gray-600"
-                      }`}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-300 ${
+                      activeSection === index
+                        ? "bg-linear-to-br from-blue-600 to-purple-600 text-white scale-110"
+                        : "bg-gray-200 text-gray-600"
+                    }`}
                   >
                     {index + 1}
                   </div>
                   {section.subtitle && (
                     <span
-                      className={`text-sm font-semibold uppercase tracking-wide transition-colors ${activeSection === index ? "text-blue-600" : "text-gray-400"
-                        }`}
+                      className={`text-sm font-semibold uppercase tracking-wide transition-colors ${
+                        activeSection === index ? "text-blue-600" : "text-gray-400"
+                      }`}
                     >
                       {section.subtitle}
                     </span>
                   )}
-                </div>
+                </div> */}
 
                 {/* Section title */}
                 <h3
-                  className={`text-2xl lg:text-3xl font-bold mb-6 transition-colors ${activeSection === index ? "text-gray-900" : "text-gray-500"
-                    }`}
+                  className={`text-2xl lg:text-3xl font-bold mb-6 transition-colors ${
+                    activeSection === index ? "text-gray-900" : "text-gray-500"
+                  }`}
                 >
                   {section.title}
                 </h3>
@@ -208,8 +211,9 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                   {section.description.map((paragraph, idx) => (
                     <p
                       key={idx}
-                      className={`text-base leading-relaxed transition-colors ${activeSection === index ? "text-gray-700" : "text-gray-400"
-                        }`}
+                      className={`text-base leading-relaxed transition-colors ${
+                        activeSection === index ? "text-gray-700" : "text-gray-400"
+                      }`}
                     >
                       {paragraph}
                     </p>
@@ -222,8 +226,9 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                     {section.highlights.map((highlight, idx) => (
                       <div
                         key={idx}
-                        className={`flex items-start gap-3 transition-all duration-300 ${activeSection === index ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
-                          }`}
+                        className={`flex items-start gap-3 transition-all duration-300 ${
+                          activeSection === index ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                        }`}
                         style={{ transitionDelay: `${idx * 100}ms` }}
                       >
                         <div className="w-6 h-6 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
@@ -271,8 +276,9 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                 {sections.map((_, index) => (
                   <div
                     key={index}
-                    className={`h-2 rounded-full transition-all duration-300 ${index === activeSection ? "w-12 bg-black" : "w-2 bg-gray-400"
-                      }`}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      index === activeSection ? "w-12 bg-black" : "w-2 bg-gray-400"
+                    }`}
                   />
                 ))}
               </div>
@@ -343,16 +349,18 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
 
               {/* Scaled demo component - moved after text */}
               <div
-                className={`overflow-hidden ${section.mobileConfig?.fullWidth ? "rounded-none" : "rounded-xl"
-                  } bg-white shadow-lg ${section.mobileConfig?.noScale ? "" : section.mobileConfig?.marginBottom || ""} ${section.mobileConfig?.className || ""
-                  } ${section.mobileConfig?.height || ""}`}
+                className={`overflow-hidden ${
+                  section.mobileConfig?.fullWidth ? "rounded-none" : "rounded-xl"
+                } bg-white shadow-lg ${section.mobileConfig?.noScale ? "" : section.mobileConfig?.marginBottom || ""} ${
+                  section.mobileConfig?.className || ""
+                } ${section.mobileConfig?.height || ""}`}
                 style={
                   section.mobileConfig?.noScale
                     ? {}
                     : {
-                      transform: `scale(${section.mobileConfig?.scale || 0.9})`,
-                      transformOrigin: "top center",
-                    }
+                        transform: `scale(${section.mobileConfig?.scale || 0.9})`,
+                        transformOrigin: "top center",
+                      }
                 }
               >
                 <MobileDemoItem>{section.demoComponent}</MobileDemoItem>
