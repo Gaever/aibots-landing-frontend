@@ -57,7 +57,7 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
     <AmoCRMFrame>
       <div className="flex-1 p-4 overflow-hidden md:overflow-x-auto flex gap-4 h-full overscroll-none">
         {/* Column: New Leads */}
-        <div className="w-64 flex-shrink-0 flex flex-col gap-3 h-full">
+        <div className="w-64 shrink-0 flex flex-col gap-3 h-full">
           <div className="font-bold text-gray-500 uppercase text-xs mb-1 flex justify-between">
             <span>{content.columns.leads}</span>
             <span className="bg-gray-200 px-1.5 rounded-full text-gray-600">
@@ -97,7 +97,7 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
         </div>
 
         {/* Column: In Progress */}
-        <div className="w-64 flex-shrink-0 flex flex-col gap-3 opacity-60 h-full">
+        <div className="w-64 shrink-0 flex flex-col gap-3 opacity-60 h-full">
           <div className="font-bold text-gray-500 uppercase text-xs mb-1">
             {content.columns.negotiations}
           </div>

@@ -97,7 +97,7 @@ export function ContactForm({
                   value={formData.name}
                   onChange={handleChange}
                   placeholder={placeholders.name}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none text-gray-900 placeholder-gray-400 transition-all"
+                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none text-gray-900 placeholder-gray-400 transition-all"
                   required
                 />
               </div>
@@ -207,7 +207,7 @@ export function ContactForm({
           </div>
         </form>
 
-        <div className="mt-12 text-center p-8 rounded-xl bg-gray-50 border border-gray-200">
+        <div className="mt-12 text-center p-8 rounded-xl bg-white border border-gray-200">
           <p className="text-gray-600 mb-2 text-base font-light">{stillDoubting}</p>
           <p className="text-lg text-gray-900 font-semibold">{demoText}</p>
         </div>

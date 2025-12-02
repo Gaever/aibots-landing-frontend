@@ -179,8 +179,8 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                 <div className="flex items-center gap-3 mb-4">
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-300 ${activeSection === index
-                        ? "bg-linear-to-br from-blue-600 to-purple-600 text-white scale-110"
-                        : "bg-gray-200 text-gray-600"
+                      ? "bg-linear-to-br from-blue-600 to-purple-600 text-white scale-110"
+                      : "bg-gray-200 text-gray-600"
                       }`}
                   >
                     {index + 1}
@@ -282,7 +282,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
       </div>
 
       {/* Mobile demo - shown with scaled demo and condensed text */}
-      <div className="lg:hidden bg-gray-50">
+      <div className="lg:hidden bg-white">
         {/* Mobile header */}
         <div className="sticky top-0 z-30 bg-white border-b border-gray-100 px-4 py-3 mb-6 shadow-xs transition-all duration-200">
           <div className="flex items-start gap-3">

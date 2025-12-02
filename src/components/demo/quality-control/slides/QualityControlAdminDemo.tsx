@@ -17,7 +17,7 @@ export function QualityControlAdminDemo({ autoStart = false }: { autoStart?: boo
   return (
     <div className="w-full max-w-4xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200 font-sans flex h-[600px]">
       {/* Sidebar (AmoCRM style) */}
-      <div className="w-12 bg-[#2c3e50] flex flex-col items-center py-4 gap-4 flex-shrink-0">
+      <div className="w-12 bg-[#2c3e50] flex flex-col items-center py-4 gap-4 shrink-0">
         <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xs">
           A
         </div>
@@ -27,9 +27,9 @@ export function QualityControlAdminDemo({ autoStart = false }: { autoStart?: boo
       </div>
 
       {/* Main Content: Chat Analysis */}
-      <div className="flex-1 flex flex-col bg-gray-50 overflow-hidden">
+      <div className="flex-1 flex flex-col bg-white overflow-hidden">
         {/* Header */}
-        <div className="h-14 bg-white border-b border-gray-200 flex justify-between items-center px-6 flex-shrink-0">
+        <div className="h-14 bg-white border-b border-gray-200 flex justify-between items-center px-6 shrink-0">
           <div>
             <h3 className="font-bold text-gray-800 text-sm">Сделка #4821</h3>
             <p className="text-xs text-gray-500">Ответственный: Игорь М.</p>

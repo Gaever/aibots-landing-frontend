@@ -15,7 +15,7 @@ export function FAQ({ items }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="relative px-4 py-20 bg-gray-50">
+    <section className="relative px-4 py-20 bg-white">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
@@ -37,9 +37,8 @@ export function FAQ({ items }: FAQProps) {
                   {item.question}
                 </span>
                 <svg
-                  className={`w-5 h-5 text-gray-500 transition-transform duration-200 flex-shrink-0 ${
-                    openIndex === idx ? "rotate-180" : ""
-                  }`}
+                  className={`w-5 h-5 text-gray-500 transition-transform duration-200 shrink-0 ${openIndex === idx ? "rotate-180" : ""
+                    }`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -47,11 +46,10 @@ export function FAQ({ items }: FAQProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              
+
               <div
-                className={`transition-all duration-200 overflow-hidden ${
-                  openIndex === idx ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                }`}
+                className={`transition-all duration-200 overflow-hidden ${openIndex === idx ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                  }`}
               >
                 <div className="px-6 pb-6">
                   <p className="text-sm text-gray-600 leading-relaxed font-light">{item.answer}</p>

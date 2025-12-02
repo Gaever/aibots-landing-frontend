@@ -100,7 +100,7 @@ export function StoreChatDemo({ autoStart = false }: { autoStart?: boolean }) {
               <p className="text-sm leading-relaxed">{msg.text}</p>
 
               {msg.type === "product" && msg.product && (
-                <div className="mt-3 p-3 bg-gray-50 rounded-xl border border-gray-100 flex flex-col gap-2">
+                <div className="mt-3 p-3 bg-white rounded-xl border border-gray-100 flex flex-col gap-2">
                   <div className="flex gap-3 items-center">
                     <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-2xl shadow-sm">
                       {msg.product.image}

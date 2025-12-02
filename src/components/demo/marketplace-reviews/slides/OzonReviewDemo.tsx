@@ -25,7 +25,7 @@ export function OzonReviewDemo() {
 
       {/* Product Info */}
       <div className="p-4 border-b border-gray-100 flex gap-3">
-        <div className="w-16 h-16 bg-gray-200 rounded-md flex-shrink-0 flex items-center justify-center text-gray-400 text-xs">
+        <div className="w-16 h-16 bg-gray-200 rounded-md shrink-0 flex items-center justify-center text-gray-400 text-xs">
           Фото
         </div>
         <div>

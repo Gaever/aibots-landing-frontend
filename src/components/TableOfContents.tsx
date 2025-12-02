@@ -98,10 +98,10 @@ export function TableOfContents({ verticals, scrollToSection }: TableOfContentsP
                     <button
                       key={product.id}
                       onClick={() => scrollToSection(product.id)}
-                      className="w-full flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-indigo-50/80 border border-transparent hover:border-indigo-100 transition-all duration-300 group/item text-left cursor-pointer"
+                      className="w-full flex items-center justify-between p-4 rounded-2xl bg-white hover:bg-indigo-50/80 border border-transparent hover:border-indigo-100 transition-all duration-300 group/item text-left cursor-pointer"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-gray-400 group-hover/item:text-indigo-600 group-hover/item:scale-110 transition-all duration-300">
+                        <div className="w-10 h-10 shrink-0 rounded-xl bg-white shadow-sm flex items-center justify-center text-gray-400 group-hover/item:text-indigo-600 group-hover/item:scale-110 transition-all duration-300">
                           {productIcons[product.id] ?? product.icon}
                         </div>
                         <span className="font-semibold text-gray-700 group-hover/item:text-gray-900">

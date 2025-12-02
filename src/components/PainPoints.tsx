@@ -11,7 +11,7 @@ interface PainPointsProps {
 
 export function PainPoints({ title, items, growthBlock }: PainPointsProps) {
   return (
-    <section className="relative px-4 py-10 bg-gray-50">
+    <section className="relative px-4 py-10 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">{title}</h2>
