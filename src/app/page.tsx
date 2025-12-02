@@ -1,22 +1,19 @@
 "use client";
 
 import { ContactForm } from "@/components/ContactForm";
+import { ConsultantBotScrollPresentation } from "@/components/demo/consultant-bot/ConsultantBotScrollPresentation";
+import { DocumentBotScrollPresentation } from "@/components/demo/document-bot/DocumentBotScrollPresentation";
+import { HrBotScrollPresentation } from "@/components/demo/hr-bot/HrBotScrollPresentation";
+import { InternalAssistantScrollPresentation } from "@/components/demo/internal-assistant/InternalAssistantScrollPresentation";
+import { MarketplaceReviewsScrollPresentation } from "@/components/demo/marketplace-reviews/MarketplaceReviewsScrollPresentation";
+import { MessengerAutoreviewScrollPresentation } from "@/components/demo/messenger-autoresponse/MessengerAutoreviewScrollPresentation";
+import { OperatorPrompterScrollPresentation } from "@/components/demo/operator-prompter/OperatorPrompterScrollPresentation";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { PainPoints } from "@/components/PainPoints";
-import { ProductsVerticals } from "@/components/ProductsVerticals";
 import { TableOfContents } from "@/components/TableOfContents";
 import { landingContent } from "./landingContent";
-import { MessengerAutoreviewScrollPresentation } from "@/components/demo/messenger-autoresponse/MessengerAutoreviewScrollPresentation";
-import { InternalAssistantScrollPresentation } from "@/components/demo/internal-assistant/InternalAssistantScrollPresentation";
-import { MarketplaceReviewsScrollPresentation } from "@/components/demo/marketplace-reviews/MarketplaceReviewsScrollPresentation";
-import { ConsultantBotScrollPresentation } from "@/components/demo/consultant-bot/ConsultantBotScrollPresentation";
-import { OperatorPrompterScrollPresentation } from "@/components/demo/operator-prompter/OperatorPrompterScrollPresentation";
-import { HrBotScrollPresentation } from "@/components/demo/hr-bot/HrBotScrollPresentation";
-import { DocumentBotScrollPresentation } from "@/components/demo/document-bot/DocumentBotScrollPresentation";
-import { QualityControlScrollPresentation } from "@/components/demo/quality-control/QualityControlScrollPresentation";
-// import { OperatorPrompterScrollPresentation } from "@/components/demo/operator-prompter/OperatorPrompterScrollPresentation";
 
 export default function Home() {
   const scrollToSection = (id: string) => {
@@ -102,9 +99,7 @@ export default function Home() {
       <DocumentBotScrollPresentation />
 
       <div id="quality-control" className="toc-anchor h-0" />
-      {/* <QualityControlScrollPresentation /> */}
 
-      {/* <ProductsVerticals verticals={landingContent.verticals} /> */}
 
       <FAQ items={landingContent.faqItems} />
 
