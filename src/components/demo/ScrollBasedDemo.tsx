@@ -284,7 +284,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
       {/* Mobile demo - shown with scaled demo and condensed text */}
       <div className="lg:hidden bg-white">
         {/* Mobile header */}
-        <div className="sticky top-0 z-30 bg-white border-b border-gray-100 px-4 py-3 mb-6 shadow-xs transition-all duration-200">
+        <div className="sticky top-0 z-30 bg-white px-4 py-3 mb-6 transition-all duration-200">
           <div className="flex items-start gap-3">
             <div className="hidden w-10 h-10 aspect-square rounded-xl bg-linear-to-br from-blue-600 to-purple-600 items-center justify-center text-white shrink-0">
               {headerIcon || (

@@ -255,24 +255,27 @@ export function OmniChannelChatDemo({
                       transition={{
                         delay: 0.6 + idx * 0.15,
                       }}
-                      className={`w-full text-left bg-linear-to-br from-indigo-50 to-purple-50 border rounded-lg p-3 relative ${clickedButton === response.id
+                      className={`w-full text-left bg-linear-to-br from-indigo-50 to-purple-50 border rounded-lg p-3 relative overflow-hidden ${clickedButton === response.id
                         ? "border-indigo-500 ring-2 ring-indigo-300"
                         : "border-indigo-200"
                         }`}
                     >
                       {clickedButton === response.id && (
                         <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: [0, 1.5, 0] }}
-                          transition={{ duration: 0.6 }}
-                          className="absolute inset-0 bg-indigo-300 rounded-lg opacity-30"
+                          initial={{ scale: 0, opacity: 0.6 }}
+                          animate={{
+                            scale: [0, 2.5],
+                            opacity: [0.6, 0]
+                          }}
+                          transition={{ duration: 0.8, ease: "easeOut" }}
+                          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-indigo-400"
                         />
                       )}
 
-                      <div className="text-[10px] font-semibold text-indigo-600 uppercase tracking-wide mb-1">
+                      <div className="text-[10px] font-semibold text-indigo-600 uppercase tracking-wide mb-1 relative z-10">
                         {response.category}
                       </div>
-                      <div className="text-xs text-gray-700">
+                      <div className="text-xs text-gray-700 relative z-10">
                         {response.text}
                       </div>
                     </motion.button>
