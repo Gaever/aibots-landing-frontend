@@ -23,7 +23,7 @@ export function QualityControlScrollPresentation() {
       demoComponent: <QualityControlAdminDemo autoStart={true} />,
       mobileConfig: {
         noScale: true,
-        className: 'my-16 shadow-none',
+        className: 'my-16',
         height: 'h-[40rem]',
       },
     },

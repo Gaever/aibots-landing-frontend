@@ -29,7 +29,7 @@ export function OperatorPrompterScrollPresentation() {
         fullWidth: true,
         noScale: true,
         className: "bg-transparent shadow-none rounded-2xl",
-        height: 'h-[50rem]',
+        height: 'h-[45rem]',
       },
     },
     {

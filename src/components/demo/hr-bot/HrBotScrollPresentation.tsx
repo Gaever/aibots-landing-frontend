@@ -22,6 +22,9 @@ export function HrBotScrollPresentation() {
     {
       ...content.sections[1],
       demoComponent: <HuntflowCrmDemo autoStart={true} />,
+      mobileConfig: {
+        height: 'h-[25rem]',
+      },
     },
     {
       ...content.sections[2],

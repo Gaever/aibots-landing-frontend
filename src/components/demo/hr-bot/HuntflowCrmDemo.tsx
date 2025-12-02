@@ -34,7 +34,12 @@ export function HuntflowCrmDemo({ autoStart = false }: { autoStart?: boolean }) 
   }, [autoStart]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-2xl overflow-hidden font-sans text-sm flex h-[400px]">
+    <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-2xl overflow-hidden font-sans text-sm flex flex-col sm:flex-row h-[400px]">
+      {/* Mobile Header */}
+      <div className="bg-[#2c2d32] text-white p-4 font-bold text-lg sm:hidden shrink-0">
+        Хантфлоу
+      </div>
+
       {/* Sidebar (Dark) */}
       <div className="w-64 bg-[#2c2d32] text-[#9a9b9d] flex-col shrink-0 hidden sm:flex">
         <div className="p-4 text-white font-bold text-lg border-b border-gray-700">Хантфлоу</div>
