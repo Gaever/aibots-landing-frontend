@@ -18,7 +18,7 @@ export function BadConsultationDemo({ autoStart = false }: { autoStart?: boolean
   useEffect(() => {
     if (!autoStart) return;
 
-    // Start from index 1 since index 0 is already shown
+    // Start from index 1 (the second client message)
     let currentIndex = 1;
     let timeoutId: NodeJS.Timeout;
 
@@ -58,8 +58,8 @@ export function BadConsultationDemo({ autoStart = false }: { autoStart?: boolean
       }
     };
 
-    // Initial delay before the second message sequence starts
-    timeoutId = setTimeout(playNextMessage, 1000);
+    // Delay before the client asks the second question (simulating impatience)
+    timeoutId = setTimeout(playNextMessage, 1500);
 
     return () => clearTimeout(timeoutId);
   }, [autoStart]);

@@ -18,7 +18,7 @@ export function OperatorPrompterScrollPresentation() {
         // scale: 0.95,
         noScale: true,
         marginBottom: "",
-        height: 'h-[80vh]',
+        height: 'h-[40rem]',
         className: "shadow-none",
       },
     },
@@ -29,7 +29,7 @@ export function OperatorPrompterScrollPresentation() {
         fullWidth: true,
         noScale: true,
         className: "bg-transparent shadow-none rounded-2xl",
-        height: 'h-[90vh]',
+        height: 'h-[50rem]',
       },
     },
     {

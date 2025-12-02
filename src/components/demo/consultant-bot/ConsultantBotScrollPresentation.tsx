@@ -14,10 +14,19 @@ export function ConsultantBotScrollPresentation() {
     {
       ...content.sections[0],
       demoComponent: <StoreChatDemo autoStart={true} />,
+      mobileConfig: {
+        height: 'h-[40rem]',
+        className: 'shadow-none',
+      },
     },
     {
       ...content.sections[1],
       demoComponent: <OperatorChatDemo autoStart={true} />,
+      mobileConfig: {
+        height: 'h-[40rem]',
+        className: 'shadow-none'
+
+      },
     },
     {
       ...content.sections[2],

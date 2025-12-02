@@ -25,7 +25,7 @@ export function MessengerAutoreviewScrollPresentation() {
       mobileConfig: {
         noScale: true, // amoCRM demo displays well at full size on mobile
         className: 'my-16',
-        height: 'h-[50vh]',
+        height: 'h-[25rem]',
       },
     },
     {

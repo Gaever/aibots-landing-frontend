@@ -16,23 +16,29 @@ export function MarketplaceReviewsScrollPresentation() {
     {
       ...content.sections[0],
       demoComponent: <OzonReviewDemo />,
+      mobileConfig: {
+        height: 'h-[40rem]',
+      },
     },
     {
       ...content.sections[1],
       demoComponent: <ReviewProcessingFlowDemo />,
+      mobileConfig: {
+        height: 'h-[35rem]',
+      },
     },
     {
       ...content.sections[2],
       demoComponent: <AmoCRMReviewNotificationDemo />,
       mobileConfig: {
-        height: 'h-[60vh]',
+        height: 'h-[30rem]',
       },
     },
     {
       ...content.sections[3],
       demoComponent: <BotReviewResolutionDemo />,
       mobileConfig: {
-        height: 'h-[80vh]',
+        height: 'h-[40rem]',
       },
     },
     {

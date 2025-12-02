@@ -47,9 +47,9 @@ export function QualityControlAdminDemo({ autoStart = false }: { autoStart?: boo
                 {msg.text}
               </div>
 
-              {/* Tags/Annotations */}
+              {/* Tags/Annotations - Explicitly shown under messages */}
               {msg.tags && (
-                <div className="flex flex-wrap gap-1.5 opacity-0 animate-fade-in" style={{ animationDelay: `${idx * 0.2}s`, animationFillMode: 'forwards' }}>
+                <div className="flex flex-wrap gap-1.5 animate-fade-in mt-1" style={{ animationDelay: `${idx * 0.2}s`, animationFillMode: 'forwards' }}>
                   {msg.tags.map((tag, tIdx) => (
                     <span
                       key={tIdx}
