@@ -2,9 +2,17 @@
 
 import { landingContent } from "@/app/landingContent";
 import { AlertTriangle } from "lucide-react";
+import { useRef, useEffect } from "react";
 
 export function QualityControlAdminDemo({ autoStart = false }: { autoStart?: boolean }) {
   const { chatAnalysis } = landingContent.qualityControlPresentation.demo;
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, []);
 
   return (
     <div className="w-full max-w-4xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200 font-sans flex h-[600px]">
@@ -35,13 +43,13 @@ export function QualityControlAdminDemo({ autoStart = false }: { autoStart?: boo
         </div>
 
         {/* Chat Area */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4">
           {chatAnalysis.messages.map((msg, idx) => (
             <div key={idx} className={`flex flex-col ${msg.role === "client" ? "items-end" : "items-start"}`}>
               <div
                 className={`max-w-[85%] p-3.5 rounded-2xl text-sm mb-1 leading-relaxed shadow-sm ${msg.role === "client"
-                    ? "bg-[#ebf3ff] text-gray-800 rounded-tr-none" // AmoCRM client style (light blueish)
-                    : "bg-white border border-gray-200 text-gray-800 rounded-tl-none"
+                  ? "bg-[#ebf3ff] text-gray-800 rounded-tr-none" // AmoCRM client style (light blueish)
+                  : "bg-white border border-gray-200 text-gray-800 rounded-tl-none"
                   }`}
               >
                 {msg.text}
@@ -54,10 +62,10 @@ export function QualityControlAdminDemo({ autoStart = false }: { autoStart?: boo
                     <span
                       key={tIdx}
                       className={`text-[10px] px-2 py-0.5 rounded-md border font-medium flex items-center gap-1 ${tag.includes("Негатив") || tag.includes("Грубость") || tag.includes("Критическая")
-                          ? "bg-red-50 text-red-600 border-red-100"
-                          : tag.includes("Сухой") || tag.includes("Нет")
-                            ? "bg-orange-50 text-orange-600 border-orange-100"
-                            : "bg-gray-100 text-gray-500 border-gray-200"
+                        ? "bg-red-50 text-red-600 border-red-100"
+                        : tag.includes("Сухой") || tag.includes("Нет")
+                          ? "bg-orange-50 text-orange-600 border-orange-100"
+                          : "bg-gray-100 text-gray-500 border-gray-200"
                         }`}
                     >
                       {tag.includes("Критическая") && <AlertTriangle className="w-3 h-3" />}
