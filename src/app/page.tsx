@@ -7,6 +7,7 @@ import { HrBotScrollPresentation } from "@/components/demo/hr-bot/HrBotScrollPre
 import { InternalAssistantScrollPresentation } from "@/components/demo/internal-assistant/InternalAssistantScrollPresentation";
 import { MarketplaceReviewsScrollPresentation } from "@/components/demo/marketplace-reviews/MarketplaceReviewsScrollPresentation";
 import { MessengerAutoreviewScrollPresentation } from "@/components/demo/messenger-autoresponse/MessengerAutoreviewScrollPresentation";
+import { QualityControlScrollPresentation } from "@/components/demo/quality-control/QualityControlScrollPresentation";
 import { OperatorPrompterScrollPresentation } from "@/components/demo/operator-prompter/OperatorPrompterScrollPresentation";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
@@ -99,6 +100,7 @@ export default function Home() {
       <DocumentBotScrollPresentation />
 
       <div id="quality-control" className="toc-anchor h-0" />
+      <QualityControlScrollPresentation />
 
 
       <FAQ items={landingContent.faqItems} />
