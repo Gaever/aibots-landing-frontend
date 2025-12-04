@@ -123,6 +123,7 @@
   animation: orbit-reverse 15s linear infinite;
 }
 /* ===== ADD THIS TO YOUR global.css ===== */
+/* ===== ADD THIS TO YOUR global.css ===== */
 
 @keyframes text-shimmer {
   0% {
@@ -136,63 +137,63 @@
   }
 }
 
-/* Анимации для 3D слоёв-веера */
+/* Анимации для слоёв-веера (аксонометрия задаётся на контейнере) */
 @keyframes layer-drift-1 {
   0%,
   100% {
-    transform: translateZ(-60px) rotateY(-12deg) rotateX(8deg) rotate(-12deg);
+    transform: translateZ(-60px) rotate(-12deg);
   }
   50% {
-    transform: translateZ(-60px) rotateY(-8deg) rotateX(12deg) rotate(-10deg) translateX(8px);
+    transform: translateZ(-55px) rotate(-10deg) translateX(6px) translateY(-4px);
   }
 }
 
 @keyframes layer-drift-2 {
   0%,
   100% {
-    transform: translateZ(-30px) rotateY(-8deg) rotateX(5deg) rotate(-8deg);
+    transform: translateZ(-30px) rotate(-8deg);
   }
   50% {
-    transform: translateZ(-30px) rotateY(-4deg) rotateX(9deg) rotate(-5deg) translateX(5px) translateY(-5px);
+    transform: translateZ(-25px) rotate(-5deg) translateX(4px) translateY(-6px);
   }
 }
 
 @keyframes layer-drift-3 {
   0%,
   100% {
-    transform: translateZ(0px) rotateY(-2deg) rotateX(2deg) rotate(-3deg);
+    transform: translateZ(0px) rotate(-3deg);
   }
   50% {
-    transform: translateZ(0px) rotateY(3deg) rotateX(6deg) rotate(0deg) translateY(-8px);
+    transform: translateZ(5px) rotate(0deg) translateY(-8px);
   }
 }
 
 @keyframes layer-drift-4 {
   0%,
   100% {
-    transform: translateZ(30px) rotateY(4deg) rotateX(-2deg) rotate(3deg);
+    transform: translateZ(30px) rotate(3deg);
   }
   50% {
-    transform: translateZ(30px) rotateY(9deg) rotateX(3deg) rotate(6deg) translateX(-6px) translateY(-6px);
+    transform: translateZ(38px) rotate(6deg) translateX(-5px) translateY(-7px);
   }
 }
 
 @keyframes layer-drift-5 {
   0%,
   100% {
-    transform: translateZ(60px) rotateY(8deg) rotateX(-5deg) rotate(8deg);
+    transform: translateZ(60px) rotate(8deg);
   }
   50% {
-    transform: translateZ(60px) rotateY(14deg) rotateX(0deg) rotate(12deg) translateX(-8px) translateY(-8px);
+    transform: translateZ(70px) rotate(11deg) translateX(-7px) translateY(-9px);
   }
 }
 
 @keyframes layer-drift-6 {
   0%,
   100% {
-    transform: translateZ(90px) rotateY(12deg) rotateX(-8deg) rotate(12deg);
+    transform: translateZ(90px) rotate(12deg);
   }
   50% {
-    transform: translateZ(90px) rotateY(18deg) rotateX(-2deg) rotate(16deg) translateX(-10px) translateY(-10px);
+    transform: translateZ(100px) rotate(15deg) translateX(-9px) translateY(-11px);
   }
 }

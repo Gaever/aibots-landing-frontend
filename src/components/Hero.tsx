@@ -194,21 +194,22 @@ export function Hero({ title, subtitle }: HeroProps) {
   );
 }
 
-// Glass Leaf Layers - веер слоёв с 3D эффектом и движением
+// Glass Leaf Layers - веер слоёв с 3D эффектом, аксонометрический вид
 function GlassLeafLayers() {
   return (
     <div
       className="relative w-[420px] h-[420px]"
       style={{
         perspective: "1200px",
-        perspectiveOrigin: "50% 50%",
+        perspectiveOrigin: "50% 30%", // Камера смотрит чуть сверху
       }}
     >
-      {/* Контейнер с общей анимацией */}
+      {/* Контейнер со сценой - наклон в аксонометрию */}
       <div
         className="relative w-full h-full animate-float-slow"
         style={{
           transformStyle: "preserve-3d",
+          transform: "rotateX(25deg) rotateY(-15deg) rotateZ(5deg)", // Аксонометрический поворот всей сцены
         }}
       >
         {/* Слой 1 - самый дальний, большой, сильный поворот */}
@@ -221,7 +222,7 @@ function GlassLeafLayers() {
             WebkitBackdropFilter: "blur(8px)",
             border: "1px solid rgba(6, 182, 212, 0.2)",
             boxShadow: "0 8px 32px rgba(6, 182, 212, 0.1), inset 0 1px 0 rgba(255,255,255,0.2)",
-            transform: "translateZ(-60px) rotateY(-12deg) rotateX(8deg) rotate(-12deg)",
+            transform: "translateZ(-60px) rotate(-12deg)",
             animation: "layer-drift-1 8s ease-in-out infinite",
           }}
         />
@@ -236,7 +237,7 @@ function GlassLeafLayers() {
             WebkitBackdropFilter: "blur(12px)",
             border: "1px solid rgba(139, 92, 246, 0.25)",
             boxShadow: "0 12px 40px rgba(139, 92, 246, 0.12), inset 0 1px 0 rgba(255,255,255,0.25)",
-            transform: "translateZ(-30px) rotateY(-8deg) rotateX(5deg) rotate(-8deg)",
+            transform: "translateZ(-30px) rotate(-8deg)",
             animation: "layer-drift-2 7s ease-in-out infinite",
           }}
         />
@@ -251,7 +252,7 @@ function GlassLeafLayers() {
             WebkitBackdropFilter: "blur(16px)",
             border: "1px solid rgba(168, 85, 247, 0.3)",
             boxShadow: "0 16px 48px rgba(168, 85, 247, 0.14), inset 0 2px 0 rgba(255,255,255,0.3)",
-            transform: "translateZ(0px) rotateY(-2deg) rotateX(2deg) rotate(-3deg)",
+            transform: "translateZ(0px) rotate(-3deg)",
             animation: "layer-drift-3 6s ease-in-out infinite",
           }}
         />
@@ -266,7 +267,7 @@ function GlassLeafLayers() {
             WebkitBackdropFilter: "blur(20px)",
             border: "1px solid rgba(217, 70, 239, 0.35)",
             boxShadow: "0 20px 56px rgba(217, 70, 239, 0.16), inset 0 2px 0 rgba(255,255,255,0.35)",
-            transform: "translateZ(30px) rotateY(4deg) rotateX(-2deg) rotate(3deg)",
+            transform: "translateZ(30px) rotate(3deg)",
             animation: "layer-drift-4 5s ease-in-out infinite",
           }}
         />
@@ -281,7 +282,7 @@ function GlassLeafLayers() {
             WebkitBackdropFilter: "blur(24px)",
             border: "1px solid rgba(236, 72, 153, 0.4)",
             boxShadow: "0 24px 64px rgba(236, 72, 153, 0.18), inset 0 2px 0 rgba(255,255,255,0.4)",
-            transform: "translateZ(60px) rotateY(8deg) rotateX(-5deg) rotate(8deg)",
+            transform: "translateZ(60px) rotate(8deg)",
             animation: "layer-drift-5 4.5s ease-in-out infinite",
           }}
         />
@@ -296,7 +297,7 @@ function GlassLeafLayers() {
             WebkitBackdropFilter: "blur(24px)",
             border: "1px solid rgba(244, 114, 182, 0.45)",
             boxShadow: "0 28px 72px rgba(244, 114, 182, 0.2), inset 0 2px 0 rgba(255,255,255,0.5)",
-            transform: "translateZ(90px) rotateY(12deg) rotateX(-8deg) rotate(12deg)",
+            transform: "translateZ(90px) rotate(12deg)",
             animation: "layer-drift-6 4s ease-in-out infinite",
           }}
         />
@@ -311,7 +312,7 @@ function GlassLeafLayers() {
             WebkitBackdropFilter: "blur(20px)",
             border: "1px solid rgba(255, 255, 255, 0.4)",
             boxShadow: "inset 0 2px 4px rgba(255,255,255,0.6)",
-            transform: "translateZ(120px) rotateY(15deg) rotateX(-10deg) rotate(15deg)",
+            transform: "translateZ(120px) rotate(15deg)",
             animation: "layer-drift-6 3.5s ease-in-out infinite",
           }}
         />
@@ -319,31 +320,31 @@ function GlassLeafLayers() {
 
       {/* Декоративные плавающие точки вокруг */}
       <div
-        className="absolute top-[8%] left-[12%] w-3 h-3 rounded-full bg-cyan-400/60 animate-pulse"
+        className="absolute top-[5%] left-[15%] w-3 h-3 rounded-full bg-cyan-400/60 animate-pulse"
         style={{ animationDuration: "2s" }}
       />
       <div
-        className="absolute top-[18%] right-[8%] w-2.5 h-2.5 rounded-full bg-purple-400/60 animate-pulse"
+        className="absolute top-[15%] right-[5%] w-2.5 h-2.5 rounded-full bg-purple-400/60 animate-pulse"
         style={{ animationDuration: "2.5s", animationDelay: "0.5s" }}
       />
       <div
-        className="absolute bottom-[22%] left-[8%] w-2.5 h-2.5 rounded-full bg-pink-400/60 animate-pulse"
+        className="absolute bottom-[15%] left-[5%] w-2.5 h-2.5 rounded-full bg-pink-400/60 animate-pulse"
         style={{ animationDuration: "3s", animationDelay: "1s" }}
       />
       <div
-        className="absolute bottom-[12%] right-[12%] w-3 h-3 rounded-full bg-fuchsia-400/60 animate-pulse"
+        className="absolute bottom-[5%] right-[15%] w-3 h-3 rounded-full bg-fuchsia-400/60 animate-pulse"
         style={{ animationDuration: "2.2s", animationDelay: "0.3s" }}
       />
       <div
-        className="absolute top-[45%] right-[3%] w-2 h-2 rounded-full bg-indigo-400/50 animate-pulse"
+        className="absolute top-[50%] right-[0%] w-2 h-2 rounded-full bg-indigo-400/50 animate-pulse"
         style={{ animationDuration: "2.8s", animationDelay: "0.7s" }}
       />
       <div
-        className="absolute bottom-[45%] left-[3%] w-2 h-2 rounded-full bg-cyan-300/50 animate-pulse"
+        className="absolute bottom-[50%] left-[0%] w-2 h-2 rounded-full bg-cyan-300/50 animate-pulse"
         style={{ animationDuration: "2.4s", animationDelay: "1.2s" }}
       />
       <div
-        className="absolute top-[65%] right-[18%] w-1.5 h-1.5 rounded-full bg-violet-400/40 animate-pulse"
+        className="absolute top-[70%] right-[20%] w-1.5 h-1.5 rounded-full bg-violet-400/40 animate-pulse"
         style={{ animationDuration: "2.6s", animationDelay: "0.9s" }}
       />
     </div>
