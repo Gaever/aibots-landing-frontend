@@ -25,18 +25,20 @@ export function TelegramFrame({
     <div className="w-full max-w-[390px] mx-auto">
       {/* Полная имитация мобильного экрана */}
       <div
-        className={`relative bg-[#17212b] ${platform === 'ios' ? 'rounded-[40px]' : 'rounded-[24px]'} overflow-hidden shadow-2xl`}
+        className={`relative bg-[#17212b] ${
+          platform === "ios" ? "rounded-[40px]" : "rounded-[24px]"
+        } overflow-hidden shadow-2xl`}
         style={{ aspectRatio: "390/844" }}
       >
         {/* Dynamic Island / Camera */}
-        {platform === 'ios' ? (
+        {platform === "ios" ? (
           <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-[120px] h-[37px] bg-black rounded-[20px] z-50" />
         ) : (
           <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black rounded-full z-50" />
         )}
 
         {/* Status bar */}
-        {platform === 'ios' ? (
+        {platform === "ios" ? (
           <div className="absolute top-0 left-0 right-0 h-11 bg-[#17212b] flex items-center justify-between px-6 pt-2 z-40">
             <span className="text-white text-sm font-semibold">9:41</span>
             <div className="flex items-center gap-1">
@@ -79,10 +81,14 @@ export function TelegramFrame({
         )}
 
         {/* Telegram Header */}
-        <div className={`absolute ${platform === 'ios' ? 'top-11' : 'top-8'} left-0 right-0 bg-[#17212b] px-4 py-2.5 flex items-center gap-3 z-30`}>
+        <div
+          className={`absolute ${
+            platform === "ios" ? "top-11" : "top-8"
+          } left-0 right-0 bg-[#17212b] px-4 py-2.5 flex items-center gap-3 z-30`}
+        >
           {/* Back button */}
           <button className="text-[#8BBEF6] flex items-center -ml-1">
-            {platform === 'ios' ? (
+            {platform === "ios" ? (
               <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 18l-6-6 6-6" />
               </svg>
@@ -118,8 +124,8 @@ export function TelegramFrame({
         <div
           className="absolute left-0 right-0 bg-[#0E1621] overflow-y-auto px-3 pt-4 pb-8"
           style={{
-            top: platform === 'ios' ? "105px" : "92px",
-            bottom: showInput ? (platform === 'ios' ? "60px" : "100px") : (platform === 'ios' ? "6px" : "54px"),
+            top: platform === "ios" ? "105px" : "92px",
+            bottom: showInput ? (platform === "ios" ? "60px" : "100px") : platform === "ios" ? "6px" : "54px",
           }}
         >
           {/* Background pattern */}
@@ -136,7 +142,11 @@ export function TelegramFrame({
 
         {/* Input Area */}
         {showInput && (
-          <div className={`absolute ${platform === 'ios' ? 'bottom-6' : 'bottom-12'} left-0 right-0 bg-[#17212b] px-2 py-2 flex items-center gap-2`}>
+          <div
+            className={`absolute ${
+              platform === "ios" ? "bottom-6" : "bottom-12"
+            } left-0 right-0 bg-[#17212b] px-2 py-2 flex items-center gap-2`}
+          >
             <button className="w-9 h-9 flex items-center justify-center text-[#8E8E93]">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -162,18 +172,18 @@ export function TelegramFrame({
         )}
 
         {/* Home indicator / Navigation */}
-        {platform === 'ios' ? (
+        {platform === "ios" ? (
           <div className="absolute bottom-1.5 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white/30 rounded-full" />
         ) : (
           <div className="absolute bottom-0 left-0 right-0 h-12 bg-[#17212b] flex items-center justify-around px-12 z-50 border-t border-white/10">
             {/* Back (Triangle) */}
-            <svg className="w-5 h-5 text-white/50 transform -rotate-90" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="w-5 h-5 text-gray-500 transform -rotate-90" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2L22 19H2L12 2Z" />
             </svg>
             {/* Home (Circle) */}
-            <div className="w-4 h-4 rounded-full border-2 border-white/60" />
+            <div className="w-4 h-4 rounded-full bg-gray-500" />
             {/* Recent (Square) */}
-            <div className="w-4 h-4 border-2 border-white/60 rounded-[2px]" />
+            <div className="w-4 h-4 bg-gray-500 rounded-[2px]" />
           </div>
         )}
       </div>

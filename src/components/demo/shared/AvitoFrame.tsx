@@ -41,11 +41,13 @@ export function AvitoFrame({
     <div className="w-full max-w-[390px] mx-auto">
       {/* Полная имитация мобильного экрана */}
       <div
-        className={`relative bg-white ${platform === 'ios' ? 'rounded-[40px]' : 'rounded-[24px]'} overflow-hidden shadow-2xl font-sans`}
+        className={`relative bg-white ${
+          platform === "ios" ? "rounded-[40px]" : "rounded-[24px]"
+        } overflow-hidden shadow-2xl font-sans`}
         style={{ aspectRatio: "390/844" }}
       >
         {/* Dynamic Island / Camera */}
-        {platform === 'ios' ? (
+        {platform === "ios" ? (
           <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-[120px] h-[37px] bg-black rounded-[20px] z-50" />
         ) : (
           <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black rounded-full z-50" />
@@ -53,7 +55,7 @@ export function AvitoFrame({
 
         {/* Status bar */}
         {/* Status bar */}
-        {platform === 'ios' ? (
+        {platform === "ios" ? (
           <div className="absolute top-0 left-0 right-0 h-11 bg-white flex items-center justify-between px-6 pt-2 z-40">
             <span className="text-black text-sm font-semibold">9:41</span>
             <div className="flex items-center gap-1">
@@ -96,11 +98,15 @@ export function AvitoFrame({
         )}
 
         {/* Avito Header */}
-        <div className={`absolute ${platform === 'ios' ? 'top-11' : 'top-8'} left-0 right-0 bg-white px-4 py-2 flex items-center gap-3 z-30 border-b border-gray-100`}>
+        <div
+          className={`absolute ${
+            platform === "ios" ? "top-11" : "top-8"
+          } left-0 right-0 bg-white px-4 py-2 flex items-center gap-3 z-30 border-b border-gray-100`}
+        >
           {/* Back button */}
           {/* Back button */}
           <button className="text-black -ml-1">
-            {platform === 'ios' ? (
+            {platform === "ios" ? (
               <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
@@ -117,16 +123,12 @@ export function AvitoFrame({
               {avatar ? (
                 <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
-                  Logo
-                </div>
+                <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">Logo</div>
               )}
             </div>
             <div className="flex-1 overflow-hidden">
               <div className="flex items-center gap-1">
-                <div className="text-black font-bold text-[15px] truncate leading-tight">
-                  {title}
-                </div>
+                <div className="text-black font-bold text-[15px] truncate leading-tight">{title}</div>
                 <div className="flex items-center gap-0.5 shrink-0">
                   <svg className="w-3 h-3 text-amber-400 fill-current" viewBox="0 0 24 24">
                     <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
@@ -134,16 +136,18 @@ export function AvitoFrame({
                   <span className="text-black font-semibold text-xs">{rating}</span>
                 </div>
               </div>
-              <div className="text-gray-500 text-xs truncate leading-tight">
-                {subtitle}
-              </div>
+              <div className="text-gray-500 text-xs truncate leading-tight">{subtitle}</div>
             </div>
           </div>
 
           {/* Phone button */}
           <button className="text-black -mr-1">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
             </svg>
           </button>
         </div>
@@ -153,8 +157,8 @@ export function AvitoFrame({
           ref={scrollContainerRef}
           className="absolute left-0 right-0 bg-white overflow-y-auto px-4 pt-4 pb-8"
           style={{
-            top: platform === 'ios' ? "105px" : "92px",
-            bottom: showInput ? (platform === 'ios' ? "70px" : "110px") : (platform === 'ios' ? "6px" : "54px"),
+            top: platform === "ios" ? "105px" : "92px",
+            bottom: showInput ? (platform === "ios" ? "70px" : "110px") : platform === "ios" ? "6px" : "54px",
           }}
         >
           <div className="relative h-full flex flex-col justify-end min-h-0">
@@ -165,17 +169,25 @@ export function AvitoFrame({
 
         {/* Input Area */}
         {showInput && (
-          <div className={`absolute ${platform === 'ios' ? 'bottom-6' : 'bottom-12'} left-0 right-0 bg-white px-3 py-2 flex items-center gap-3 border-t border-gray-100`}>
+          <div
+            className={`absolute ${
+              platform === "ios" ? "bottom-6" : "bottom-12"
+            } left-0 right-0 bg-white px-3 py-2 flex items-center gap-3 border-t border-gray-100`}
+          >
             {/* Plus button */}
             {/* Plus/Paperclip button */}
             <button className="text-black">
-              {platform === 'ios' ? (
+              {platform === "ios" ? (
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
               ) : (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
+                  />
                 </svg>
               )}
             </button>
@@ -193,7 +205,11 @@ export function AvitoFrame({
             {/* Camera button */}
             <button className="text-black">
               <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </button>
@@ -201,7 +217,11 @@ export function AvitoFrame({
             {/* Mic button */}
             <button className="text-black">
               <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                />
               </svg>
             </button>
           </div>
@@ -209,25 +229,30 @@ export function AvitoFrame({
 
         {/* Home indicator */}
         {/* Home indicator / Navigation */}
-        {platform === 'ios' ? (
+        {platform === "ios" ? (
           <div className="absolute bottom-1.5 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-black/20 rounded-full" />
         ) : (
           <div className="absolute bottom-0 left-0 right-0 h-12 bg-white flex items-center justify-around px-12 z-50 border-t border-gray-100">
             {/* Back (Triangle) */}
-            <svg className="w-5 h-5 text-gray-600 transform -rotate-90" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="w-5 h-5 text-gray-200 transform -rotate-90" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2L22 19H2L12 2Z" />
             </svg>
             {/* Home (Circle) */}
-            <div className="w-4 h-4 rounded-full border-2 border-gray-600" />
+            <div className="w-4 h-4 rounded-full bg-gray-200" />
             {/* Recent (Square) */}
-            <div className="w-4 h-4 border-2 border-gray-600 rounded-[2px]" />
+            <div className="w-4 h-4 bg-gray-200 rounded-[2px]" />
           </div>
         )}
 
         <style jsx>{`
           @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+            0%,
+            100% {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0;
+            }
           }
           .animate-blink {
             animation: blink 1s step-end infinite;
