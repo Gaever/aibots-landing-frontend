@@ -33,6 +33,9 @@ export const internalAssistantPresentation = {
   ],
   demo: {
     chat: {
+      ui: {
+        inputPlaceholder: 'Сообщение'
+      },
       header: {
         title: "Внутренний ассистент",
         subtitle: "online",

@@ -1,7 +1,7 @@
 // messengerPresentation.ts
 
 export const messengerPresentation = {
-  headerTitle: "Автоматические ответы в мессенджерах",
+  headerTitle: "Автоответы в мессенджерах",
   headerSubtitle: "Telegram / WhatsApp / Instagram / VK-бот, который отвечает клиентам 24/7 на типовые вопросы",
   sections: [
     {
