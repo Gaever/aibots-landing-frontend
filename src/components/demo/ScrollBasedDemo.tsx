@@ -178,19 +178,17 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                 {/* Section number badge */}
                 {/* <div className="flex items-center gap-3 mb-4">
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-300 ${
-                      activeSection === index
-                        ? "bg-linear-to-br from-blue-600 to-purple-600 text-white scale-110"
-                        : "bg-gray-200 text-gray-600"
-                    }`}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-300 ${activeSection === index
+                      ? "bg-linear-to-br from-blue-600 to-purple-600 text-white scale-110"
+                      : "bg-gray-200 text-gray-600"
+                      }`}
                   >
                     {index + 1}
                   </div>
                   {section.subtitle && (
                     <span
-                      className={`text-sm font-semibold uppercase tracking-wide transition-colors ${
-                        activeSection === index ? "text-blue-600" : "text-gray-400"
-                      }`}
+                      className={`text-sm font-semibold uppercase tracking-wide transition-colors ${activeSection === index ? "text-blue-600" : "text-gray-400"
+                        }`}
                     >
                       {section.subtitle}
                     </span>
@@ -202,15 +200,15 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                   className={`text-2xl lg:text-3xl font-bold mb-6 transition-colors ${activeSection === index ? "text-gray-900" : "text-gray-500"
                     }`}
                 >
-                  {section.title}
+                  {index + 1}. {section.title}
                 </h3>
 
                 {/* Section description */}
-                <div className="space-y-4 mb-6 max-w-2xl text-justify">
+                <div className="space-y-4 mb-6 max-w-xl">
                   {section.description.map((paragraph, idx) => (
                     <p
                       key={idx}
-                      className={`text-lg leading-relaxed transition-colors ${activeSection === index ? "text-gray-600" : "text-gray-400"
+                      className={`text-lg leading-relaxed transition-colors ${activeSection === index ? "text-gray-800" : "text-gray-400"
                         }`}
                     >
                       {paragraph}

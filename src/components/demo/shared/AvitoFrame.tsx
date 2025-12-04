@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useRef, useEffect } from "react";
+import { usePlatform } from "@/hooks/usePlatform";
 
 interface AvitoFrameProps {
   title: string;
@@ -27,6 +28,7 @@ export function AvitoFrame({
   avatar,
   scrollTrigger,
 }: AvitoFrameProps) {
+  const platform = usePlatform();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -39,42 +41,74 @@ export function AvitoFrame({
     <div className="w-full max-w-[390px] mx-auto">
       {/* Полная имитация мобильного экрана */}
       <div
-        className="relative bg-white rounded-[40px] overflow-hidden shadow-2xl font-sans"
+        className={`relative bg-white ${platform === 'ios' ? 'rounded-[40px]' : 'rounded-[24px]'} overflow-hidden shadow-2xl font-sans`}
         style={{ aspectRatio: "390/844" }}
       >
-        {/* Notch */}
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[150px] h-[30px] bg-black rounded-b-3xl z-50" />
+        {/* Notch / Camera */}
+        {platform === 'ios' ? (
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[150px] h-[30px] bg-black rounded-b-3xl z-50" />
+        ) : (
+          <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black rounded-full z-50" />
+        )}
 
         {/* Status bar */}
-        <div className="absolute top-0 left-0 right-0 h-11 bg-white flex items-center justify-between px-6 pt-2 z-40">
-          <span className="text-black text-sm font-semibold">9:41</span>
-          <div className="flex items-center gap-1">
-            {/* Signal */}
-            <div className="flex gap-[2px] items-end">
-              <div className="w-[3px] h-[3px] bg-black rounded-full" />
-              <div className="w-[3px] h-[6px] bg-black rounded-full" />
-              <div className="w-[3px] h-[9px] bg-black rounded-full" />
-              <div className="w-[3px] h-[12px] bg-black rounded-full" />
-            </div>
-            {/* WiFi */}
-            <svg className="w-4 h-4 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" />
-            </svg>
-            {/* Battery */}
-            <div className="w-6 h-3 border border-black rounded-sm ml-1 relative">
-              <div className="absolute inset-0.5 bg-black rounded-sm" />
-              <div className="absolute right-[-3px] top-1/2 transform -translate-y-1/2 w-[2px] h-[6px] bg-black rounded-r" />
+        {/* Status bar */}
+        {platform === 'ios' ? (
+          <div className="absolute top-0 left-0 right-0 h-11 bg-white flex items-center justify-between px-6 pt-2 z-40">
+            <span className="text-black text-sm font-semibold">9:41</span>
+            <div className="flex items-center gap-1">
+              {/* Signal */}
+              <div className="flex gap-[2px] items-end">
+                <div className="w-[3px] h-[3px] bg-black rounded-full" />
+                <div className="w-[3px] h-[6px] bg-black rounded-full" />
+                <div className="w-[3px] h-[9px] bg-black rounded-full" />
+                <div className="w-[3px] h-[12px] bg-black rounded-full" />
+              </div>
+              {/* WiFi */}
+              <svg className="w-4 h-4 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" />
+              </svg>
+              {/* Battery */}
+              <div className="w-6 h-3 border border-black rounded-sm ml-1 relative">
+                <div className="absolute inset-0.5 bg-black rounded-sm" />
+                <div className="absolute right-[-3px] top-1/2 transform -translate-y-1/2 w-[2px] h-[6px] bg-black rounded-r" />
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="absolute top-0 left-0 right-0 h-8 bg-white flex items-center justify-between px-4 z-40">
+            <span className="text-black text-xs font-medium">12:30</span>
+            <div className="flex items-center gap-1.5">
+              {/* WiFi */}
+              <svg className="w-3.5 h-3.5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" />
+              </svg>
+              {/* Signal */}
+              <svg className="w-3.5 h-3.5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M2 22h20V2z" />
+              </svg>
+              {/* Battery */}
+              <svg className="w-3.5 h-3.5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z" />
+              </svg>
+            </div>
+          </div>
+        )}
 
         {/* Avito Header */}
-        <div className="absolute top-11 left-0 right-0 bg-white px-4 py-2 flex items-center gap-3 z-30 border-b border-gray-100">
+        <div className={`absolute ${platform === 'ios' ? 'top-11' : 'top-8'} left-0 right-0 bg-white px-4 py-2 flex items-center gap-3 z-30 border-b border-gray-100`}>
+          {/* Back button */}
           {/* Back button */}
           <button className="text-black -ml-1">
-            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
+            {platform === 'ios' ? (
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5m7-7l-7 7 7 7" />
+              </svg>
+            )}
           </button>
 
           {/* Avatar and Info */}
@@ -119,8 +153,8 @@ export function AvitoFrame({
           ref={scrollContainerRef}
           className="absolute left-0 right-0 bg-white overflow-y-auto px-4 pt-4 pb-8"
           style={{
-            top: "105px",
-            bottom: showInput ? "70px" : "6px",
+            top: platform === 'ios' ? "105px" : "92px",
+            bottom: showInput ? (platform === 'ios' ? "70px" : "110px") : (platform === 'ios' ? "6px" : "54px"),
           }}
         >
           <div className="relative h-full flex flex-col justify-end min-h-0">
@@ -131,12 +165,19 @@ export function AvitoFrame({
 
         {/* Input Area */}
         {showInput && (
-          <div className="absolute bottom-6 left-0 right-0 bg-white px-3 py-2 flex items-center gap-3 border-t border-gray-100">
+          <div className={`absolute ${platform === 'ios' ? 'bottom-6' : 'bottom-12'} left-0 right-0 bg-white px-3 py-2 flex items-center gap-3 border-t border-gray-100`}>
             {/* Plus button */}
+            {/* Plus/Paperclip button */}
             <button className="text-black">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-              </svg>
+              {platform === 'ios' ? (
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                </svg>
+              )}
             </button>
 
             {/* Input field */}
@@ -167,7 +208,21 @@ export function AvitoFrame({
         )}
 
         {/* Home indicator */}
-        <div className="absolute bottom-1.5 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-black/20 rounded-full" />
+        {/* Home indicator / Navigation */}
+        {platform === 'ios' ? (
+          <div className="absolute bottom-1.5 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-black/20 rounded-full" />
+        ) : (
+          <div className="absolute bottom-0 left-0 right-0 h-12 bg-white flex items-center justify-around px-12 z-50 border-t border-gray-100">
+            {/* Back (Triangle) */}
+            <svg className="w-5 h-5 text-gray-600 transform -rotate-90" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L22 19H2L12 2Z" />
+            </svg>
+            {/* Home (Circle) */}
+            <div className="w-4 h-4 rounded-full border-2 border-gray-600" />
+            {/* Recent (Square) */}
+            <div className="w-4 h-4 border-2 border-gray-600 rounded-[2px]" />
+          </div>
+        )}
 
         <style jsx>{`
           @keyframes blink {
