@@ -30,15 +30,15 @@ export const metadata: Metadata = {
 
 async function detectPlatform(): Promise<Platform> {
   const headersList = await headers();
-  const userAgent = headersList.get('user-agent') || '';
+  const userAgent = headersList.get("user-agent") || "";
 
   // Check for Android
   if (/android/i.test(userAgent)) {
-    return 'android';
+    return "android";
   }
 
   // Default to iOS
-  return 'android';
+  return "ios";
 }
 
 export default async function RootLayout({

@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { usePlatformStore } from '@/store/usePlatformStore';
+import { useEffect } from "react";
+import { usePlatformStore } from "@/store/usePlatformStore";
 
-export type Platform = 'ios' | 'android';
+export type Platform = "ios" | "android";
 
 export function usePlatform(): Platform {
   const platform = usePlatformStore((state) => state.platform);
@@ -9,14 +9,14 @@ export function usePlatform(): Platform {
 
   useEffect(() => {
     // Client-side detection (if SSR didn't run or for verification)
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
 
       // Check only for Android, default to iOS otherwise
       if (/android/i.test(userAgent)) {
-        setPlatform('android');
+        setPlatform("android");
       } else {
-        setPlatform('android');
+        setPlatform("ios");
       }
     }
   }, [setPlatform]);
