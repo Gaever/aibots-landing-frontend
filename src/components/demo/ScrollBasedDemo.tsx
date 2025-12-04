@@ -310,7 +310,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
         {/* Sections */}
         <div className="space-y-6 pb-4">
           {sections.map((section, index) => (
-            <div key={section.id} className={section.mobileConfig?.fullWidth ? "" : "px-4"}>
+            <div key={section.id} className={`mb-16 ${section.mobileConfig?.fullWidth ? "" : "px-4"}`}>
               {/* Section title and number - before demo */}
               <div className={`space-y-2 mb-3 ${section.mobileConfig?.fullWidth ? "px-4" : ""}`}>
                 {/* <div className="flex items-center gap-2 mb-2">

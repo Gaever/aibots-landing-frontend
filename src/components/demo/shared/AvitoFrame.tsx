@@ -44,9 +44,9 @@ export function AvitoFrame({
         className={`relative bg-white ${platform === 'ios' ? 'rounded-[40px]' : 'rounded-[24px]'} overflow-hidden shadow-2xl font-sans`}
         style={{ aspectRatio: "390/844" }}
       >
-        {/* Notch / Camera */}
+        {/* Dynamic Island / Camera */}
         {platform === 'ios' ? (
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[150px] h-[30px] bg-black rounded-b-3xl z-50" />
+          <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-[120px] h-[37px] bg-black rounded-[20px] z-50" />
         ) : (
           <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black rounded-full z-50" />
         )}

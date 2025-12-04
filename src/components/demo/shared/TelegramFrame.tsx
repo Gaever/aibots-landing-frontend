@@ -26,8 +26,8 @@ export function TelegramFrame({
         className="relative bg-[#17212b] rounded-[40px] overflow-hidden shadow-2xl"
         style={{ aspectRatio: "390/844" }}
       >
-        {/* Notch */}
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[150px] h-[30px] bg-black rounded-b-3xl z-50" />
+        {/* Dynamic Island */}
+        <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-[120px] h-[37px] bg-black rounded-[20px] z-50" />
 
         {/* Status bar */}
         <div className="absolute top-0 left-0 right-0 h-11 bg-[#17212b] flex items-center justify-between px-6 pt-2 z-40">
