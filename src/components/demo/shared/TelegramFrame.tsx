@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
+import { usePlatform } from "@/hooks/usePlatform";
 
 interface TelegramFrameProps {
   title: string;
@@ -19,46 +20,77 @@ export function TelegramFrame({
   inputPlaceholder = "Сообщение",
   avatar = "🤖",
 }: TelegramFrameProps) {
+  const platform = usePlatform();
   return (
     <div className="w-full max-w-[390px] mx-auto">
       {/* Полная имитация мобильного экрана */}
       <div
-        className="relative bg-[#17212b] rounded-[40px] overflow-hidden shadow-2xl"
+        className={`relative bg-[#17212b] ${platform === 'ios' ? 'rounded-[40px]' : 'rounded-[24px]'} overflow-hidden shadow-2xl`}
         style={{ aspectRatio: "390/844" }}
       >
-        {/* Dynamic Island */}
-        <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-[120px] h-[37px] bg-black rounded-[20px] z-50" />
+        {/* Dynamic Island / Camera */}
+        {platform === 'ios' ? (
+          <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-[120px] h-[37px] bg-black rounded-[20px] z-50" />
+        ) : (
+          <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black rounded-full z-50" />
+        )}
 
         {/* Status bar */}
-        <div className="absolute top-0 left-0 right-0 h-11 bg-[#17212b] flex items-center justify-between px-6 pt-2 z-40">
-          <span className="text-white text-sm font-semibold">9:41</span>
-          <div className="flex items-center gap-1">
-            {/* Signal */}
-            <div className="flex gap-[2px] items-end">
-              <div className="w-[3px] h-[3px] bg-white rounded-full" />
-              <div className="w-[3px] h-[6px] bg-white rounded-full" />
-              <div className="w-[3px] h-[9px] bg-white rounded-full" />
-              <div className="w-[3px] h-[12px] bg-white rounded-full" />
-            </div>
-            {/* WiFi */}
-            <svg className="w-4 h-4 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" />
-            </svg>
-            {/* Battery */}
-            <div className="w-6 h-3 border border-white rounded-sm ml-1 relative">
-              <div className="absolute inset-0.5 bg-white rounded-sm" />
-              <div className="absolute right-[-3px] top-1/2 transform -translate-y-1/2 w-[2px] h-[6px] bg-white rounded-r" />
+        {platform === 'ios' ? (
+          <div className="absolute top-0 left-0 right-0 h-11 bg-[#17212b] flex items-center justify-between px-6 pt-2 z-40">
+            <span className="text-white text-sm font-semibold">9:41</span>
+            <div className="flex items-center gap-1">
+              {/* Signal */}
+              <div className="flex gap-[2px] items-end">
+                <div className="w-[3px] h-[3px] bg-white rounded-full" />
+                <div className="w-[3px] h-[6px] bg-white rounded-full" />
+                <div className="w-[3px] h-[9px] bg-white rounded-full" />
+                <div className="w-[3px] h-[12px] bg-white rounded-full" />
+              </div>
+              {/* WiFi */}
+              <svg className="w-4 h-4 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" />
+              </svg>
+              {/* Battery */}
+              <div className="w-6 h-3 border border-white rounded-sm ml-1 relative">
+                <div className="absolute inset-0.5 bg-white rounded-sm" />
+                <div className="absolute right-[-3px] top-1/2 transform -translate-y-1/2 w-[2px] h-[6px] bg-white rounded-r" />
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="absolute top-0 left-0 right-0 h-8 bg-[#17212b] flex items-center justify-between px-4 z-40">
+            <span className="text-white text-xs font-medium">12:30</span>
+            <div className="flex items-center gap-1.5">
+              {/* WiFi */}
+              <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" />
+              </svg>
+              {/* Signal */}
+              <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M2 22h20V2z" />
+              </svg>
+              {/* Battery */}
+              <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z" />
+              </svg>
+            </div>
+          </div>
+        )}
 
         {/* Telegram Header */}
-        <div className="absolute top-11 left-0 right-0 bg-[#17212b] px-4 py-2.5 flex items-center gap-3 z-30">
+        <div className={`absolute ${platform === 'ios' ? 'top-11' : 'top-8'} left-0 right-0 bg-[#17212b] px-4 py-2.5 flex items-center gap-3 z-30`}>
           {/* Back button */}
           <button className="text-[#8BBEF6] flex items-center -ml-1">
-            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 18l-6-6 6-6" />
-            </svg>
+            {platform === 'ios' ? (
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 18l-6-6 6-6" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5m7-7l-7 7 7 7" />
+              </svg>
+            )}
           </button>
 
           {/* Avatar and name */}
@@ -86,8 +118,8 @@ export function TelegramFrame({
         <div
           className="absolute left-0 right-0 bg-[#0E1621] overflow-y-auto px-3 pt-4 pb-8"
           style={{
-            top: "105px",
-            bottom: showInput ? "60px" : "6px",
+            top: platform === 'ios' ? "105px" : "92px",
+            bottom: showInput ? (platform === 'ios' ? "60px" : "100px") : (platform === 'ios' ? "6px" : "54px"),
           }}
         >
           {/* Background pattern */}
@@ -104,7 +136,7 @@ export function TelegramFrame({
 
         {/* Input Area */}
         {showInput && (
-          <div className="absolute bottom-6 left-0 right-0 bg-[#17212b] px-2 py-2 flex items-center gap-2">
+          <div className={`absolute ${platform === 'ios' ? 'bottom-6' : 'bottom-12'} left-0 right-0 bg-[#17212b] px-2 py-2 flex items-center gap-2`}>
             <button className="w-9 h-9 flex items-center justify-center text-[#8E8E93]">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -129,8 +161,21 @@ export function TelegramFrame({
           </div>
         )}
 
-        {/* Home indicator */}
-        <div className="absolute bottom-1.5 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white/30 rounded-full" />
+        {/* Home indicator / Navigation */}
+        {platform === 'ios' ? (
+          <div className="absolute bottom-1.5 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white/30 rounded-full" />
+        ) : (
+          <div className="absolute bottom-0 left-0 right-0 h-12 bg-[#17212b] flex items-center justify-around px-12 z-50 border-t border-white/10">
+            {/* Back (Triangle) */}
+            <svg className="w-5 h-5 text-white/50 transform -rotate-90" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L22 19H2L12 2Z" />
+            </svg>
+            {/* Home (Circle) */}
+            <div className="w-4 h-4 rounded-full border-2 border-white/60" />
+            {/* Recent (Square) */}
+            <div className="w-4 h-4 border-2 border-white/60 rounded-[2px]" />
+          </div>
+        )}
       </div>
     </div>
   );

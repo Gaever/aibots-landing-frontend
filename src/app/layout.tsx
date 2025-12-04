@@ -38,7 +38,7 @@ async function detectPlatform(): Promise<Platform> {
   }
 
   // Default to iOS
-  return 'ios';
+  return 'android';
 }
 
 export default async function RootLayout({

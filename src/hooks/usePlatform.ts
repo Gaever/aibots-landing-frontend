@@ -16,7 +16,7 @@ export function usePlatform(): Platform {
       if (/android/i.test(userAgent)) {
         setPlatform('android');
       } else {
-        setPlatform('ios');
+        setPlatform('android');
       }
     }
   }, [setPlatform]);
