@@ -21,14 +21,27 @@ export function PainPoints({ title, items, growthBlock }: PainPointsProps) {
           {items.map((item, idx) => (
             <div
               key={idx}
-              className="group relative overflow-hidden rounded-3xl border border-slate-100 bg-white px-6 py-4 shadow-[0_10px_25px_rgba(15,23,42,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(15,23,42,0.12)]"
+              className="
+                group relative overflow-hidden
+                rounded-[32px] border border-slate-300 bg-white px-5 py-4 shadow-none
+                transition-all duration-200
+                md:rounded-3xl md:border-slate-100 md:shadow-[0_10px_25px_rgba(15,23,42,0.06)]
+                md:hover:-translate-y-0.5 md:hover:shadow-[0_16px_40px_rgba(15,23,42,0.12)]
+              "
             >
-              {/* постоянный декор — мягкое пятно в цветах хедера */}
-              <div className="pointer-events-none absolute -right-8 -top-8 h-20 w-20 rounded-full bg-gradient-to-br from-sky-400/18 via-indigo-500/16 to-fuchsia-500/18 blur-xl" />
+              {/* декор только на десктопе, мобила чистая */}
+              <div className="pointer-events-none absolute -right-8 -top-8 hidden h-20 w-20 rounded-full bg-linear-to-br from-sky-400/18 via-indigo-500/16 to-fuchsia-500/18 blur-xl md:block" />
 
               <div className="relative flex items-center gap-4">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 text-[15px] font-bold text-white shadow-sm">
-                  !
+                <div
+                  className="
+                    flex h-9 w-9 shrink-0 items-center justify-center rounded-full
+                    border border-slate-300 bg-white text-transparent
+                    md:border-none md:bg-linear-to-br md:from-sky-500 md:to-indigo-600 md:text-[15px] md:font-bold md:text-white md:shadow-sm
+                  "
+                >
+                  {/* знак виден только на десктопе */}
+                  <span className="hidden md:inline">!</span>
                 </div>
                 <p className="text-[15px] md:text-[16px] leading-relaxed text-slate-900">{item}</p>
               </div>

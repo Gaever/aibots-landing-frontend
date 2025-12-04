@@ -20,8 +20,10 @@ export function Hero({ title, subtitle }: HeroProps) {
   }, []);
 
   return (
-    <section className="relative min-h-vh lg:min-h-[50vh] flex items-center overflow-hidden bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
+    <section className="relative pb-0 lg:min-h-[50vh] flex items-center overflow-hidden bg-linear-to-br">
       {/* Animated background elements */}
+      {/*  <section className="relative pb-20 lg:min-h-[50vh] flex items-center overflow-hidden bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
+       */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
         <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000" />
@@ -62,7 +64,7 @@ export function Hero({ title, subtitle }: HeroProps) {
               <div className="space-y-3">
                 <h1 className="flex flex-col">
                   <span className="text-6xl md:text-7xl lg:text-8xl font-bold text-cyan-400 block">ИИ-боты</span>
-                  <span className="text-3xl md:text-4xl text-gray-300 md:text-gray-100 block">
+                  <span className="text-3xl md:text-4xl text-gray-300 md:text-gray-300 block">
                     для клиентов и сотрудников
                   </span>
                   <span className="text-6xl md:text-7xl lg:text-8xl font-bold text-transparent bg-clip-text bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 relative -top-[12px]">
@@ -71,7 +73,7 @@ export function Hero({ title, subtitle }: HeroProps) {
                 </h1>
               </div>
 
-              <p className="text-lg md:text-xl text-gray-300 md:text-gray-100 max-w-xl leading-relaxed pt-4 font-medium">
+              <p className="text-lg md:text-xl text-gray-300 md:text-gray-300 max-w-xl leading-relaxed pt-4 font-medium">
                 {subtitle}
               </p>
 
