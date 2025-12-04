@@ -1,7 +1,7 @@
 "use client";
 
 import { ScrollBasedDemo } from "../ScrollBasedDemo";
-import { TelegramChatDemo } from "./slides/TelegramChatDemo";
+// import { TelegramChatDemo } from "./slides/TelegramChatDemo";
 import { AvitoChatDemo } from "./slides/AvitoChatDemo";
 import { ManagerTelegramDemo } from "./slides/ManagerTelegramDemo";
 import { AmoCRMDemo } from "./slides/AmoCRMDemo";
@@ -18,6 +18,9 @@ export function MessengerAutoreviewScrollPresentation() {
       demoComponent: <AvitoChatDemo autoStart={true} />,
       mobileConfig: {
         className: 'mt-8',
+        scale: 0.75,
+        // containerClassName: 'h-[500px]',
+        // transformOrigin: 'center center'
       },
     },
     {
@@ -27,6 +30,7 @@ export function MessengerAutoreviewScrollPresentation() {
         noScale: true, // amoCRM demo displays well at full size on mobile
         className: 'my-16',
         height: 'h-[25rem]',
+        // scale: 0.75,
       },
     },
     {
@@ -34,6 +38,7 @@ export function MessengerAutoreviewScrollPresentation() {
       demoComponent: <ManagerTelegramDemo autoStart={true} />,
       mobileConfig: {
         className: 'mt-8',
+        scale: 0.75,
       },
     },
     {

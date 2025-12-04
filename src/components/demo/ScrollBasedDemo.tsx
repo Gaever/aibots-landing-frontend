@@ -11,6 +11,8 @@ interface DemoSection {
   demoComponent: React.ReactNode;
   highlights?: string[];
   mobileConfig?: {
+    transformOrigin?: string;
+    containerClassName?: string;
     scale?: number; // Scale value (default: 0.8)
     noScale?: boolean; // If true, don't apply any scaling
     marginBottom?: string; // Custom negative margin (default: '-mb-48')
@@ -309,9 +311,9 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
         <div className="space-y-6 pb-4">
           {sections.map((section, index) => (
             <div key={section.id} className={section.mobileConfig?.fullWidth ? "" : "px-4"}>
-              {/* Condensed text content - moved before demo */}
+              {/* Section title and number - before demo */}
               <div className={`space-y-2 mb-3 ${section.mobileConfig?.fullWidth ? "px-4" : ""}`}>
-                <div className="flex items-center gap-2 mb-2">
+                {/* <div className="flex items-center gap-2 mb-2">
                   <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-600 to-purple-600 text-white flex items-center justify-center font-bold text-sm">
                     {index + 1}
                   </div>
@@ -320,14 +322,48 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                       {section.subtitle}
                     </span>
                   )}
+                </div> */}
+
+                <h3 className="text-md text-gray-900 mb-2">{index + 1}. {section.title}</h3>
+              </div>
+
+              {/* Demo component */}
+
+              <div className={section.mobileConfig?.containerClassName}>
+                <div
+                  className={`bg-white ${section.mobileConfig?.noScale ? "" : section.mobileConfig?.marginBottom || ""} ${section.mobileConfig?.className || ""
+                    } ${section.mobileConfig?.height || ""}`}
+                  style={
+                    section.mobileConfig?.noScale
+                      ? {}
+                      : {
+                        transform: `scale(${section.mobileConfig?.scale || 0.9})`,
+                        transformOrigin: section.mobileConfig?.transformOrigin || "center center",
+                      }
+                  }
+                >
+                  <MobileDemoItem>{section.demoComponent}</MobileDemoItem>
                 </div>
+              </div>
 
-                <h3 className="text-md font-bold text-gray-900 mb-2">{section.title}</h3>
 
-                {/* Show only first 3-4 highlights as key value propositions */}
+              {/* Text description and highlights - after demo */}
+              <div className={`space-y-3 mt-4 ${section.mobileConfig?.fullWidth ? "px-4" : ""}`}>
+                {/* Section description */}
+                {section.description && section.description.length > 0 && (
+                  <div className="space-y-2">
+                    {section.description.map((paragraph, idx) => (
+                      <p key={idx} className="text-sm text-gray-700 leading-relaxed">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                )}
+
+                {/* Highlights */}
                 {section.highlights && section.highlights.length > 0 && (
-                  <div className="space-y-1.5">
-                    {section.highlights.slice(0, 4).map((highlight, idx) => (
+                  <div className="space-y-1.5 mt-3">
+                    {section.highlights.map((highlight, idx) => (
                       <div key={idx} className="flex items-start gap-2">
                         <div className="w-5 h-5 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
                           <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -339,23 +375,6 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                     ))}
                   </div>
                 )}
-              </div>
-
-              {/* Scaled demo component - moved after text */}
-              <div
-                className={`overflow-hidden ${section.mobileConfig?.fullWidth ? "rounded-none" : "rounded-xl"
-                  } bg-white shadow-lg ${section.mobileConfig?.noScale ? "" : section.mobileConfig?.marginBottom || ""} ${section.mobileConfig?.className || ""
-                  } ${section.mobileConfig?.height || ""}`}
-                style={
-                  section.mobileConfig?.noScale
-                    ? {}
-                    : {
-                      transform: `scale(${section.mobileConfig?.scale || 0.9})`,
-                      transformOrigin: "top center",
-                    }
-                }
-              >
-                <MobileDemoItem>{section.demoComponent}</MobileDemoItem>
               </div>
             </div>
           ))}

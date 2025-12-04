@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { AmoCRMFrame } from "@/components/demo/shared/AmoCRMFrame";
 import { landingContent } from "@/app/landingContent";
@@ -16,6 +16,9 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
   const [leads, setLeads] = useState<
     Array<{ id: number; name: string; price: string; status: string; tags?: string[] }>
   >([]);
+  const [selectedLeadId, setSelectedLeadId] = useState<number | null>(null);
+  const [showClickEffect, setShowClickEffect] = useState(false);
+  const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
 
   // Initialize leads from landingContent
   useEffect(() => {
@@ -31,7 +34,8 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
   useEffect(() => {
     if (!autoStart && !startTrigger) return;
 
-    const timer = setTimeout(() => {
+    // Step 1: Add new lead
+    const timer1 = setTimeout(() => {
       const newLead = content.demoLeads[2];
       setLeads((prev) => [
         {
@@ -44,17 +48,146 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
         ...prev,
       ]);
 
-      // Call onComplete after animation
+      // Step 2: Click on the new lead after it appears
       setTimeout(() => {
-        onComplete?.();
-      }, 1000);
+        // Get the lead card element position for click effect
+        const leadCard = document.querySelector('[data-lead-id="3"]');
+        if (leadCard) {
+          const rect = leadCard.getBoundingClientRect();
+          setClickPosition({
+            x: rect.left + rect.width / 2,
+            y: rect.top + rect.height / 2,
+          });
+          setShowClickEffect(true);
+
+          setTimeout(() => {
+            setShowClickEffect(false);
+            setSelectedLeadId(3);
+
+            // Call onComplete after task view is shown
+            setTimeout(() => {
+              onComplete?.();
+            }, 1000);
+          }, 500);
+        }
+      }, 1200);
     }, 1000);
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timer1);
   }, [autoStart, startTrigger, onComplete]);
+
+  const handleLeadClick = (leadId: number, event: React.MouseEvent) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setClickPosition({
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    });
+    setShowClickEffect(true);
+
+    setTimeout(() => {
+      setShowClickEffect(false);
+      setSelectedLeadId(leadId);
+    }, 500);
+  };
+
+  if (selectedLeadId) {
+    return (
+      <AmoCRMFrame>
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+          className="flex-1 flex flex-col h-full bg-white"
+        >
+          {/* Task Header */}
+          <div className="p-4 border-b border-gray-200">
+            <div className="flex items-center gap-2 mb-2">
+              <button
+                onClick={() => setSelectedLeadId(null)}
+                className="text-blue-500 hover:text-blue-600 text-sm"
+              >
+                ← Назад
+              </button>
+            </div>
+            <h2 className="text-base font-bold text-gray-800 mb-1">
+              {content.demoLeads[2].name}
+            </h2>
+            <div className="flex gap-2 items-center text-xs text-gray-500">
+              <span className="font-semibold text-green-600">{content.demoLeads[2].price}</span>
+              <span>•</span>
+              <span>Telegram</span>
+            </div>
+            <div className="mt-2 flex gap-1">
+              {content.demoLeads[2].tags?.map((tag, i) => (
+                <span
+                  key={i}
+                  className={`px-2 py-0.5 text-[10px] rounded-full font-medium ${tag === "Бот" ? "bg-green-100 text-green-600" : "bg-blue-100 text-blue-600"
+                    }`}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Conversation */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            {content.conversation.map((message, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.3 }}
+                className={`flex ${message.role === "client" ? "justify-end" : "justify-start"}`}
+              >
+                <div
+                  className={`max-w-[75%] rounded-lg px-3 py-2 ${message.role === "client"
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-100 text-gray-800"
+                    }`}
+                >
+                  <div className="text-xs whitespace-pre-line">{message.text}</div>
+                  <div
+                    className={`text-[10px] mt-1 ${message.role === "client" ? "text-blue-100" : "text-gray-500"
+                      }`}
+                  >
+                    {message.time}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Input Area */}
+          <div className="p-3 border-t border-gray-200">
+            <div className="bg-gray-100 rounded-full px-4 py-2 text-xs text-gray-400">
+              Написать сообщение...
+            </div>
+          </div>
+        </motion.div>
+      </AmoCRMFrame>
+    );
+  }
 
   return (
     <AmoCRMFrame>
+      {/* Click Effect */}
+      <AnimatePresence>
+        {showClickEffect && (
+          <motion.div
+            initial={{ scale: 0, opacity: 1 }}
+            animate={{ scale: 2, opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed w-16 h-16 rounded-full bg-blue-400 pointer-events-none z-50"
+            style={{
+              left: clickPosition.x - 32,
+              top: clickPosition.y - 32,
+            }}
+          />
+        )}
+      </AnimatePresence>
+
       <div className="flex-1 p-4 overflow-hidden md:overflow-x-auto flex gap-4 h-full overscroll-none">
         {/* Column: New Leads */}
         <div className="w-64 shrink-0 flex flex-col gap-3 h-full">
@@ -69,10 +202,12 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
           {leads.map((lead) => (
             <motion.div
               key={lead.id}
+              data-lead-id={lead.id}
               initial={lead.id === 3 ? { opacity: 0, y: -20, height: 0 } : {}}
               animate={{ opacity: 1, y: 0, height: "auto" }}
               transition={{ duration: 0.4 }}
-              className={`bg-white p-3 rounded-md shadow-sm border-l-4 ${lead.id === 3 ? "border-green-500" : "border-gray-300"
+              onClick={(e) => lead.id === 3 && handleLeadClick(lead.id, e)}
+              className={`bg-white p-3 rounded-md shadow-sm border-l-4 ${lead.id === 3 ? "border-green-500 cursor-pointer hover:shadow-md transition-shadow" : "border-gray-300"
                 }`}
             >
               <div className="text-xs font-bold text-gray-800 mb-1">
