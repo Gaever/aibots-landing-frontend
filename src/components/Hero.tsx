@@ -20,7 +20,7 @@ export function Hero({ title, subtitle }: HeroProps) {
   }, []);
 
   return (
-    <section className="relative min-h-dvh lg:min-h-[50vh] flex items-center overflow-hidden bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
+    <section className="relative min-h-vh lg:min-h-[50vh] flex items-center overflow-hidden bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
@@ -62,14 +62,18 @@ export function Hero({ title, subtitle }: HeroProps) {
               <div className="space-y-3">
                 <h1 className="flex flex-col">
                   <span className="text-6xl md:text-7xl lg:text-8xl font-bold text-cyan-400 block">ИИ-боты</span>
-                  <span className="text-3xl md:text-4xl text-gray-100 block">для клиентов и сотрудников</span>
+                  <span className="text-3xl md:text-4xl text-gray-300 md:text-gray-100 block">
+                    для клиентов и сотрудников
+                  </span>
                   <span className="text-6xl md:text-7xl lg:text-8xl font-bold text-transparent bg-clip-text bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 relative -top-[12px]">
                     под ключ
                   </span>
                 </h1>
               </div>
 
-              <p className="text-lg md:text-xl text-gray-100 max-w-xl leading-relaxed pt-4 font-medium">{subtitle}</p>
+              <p className="text-lg md:text-xl text-gray-300 md:text-gray-100 max-w-xl leading-relaxed pt-4 font-medium">
+                {subtitle}
+              </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <a
