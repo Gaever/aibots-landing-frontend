@@ -199,21 +199,19 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
 
                 {/* Section title */}
                 <h3
-                  className={`text-2xl lg:text-3xl font-bold mb-6 transition-colors ${
-                    activeSection === index ? "text-gray-900" : "text-gray-500"
-                  }`}
+                  className={`text-2xl lg:text-3xl font-bold mb-6 transition-colors ${activeSection === index ? "text-gray-900" : "text-gray-500"
+                    }`}
                 >
                   {section.title}
                 </h3>
 
                 {/* Section description */}
-                <div className="space-y-4 mb-6">
+                <div className="space-y-4 mb-6 max-w-2xl text-justify">
                   {section.description.map((paragraph, idx) => (
                     <p
                       key={idx}
-                      className={`text-base leading-relaxed transition-colors ${
-                        activeSection === index ? "text-gray-700" : "text-gray-400"
-                      }`}
+                      className={`text-lg leading-relaxed transition-colors ${activeSection === index ? "text-gray-600" : "text-gray-400"
+                        }`}
                     >
                       {paragraph}
                     </p>
@@ -222,21 +220,20 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
 
                 {/* Highlights */}
                 {section.highlights && section.highlights.length > 0 && (
-                  <div className="mt-6 space-y-3">
+                  <div className="mt-6 space-y-3 max-w-lg">
                     {section.highlights.map((highlight, idx) => (
                       <div
                         key={idx}
-                        className={`flex items-start gap-3 transition-all duration-300 ${
-                          activeSection === index ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
-                        }`}
+                        className={`flex items-center gap-3 transition-all duration-300 ${activeSection === index ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                          }`}
                         style={{ transitionDelay: `${idx * 100}ms` }}
                       >
-                        <div className="w-6 h-6 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
+                        <div className="w-6 h-6 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shrink-0">
                           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
                         </div>
-                        <span className="text-gray-700 text-sm">{highlight}</span>
+                        <span className="text-gray-700 text-base font-medium">{highlight}</span>
                       </div>
                     ))}
                   </div>
@@ -276,9 +273,8 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                 {sections.map((_, index) => (
                   <div
                     key={index}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      index === activeSection ? "w-12 bg-black" : "w-2 bg-gray-400"
-                    }`}
+                    className={`h-2 rounded-full transition-all duration-300 ${index === activeSection ? "w-12 bg-black" : "w-2 bg-gray-400"
+                      }`}
                   />
                 ))}
               </div>
@@ -349,18 +345,16 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
 
               {/* Scaled demo component - moved after text */}
               <div
-                className={`overflow-hidden ${
-                  section.mobileConfig?.fullWidth ? "rounded-none" : "rounded-xl"
-                } bg-white shadow-lg ${section.mobileConfig?.noScale ? "" : section.mobileConfig?.marginBottom || ""} ${
-                  section.mobileConfig?.className || ""
-                } ${section.mobileConfig?.height || ""}`}
+                className={`overflow-hidden ${section.mobileConfig?.fullWidth ? "rounded-none" : "rounded-xl"
+                  } bg-white shadow-lg ${section.mobileConfig?.noScale ? "" : section.mobileConfig?.marginBottom || ""} ${section.mobileConfig?.className || ""
+                  } ${section.mobileConfig?.height || ""}`}
                 style={
                   section.mobileConfig?.noScale
                     ? {}
                     : {
-                        transform: `scale(${section.mobileConfig?.scale || 0.9})`,
-                        transformOrigin: "top center",
-                      }
+                      transform: `scale(${section.mobileConfig?.scale || 0.9})`,
+                      transformOrigin: "top center",
+                    }
                 }
               >
                 <MobileDemoItem>{section.demoComponent}</MobileDemoItem>
