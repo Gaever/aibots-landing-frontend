@@ -2,6 +2,7 @@
 
 import { ScrollBasedDemo } from "../ScrollBasedDemo";
 import { TelegramChatDemo } from "./slides/TelegramChatDemo";
+import { AvitoChatDemo } from "./slides/AvitoChatDemo";
 import { ManagerTelegramDemo } from "./slides/ManagerTelegramDemo";
 import { AmoCRMDemo } from "./slides/AmoCRMDemo";
 import { CTASection } from "../shared/CTASection";
@@ -14,7 +15,7 @@ export function MessengerAutoreviewScrollPresentation() {
   const sections = [
     {
       ...content.sections[0],
-      demoComponent: <TelegramChatDemo autoStart={true} />,
+      demoComponent: <AvitoChatDemo autoStart={true} />,
       mobileConfig: {
         className: 'mt-8',
       },
