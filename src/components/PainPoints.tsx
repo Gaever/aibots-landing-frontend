@@ -21,12 +21,12 @@ export function PainPoints({ title, items, growthBlock }: PainPointsProps) {
           {items.map((item, idx) => (
             <div
               key={idx}
-              className="group p-5 rounded-xl bg-white border border-gray-200 hover:border-red-200 hover:shadow-md transition-all duration-200"
+              className="group flex items-start gap-4 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-amber-400 hover:shadow-md"
             >
-              <div className="flex items-start gap-4">
-                <span className="text-2xl shrink-0">⚠️</span>
-                <p className="text-base text-gray-700 leading-relaxed">{item}</p>
+              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-400 text-base font-bold text-white shadow-sm">
+                !
               </div>
+              <p className="text-[15px] md:text-[16px] leading-relaxed text-slate-900">{item}</p>
             </div>
           ))}
         </div>

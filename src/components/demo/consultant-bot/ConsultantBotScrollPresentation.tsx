@@ -15,22 +15,26 @@ export function ConsultantBotScrollPresentation() {
       ...content.sections[0],
       demoComponent: <StoreChatDemo autoStart={true} />,
       mobileConfig: {
-        height: 'h-[40rem]',
-        className: 'shadow-none',
+        height: "h-[40rem]",
+        className: "shadow-none",
       },
     },
     {
       ...content.sections[1],
       demoComponent: <OperatorChatDemo autoStart={true} />,
       mobileConfig: {
-        height: 'h-[40rem]',
-        className: 'shadow-none'
-
+        height: "h-[40rem]",
+        className: "shadow-none",
       },
     },
     {
       ...content.sections[2],
-      demoComponent: <CTASection colorScheme="blue-purple-indigo" />,
+      demoComponent: (
+        <CTASection
+          colorScheme="blue-purple-indigo"
+          {...landingContent.demoComponents.common.customTexts.consultantBot}
+        />
+      ),
       mobileConfig: {
         fullWidth: true,
         noScale: true,

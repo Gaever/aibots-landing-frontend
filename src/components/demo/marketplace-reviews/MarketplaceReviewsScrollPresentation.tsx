@@ -17,36 +17,41 @@ export function MarketplaceReviewsScrollPresentation() {
       ...content.sections[0],
       demoComponent: <OzonReviewDemo />,
       mobileConfig: {
-        height: 'h-[40rem]',
+        height: "h-[40rem]",
       },
     },
     {
       ...content.sections[1],
       demoComponent: <ReviewProcessingFlowDemo />,
       mobileConfig: {
-        height: 'h-[35rem]',
+        height: "h-[35rem]",
       },
     },
     {
       ...content.sections[2],
       demoComponent: <AmoCRMReviewNotificationDemo />,
       mobileConfig: {
-        height: 'h-[30rem]',
+        height: "h-[30rem]",
       },
     },
     {
       ...content.sections[3],
       demoComponent: <BotReviewResolutionDemo />,
       mobileConfig: {
-        height: 'h-[40rem]',
+        height: "h-[40rem]",
       },
     },
     {
       ...content.sections[4],
-      demoComponent: <CTASection colorScheme="blue-purple-indigo" />,
+      demoComponent: (
+        <CTASection
+          colorScheme="blue-purple-indigo"
+          {...landingContent.demoComponents.common.customTexts.marketplaceReviews}
+        />
+      ),
       mobileConfig: {
-        fullWidth: true,  // Full-width CTA on mobile
-        noScale: true,    // No scaling needed
+        fullWidth: true, // Full-width CTA on mobile
+        noScale: true, // No scaling needed
       },
     },
   ];

@@ -16,11 +16,16 @@ export function InternalAssistantScrollPresentation() {
     },
     {
       ...content.sections[1],
-      demoComponent: <CTASection colorScheme="purple-indigo-blue" />,
+      demoComponent: (
+        <CTASection
+          colorScheme="purple-indigo-blue"
+          {...landingContent.demoComponents.common.customTexts.internalAssistant}
+        />
+      ),
       mobileConfig: {
         fullWidth: true,
         noScale: true,
-      }
+      },
     },
   ];
 

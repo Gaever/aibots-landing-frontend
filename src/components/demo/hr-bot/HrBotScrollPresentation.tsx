@@ -23,16 +23,18 @@ export function HrBotScrollPresentation() {
       ...content.sections[1],
       demoComponent: <HuntflowCrmDemo autoStart={true} />,
       mobileConfig: {
-        height: 'h-[25rem]',
+        height: "h-[25rem]",
       },
     },
     {
       ...content.sections[2],
-      demoComponent: <CTASection colorScheme="teal-emerald-green" />,
+      demoComponent: (
+        <CTASection colorScheme="teal-emerald-green" {...landingContent.demoComponents.common.customTexts.hrBot} />
+      ),
       mobileConfig: {
         fullWidth: true,
         noScale: true,
-      }
+      },
     },
   ];
 

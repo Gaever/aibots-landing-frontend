@@ -18,7 +18,7 @@ export function OperatorPrompterScrollPresentation() {
         // scale: 0.95,
         noScale: true,
         marginBottom: "",
-        height: 'h-[40rem]',
+        height: "h-[40rem]",
         className: "shadow-none",
       },
     },
@@ -29,12 +29,17 @@ export function OperatorPrompterScrollPresentation() {
         fullWidth: true,
         noScale: true,
         className: "bg-transparent shadow-none rounded-2xl",
-        height: 'h-[45rem]',
+        height: "h-[45rem]",
       },
     },
     {
       ...content.sections[2],
-      demoComponent: <CTASection colorScheme="indigo-purple-pink" />,
+      demoComponent: (
+        <CTASection
+          colorScheme="indigo-purple-pink"
+          {...landingContent.demoComponents.common.customTexts.operatorPrompter}
+        />
+      ),
       mobileConfig: {
         fullWidth: true,
         noScale: true,

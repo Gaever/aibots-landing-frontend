@@ -51,14 +51,10 @@ export function Hero({ title, subtitle }: HeroProps) {
       {/* Floating particles */}
       <div className="absolute inset-0">
         {particles.map((style, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-cyan-400 rounded-full animate-float"
-            style={style}
-          />
+          <div key={i} className="absolute w-1 h-1 bg-cyan-400 rounded-full animate-float" style={style} />
         ))}
       </div>
-      <div className="relative z-10 w-full px-4 pb-8">
+      <div className="relative z-10 w-full px-4 py-16">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left content */}

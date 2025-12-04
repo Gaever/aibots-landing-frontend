@@ -15,7 +15,7 @@ export function QualityControlScrollPresentation() {
       ...content.sections[0],
       demoComponent: <BadConsultationDemo autoStart={true} />,
       mobileConfig: {
-        className: 'mt-8',
+        className: "mt-8",
       },
     },
     {
@@ -23,20 +23,25 @@ export function QualityControlScrollPresentation() {
       demoComponent: <QualityControlAdminDemo autoStart={true} />,
       mobileConfig: {
         noScale: true,
-        className: 'my-16',
-        height: 'h-[40rem]',
+        className: "my-16",
+        height: "h-[40rem]",
       },
     },
     {
       ...content.sections[2],
       demoComponent: <QualityControlNotificationDemo autoStart={true} />,
       mobileConfig: {
-        className: 'mt-8',
+        className: "mt-8",
       },
     },
     {
       ...content.sections[3],
-      demoComponent: <CTASection colorScheme="blue-purple-indigo" />,
+      demoComponent: (
+        <CTASection
+          colorScheme="blue-purple-indigo"
+          {...landingContent.demoComponents.common.customTexts.qualityControl}
+        />
+      ),
       mobileConfig: {
         fullWidth: true,
         noScale: true,

@@ -26,11 +26,13 @@ export function DocumentBotScrollPresentation() {
     },
     {
       ...content.sections[3],
-      demoComponent: <CTASection colorScheme="emerald-teal-cyan" />,
+      demoComponent: (
+        <CTASection colorScheme="emerald-teal-cyan" {...landingContent.demoComponents.common.customTexts.documentBot} />
+      ),
       mobileConfig: {
         fullWidth: true,
         noScale: true,
-      }
+      },
     },
   ];
 

@@ -222,7 +222,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
 
                 {/* Highlights */}
                 {section.highlights && section.highlights.length > 0 && (
-                  <div className="mt-6 space-y-3 max-w-lg">
+                  <div className="mt-12 space-y-6 max-w-lg">
                     {section.highlights.map((highlight, idx) => (
                       <div
                         key={idx}
