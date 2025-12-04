@@ -142,7 +142,7 @@ export function AvitoFrame({
             {/* Input field */}
             <div className="flex-1 bg-[#F2F2F2] rounded-2xl px-4 py-2.5 flex items-center min-h-[44px]">
               {inputValue ? (
-                <div className="flex-1 text-black text-[16px] w-full break-words">{inputValue}</div>
+                <div className="flex-1 text-black text-[16px] w-full wrap-break-words">{inputValue}</div>
               ) : (
                 <div className="flex-1 text-gray-500 text-[16px] w-full">{inputPlaceholder}</div>
               )}
