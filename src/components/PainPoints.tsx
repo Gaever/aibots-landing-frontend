@@ -17,16 +17,21 @@ export function PainPoints({ title, items, growthBlock }: PainPointsProps) {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">{title}</h2>
         </div>
 
-        <div className="space-y-4 max-w-3xl mx-auto mb-16">
+        <div className="space-y-3 max-w-3xl mx-auto mb-16">
           {items.map((item, idx) => (
             <div
               key={idx}
-              className="group flex items-start gap-4 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-amber-400 hover:shadow-md"
+              className="group relative overflow-hidden rounded-3xl border border-slate-100 bg-white px-6 py-4 shadow-[0_10px_25px_rgba(15,23,42,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(15,23,42,0.12)]"
             >
-              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-400 text-base font-bold text-white shadow-sm">
-                !
+              {/* постоянный декор — мягкое пятно в цветах хедера */}
+              <div className="pointer-events-none absolute -right-8 -top-8 h-20 w-20 rounded-full bg-gradient-to-br from-sky-400/18 via-indigo-500/16 to-fuchsia-500/18 blur-xl" />
+
+              <div className="relative flex items-center gap-4">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 text-[15px] font-bold text-white shadow-sm">
+                  !
+                </div>
+                <p className="text-[15px] md:text-[16px] leading-relaxed text-slate-900">{item}</p>
               </div>
-              <p className="text-[15px] md:text-[16px] leading-relaxed text-slate-900">{item}</p>
             </div>
           ))}
         </div>
