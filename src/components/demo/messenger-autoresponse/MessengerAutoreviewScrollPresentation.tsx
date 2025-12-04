@@ -19,7 +19,7 @@ export function MessengerAutoreviewScrollPresentation() {
       mobileConfig: {
         className: 'mt-8',
         scale: 0.75,
-        // containerClassName: 'h-[500px]',
+        // containerClassName: 'h-[F500px]',
         // transformOrigin: 'center center'
       },
     },
@@ -29,7 +29,7 @@ export function MessengerAutoreviewScrollPresentation() {
       mobileConfig: {
         noScale: true, // amoCRM demo displays well at full size on mobile
         className: 'my-16',
-        height: 'h-[25rem]',
+        height: 'h-[35rem]',
         // scale: 0.75,
       },
     },

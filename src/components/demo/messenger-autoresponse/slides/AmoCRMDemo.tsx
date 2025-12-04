@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AmoCRMFrame } from "@/components/demo/shared/AmoCRMFrame";
 import { landingContent } from "@/app/landingContent";
 
@@ -19,6 +19,17 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
   const [selectedLeadId, setSelectedLeadId] = useState<number | null>(null);
   const [showClickEffect, setShowClickEffect] = useState(false);
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
+  const [animationKey, setAnimationKey] = useState(0);
+  const conversationContainerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Scroll chat to bottom when conversation is shown
+  useEffect(() => {
+    if (selectedLeadId && conversationContainerRef.current) {
+      // Scroll the chat container to bottom without animation
+      conversationContainerRef.current.scrollTop = conversationContainerRef.current.scrollHeight;
+    }
+  }, [selectedLeadId]);
 
   // Initialize leads from landingContent
   useEffect(() => {
@@ -29,7 +40,7 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
       status: lead.status,
     }));
     setLeads(initialLeads);
-  }, []);
+  }, [animationKey]);
 
   useEffect(() => {
     if (!autoStart && !startTrigger) return;
@@ -52,11 +63,15 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
       setTimeout(() => {
         // Get the lead card element position for click effect
         const leadCard = document.querySelector('[data-lead-id="3"]');
-        if (leadCard) {
-          const rect = leadCard.getBoundingClientRect();
+        const container = containerRef.current;
+        if (leadCard && container) {
+          const cardRect = leadCard.getBoundingClientRect();
+          const containerRect = container.getBoundingClientRect();
+
+          // Calculate position relative to container instead of viewport
           setClickPosition({
-            x: rect.left + rect.width / 2,
-            y: rect.top + rect.height / 2,
+            x: cardRect.left - containerRect.left + cardRect.width / 2,
+            y: cardRect.top - containerRect.top + cardRect.height / 2,
           });
           setShowClickEffect(true);
 
@@ -67,6 +82,13 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
             // Call onComplete after task view is shown
             setTimeout(() => {
               onComplete?.();
+
+              // Wait 4 seconds then restart animation
+              setTimeout(() => {
+                setSelectedLeadId(null);
+                setLeads([]);
+                setAnimationKey(prev => prev + 1);
+              }, 4000);
             }, 1000);
           }, 500);
         }
@@ -74,20 +96,24 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
     }, 1000);
 
     return () => clearTimeout(timer1);
-  }, [autoStart, startTrigger, onComplete]);
+  }, [autoStart, startTrigger, onComplete, animationKey]);
 
   const handleLeadClick = (leadId: number, event: React.MouseEvent) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    setClickPosition({
-      x: rect.left + rect.width / 2,
-      y: rect.top + rect.height / 2,
-    });
-    setShowClickEffect(true);
+    const container = containerRef.current;
+    if (container) {
+      const containerRect = container.getBoundingClientRect();
+      setClickPosition({
+        x: rect.left - containerRect.left + rect.width / 2,
+        y: rect.top - containerRect.top + rect.height / 2,
+      });
+      setShowClickEffect(true);
 
-    setTimeout(() => {
-      setShowClickEffect(false);
-      setSelectedLeadId(leadId);
-    }, 500);
+      setTimeout(() => {
+        setShowClickEffect(false);
+        setSelectedLeadId(leadId);
+      }, 500);
+    }
   };
 
   if (selectedLeadId) {
@@ -109,14 +135,9 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
                 ← Назад
               </button>
             </div>
-            <h2 className="text-base font-bold text-gray-800 mb-1">
+            <h2 className="text-base font-bold font-sans text-gray-800 mb-1">
               {content.demoLeads[2].name}
             </h2>
-            <div className="flex gap-2 items-center text-xs text-gray-500">
-              <span className="font-semibold text-green-600">{content.demoLeads[2].price}</span>
-              <span>•</span>
-              <span>Telegram</span>
-            </div>
             <div className="mt-2 flex gap-1">
               {content.demoLeads[2].tags?.map((tag, i) => (
                 <span
@@ -131,7 +152,7 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
           </div>
 
           {/* Conversation */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          <div ref={conversationContainerRef} className="flex-1 overflow-y-auto p-4 space-y-3">
             {content.conversation.map((message, index) => (
               <motion.div
                 key={index}
@@ -142,8 +163,8 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
               >
                 <div
                   className={`max-w-[75%] rounded-lg px-3 py-2 ${message.role === "client"
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-100 text-gray-800"
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-100 text-gray-800"
                     }`}
                 >
                   <div className="text-xs whitespace-pre-line">{message.text}</div>
@@ -158,11 +179,11 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
             ))}
           </div>
 
-          {/* Input Area */}
+          {/* Telegram Button */}
           <div className="p-3 border-t border-gray-200">
-            <div className="bg-gray-100 rounded-full px-4 py-2 text-xs text-gray-400">
-              Написать сообщение...
-            </div>
+            <button className="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2.5 text-xs font-medium transition-colors">
+              Открыть диалог в Telegram
+            </button>
           </div>
         </motion.div>
       </AmoCRMFrame>
@@ -171,24 +192,24 @@ export function AmoCRMDemo({ autoStart = false, onComplete, startTrigger = true 
 
   return (
     <AmoCRMFrame>
-      {/* Click Effect */}
-      <AnimatePresence>
-        {showClickEffect && (
-          <motion.div
-            initial={{ scale: 0, opacity: 1 }}
-            animate={{ scale: 2, opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="fixed w-16 h-16 rounded-full bg-blue-400 pointer-events-none z-50"
-            style={{
-              left: clickPosition.x - 32,
-              top: clickPosition.y - 32,
-            }}
-          />
-        )}
-      </AnimatePresence>
+      <div ref={containerRef} className="flex-1 p-4 overflow-hidden md:overflow-x-auto flex gap-4 h-full overscroll-none relative">
+        {/* Click Effect */}
+        <AnimatePresence>
+          {showClickEffect && (
+            <motion.div
+              initial={{ scale: 0, opacity: 1 }}
+              animate={{ scale: 2, opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="absolute w-16 h-16 rounded-full bg-blue-400 pointer-events-none z-50"
+              style={{
+                left: clickPosition.x - 32,
+                top: clickPosition.y - 32,
+              }}
+            />
+          )}
+        </AnimatePresence>
 
-      <div className="flex-1 p-4 overflow-hidden md:overflow-x-auto flex gap-4 h-full overscroll-none">
         {/* Column: New Leads */}
         <div className="w-64 shrink-0 flex flex-col gap-3 h-full">
           <div className="font-bold text-gray-500 uppercase text-xs mb-1 flex justify-between">

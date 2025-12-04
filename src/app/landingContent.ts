@@ -340,7 +340,7 @@ export const landingContent = {
       demoLeads: [
         { name: "Заявка с сайта #1023", price: "15 000 ₽", status: "new" },
         { name: "Вопрос в WhatsApp", price: "Ожидает", status: "new" },
-        { name: "Новая сделка (Telegram)", price: "5 400 ₽", status: "new", tags: ["Бот", "Новая"] },
+        { name: "Заказ парки от Анны", price: "8 990 ₽", status: "new", tags: ["Бот", "Новая"] },
       ],
       conversation: [
         {

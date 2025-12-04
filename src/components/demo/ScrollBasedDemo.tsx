@@ -338,7 +338,7 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                       ? {}
                       : {
                         transform: `scale(${section.mobileConfig?.scale || 0.9})`,
-                        transformOrigin: section.mobileConfig?.transformOrigin || "center center",
+                        transformOrigin: section.mobileConfig?.transformOrigin || "top center",
                       }
                   }
                 >
