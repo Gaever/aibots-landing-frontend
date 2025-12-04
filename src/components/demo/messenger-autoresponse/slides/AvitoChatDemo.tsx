@@ -30,19 +30,21 @@ export function AvitoChatDemo({ autoStart = true, onComplete, startTrigger = tru
   const [inputText, setInputText] = useState("");
   const [isUserTyping, setIsUserTyping] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const content = landingContent.demoComponents.telegramChat;
+  const content = landingContent.demoComponents;
+  const avitoContent = content.avitoChat;
+  const telegramContent = content.telegramChat;
 
   // Transform landingContent scenario to the format required by the component
   const DEMO_SCENARIO: ScenarioStep[] = [
     {
       delay: 800,
       action: "user-typing",
-      text: content.scenario[0].text,
+      text: telegramContent.scenario[0].text,
     },
     {
       delay: 300,
       action: "user-send",
-      text: content.scenario[0].text,
+      text: telegramContent.scenario[0].text,
     },
     {
       delay: 800,
@@ -51,17 +53,17 @@ export function AvitoChatDemo({ autoStart = true, onComplete, startTrigger = tru
     {
       delay: 2000,
       action: "bot",
-      text: content.scenario[1].text,
+      text: telegramContent.scenario[1].text,
     },
     {
       delay: 2500,
       action: "user-typing",
-      text: content.scenario[2].text,
+      text: telegramContent.scenario[2].text,
     },
     {
       delay: 300,
       action: "user-send",
-      text: content.scenario[2].text,
+      text: telegramContent.scenario[2].text,
     },
     {
       delay: 600,
@@ -70,17 +72,17 @@ export function AvitoChatDemo({ autoStart = true, onComplete, startTrigger = tru
     {
       delay: 1800,
       action: "bot",
-      text: content.scenario[3].text,
+      text: telegramContent.scenario[3].text,
     },
     {
       delay: 2500,
       action: "user-typing",
-      text: content.scenario[4].text,
+      text: telegramContent.scenario[4].text,
     },
     {
       delay: 300,
       action: "user-send",
-      text: content.scenario[4].text,
+      text: telegramContent.scenario[4].text,
     },
     {
       delay: 500,
@@ -89,7 +91,7 @@ export function AvitoChatDemo({ autoStart = true, onComplete, startTrigger = tru
     {
       delay: 1500,
       action: "bot",
-      text: content.scenario[5].text,
+      text: telegramContent.scenario[5].text,
     },
   ];
 
@@ -185,14 +187,11 @@ export function AvitoChatDemo({ autoStart = true, onComplete, startTrigger = tru
 
   return (
     <AvitoFrame
-      title="Вывоз мебели - Антихлам"
-      subtitle="Вывоз садового мусора и ... · от 2 000 ₽"
-      rating="4,9"
-      avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8QjKj5j5j5j5j5j5j5j5j5j5j5j5j5j5j5w&s" // Placeholder or use a local asset if available. I'll use a generic recycling symbol or just let the frame handle the fallback.
-      // Actually, I'll use a recycling emoji in the frame if no image, but here I can pass a dummy URL or just leave it empty to trigger fallback.
-      // Let's try to use a data URI for a simple recycling icon to match the screenshot better.
-      // Or just use the robot emoji as before if I don't have a specific image.
-      // The screenshot has a specific logo. I'll use a placeholder for now.
+      title={avitoContent.header.title}
+      subtitle={avitoContent.header.subtitle}
+      rating={avitoContent.header.rating}
+      avatar={avitoContent.header.avatar}
+      inputPlaceholder={avitoContent.ui.inputPlaceholder}
       inputValue={inputText}
       isUserTyping={isUserTyping}
       scrollTrigger={messages}

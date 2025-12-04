@@ -403,6 +403,17 @@ export const landingContent = {
         },
       ],
     },
+    avitoChat: {
+      header: {
+        title: "Вывоз мебели - Антихлам",
+        subtitle: "Вывоз садового мусора и ... · от 2 000 ₽",
+        rating: "4,9",
+        avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8QjKj5j5j5j5j5j5j5j5j5j5j5j5j5j5j5w&s",
+      },
+      ui: {
+        inputPlaceholder: "Сообщение",
+      },
+    },
     messengerPresentation: {
       header: {
         title: "Как работает автоматизация",
