@@ -1,22 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { usePlatformStore } from '@/store/usePlatformStore';
 
 export type Platform = 'ios' | 'android';
 
 export function usePlatform(): Platform {
-  const [platform, setPlatform] = useState<Platform>('android');
+  const platform = usePlatformStore((state) => state.platform);
+  const setPlatform = usePlatformStore((state) => state.setPlatform);
 
   useEffect(() => {
-    // TODO: Implement real platform detection
-    // const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
-    // if (/android/i.test(userAgent)) {
-    //   setPlatform('android');
-    // } else if (/iPad|iPhone|iPod/.test(userAgent) && !(window as any).MSStream) {
-    //   setPlatform('ios');
-    // }
+    // Client-side detection (if SSR didn't run or for verification)
+    if (typeof window !== 'undefined') {
+      const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
 
-    // For now, we mock it to 'android' as requested
-    setPlatform('android');
-  }, []);
+      // Check only for Android, default to iOS otherwise
+      if (/android/i.test(userAgent)) {
+        setPlatform('android');
+      } else {
+        setPlatform('ios');
+      }
+    }
+  }, [setPlatform]);
 
   return platform;
 }

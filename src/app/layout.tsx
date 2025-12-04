@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter, Unbounded } from "next/font/google";
+import { headers } from "next/headers";
+import { PlatformInitializer } from "@/components/PlatformInitializer";
+import type { Platform } from "@/store/usePlatformStore";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -25,14 +28,32 @@ export const metadata: Metadata = {
   description: "Автоматизируйте продажи, поддержку и бизнес с помощью искусственного интеллекта",
 };
 
-export default function RootLayout({
+async function detectPlatform(): Promise<Platform> {
+  const headersList = await headers();
+  const userAgent = headersList.get('user-agent') || '';
+
+  // Check for Android
+  if (/android/i.test(userAgent)) {
+    return 'android';
+  }
+
+  // Default to iOS
+  return 'ios';
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const platform = await detectPlatform();
+
   return (
     <html lang="ru" className="scroll-smooth">
-      <body className={`${inter.variable} ${unbounded.variable} antialiased`}>{children}</body>
+      <body className={`${inter.variable} ${unbounded.variable} antialiased`}>
+        <PlatformInitializer initialPlatform={platform} />
+        {children}
+      </body>
     </html>
   );
 }
