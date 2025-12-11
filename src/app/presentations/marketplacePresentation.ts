@@ -1,7 +1,7 @@
 // marketplacePresentation.ts
 
 export const marketplacePresentation = {
-  headerTitle: "Автоматизация работы с отзывами",
+  headerTitle: "Автоответы на отзывы",
   headerSubtitle: "Превращаем негатив в лояльность на автопилоте",
   sections: [
     {

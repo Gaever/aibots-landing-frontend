@@ -1,7 +1,7 @@
 // operatorPrompterPresentation.ts
 
 export const operatorPrompterPresentation = {
-  headerTitle: "ИИ Суфлёр для операторов",
+  headerTitle: "Суфлёр для операторов",
   headerSubtitle: "Мгновенные подсказки на основе базы знаний",
   sections: [
     {
