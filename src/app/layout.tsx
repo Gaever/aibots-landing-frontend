@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter, Unbounded } from "next/font/google";
 import { headers } from "next/headers";
 import { PlatformInitializer } from "@/components/PlatformInitializer";
+import { ReactQueryProvider } from "@/components/ReactQueryProvider";
 import type { Platform } from "@/store/usePlatformStore";
 import "./globals.css";
 
@@ -52,7 +53,7 @@ export default async function RootLayout({
     <html lang="ru" className="scroll-smooth">
       <body className={`${inter.variable} ${unbounded.variable} antialiased`}>
         <PlatformInitializer initialPlatform={platform} />
-        {children}
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );

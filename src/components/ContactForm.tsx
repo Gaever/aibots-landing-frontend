@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 interface FormState {
   name: string;
@@ -60,9 +61,51 @@ export function ContactForm({
     service: "",
   });
 
+  const sendToTelegramMutation = useMutation({
+    mutationFn: async (data: FormState) => {
+      const response = await fetch("/api/telegram", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          message: [
+            data.phone && `Телефон: ${data.phone}`,
+            data.storeLink && `Ссылка: ${data.storeLink}`,
+            data.revenue && `Оборот: ${data.revenue}`,
+            data.service && `Услуга: ${data.service}`,
+          ]
+            .filter(Boolean)
+            .join("\n"),
+          meta: {
+            source: "landing-contact-form",
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        storeLink: "",
+        revenue: "",
+        service: "",
+      });
+    },
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    sendToTelegramMutation.mutate(formData);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -198,7 +241,8 @@ export function ContactForm({
 
             <button
               type="submit"
-              className="w-full py-4 rounded-xl bg-indigo-600 text-white font-semibold text-base hover:bg-indigo-700 transition-all duration-200 shadow-lg shadow-indigo-600/25 hover:shadow-xl hover:shadow-indigo-600/40 hover:-translate-y-0.5"
+              className="w-full py-4 rounded-xl bg-indigo-600 text-white font-semibold text-base hover:bg-indigo-700 transition-all duration-200 shadow-lg shadow-indigo-600/25 hover:shadow-xl hover:shadow-indigo-600/40 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed"
+              disabled={sendToTelegramMutation.isPending}
             >
               {labels.submit}
             </button>
