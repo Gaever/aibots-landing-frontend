@@ -8,7 +8,8 @@ interface HeroProps {
 
 // Shimmer text styles - ярче, лучше читается
 const shimmerTextStyle: React.CSSProperties = {
-  backgroundImage: "linear-gradient(90deg, #4b5563, #6b7280, #9ca3af, #6b7280, #4b5563)",
+  backgroundImage:
+    "linear-gradient(90deg, #1f2937, #374151, #4b5563, #374151, #1f2937)",
   backgroundSize: "300% 100%",
   WebkitBackgroundClip: "text",
   backgroundClip: "text",

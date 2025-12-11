@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { ContactForm } from "@/components/ContactForm";
 import { ConsultantBotScrollPresentation } from "@/components/demo/consultant-bot/ConsultantBotScrollPresentation";
 import { DocumentBotScrollPresentation } from "@/components/demo/document-bot/DocumentBotScrollPresentation";
@@ -17,6 +18,9 @@ import { TableOfContents } from "@/components/TableOfContents";
 import { landingContent } from "./landingContent";
 
 export default function Home() {
+  const [showAllDemos, setShowAllDemos] = useState(false);
+  const [pendingScrollId, setPendingScrollId] = useState<string | null>(null);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (!element) return;
@@ -64,6 +68,26 @@ export default function Home() {
     requestAnimationFrame(correct);
   };
 
+  useEffect(() => {
+    if (!pendingScrollId) return;
+    if (!showAllDemos) return;
+
+    scrollToSection(pendingScrollId);
+    setPendingScrollId(null);
+  }, [pendingScrollId, showAllDemos]);
+
+  const handleTocClick = (id: string) => {
+    const alwaysVisibleIds = ["messengers", "reviews"];
+
+    if (!showAllDemos && !alwaysVisibleIds.includes(id)) {
+      setShowAllDemos(true);
+      setPendingScrollId(id);
+      return;
+    }
+
+    scrollToSection(id);
+  };
+
   return (
     <main className="min-h-screen bg-white">
       <Hero title="ИИ-боты для клиентов и сотрудников под ключ" subtitle={landingContent.hero.subtitle} />
@@ -76,7 +100,7 @@ export default function Home() {
 
       {/* <Strategy title={landingContent.strategy.title} paragraphs={landingContent.strategy.paragraphs} /> */}
 
-      <TableOfContents verticals={landingContent.verticals} scrollToSection={scrollToSection} />
+      <TableOfContents verticals={landingContent.verticals} scrollToSection={handleTocClick} />
 
       <div id="messengers" className="toc-anchor h-0" />
       <MessengerAutoreviewScrollPresentation />
@@ -84,24 +108,39 @@ export default function Home() {
       <div id="reviews" className="toc-anchor h-0" />
       <MarketplaceReviewsScrollPresentation />
 
-      <div id="ecommerce" className="toc-anchor h-0" />
-      <ConsultantBotScrollPresentation />
+      {!showAllDemos && (
+        <div className="py-12">
+          <button
+            type="button"
+            onClick={() => setShowAllDemos(true)}
+            className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 py-6 px-8 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white text-lg md:text-xl font-semibold shadow-2xl cursor-pointer transform hover:scale-[1.01] active:scale-[0.99] hover:brightness-110 transition duration-200 ease-out"
+          >
+            Показать ещё примеры
+          </button>
+        </div>
+      )}
 
-      <div id="operator-souffleur" className="toc-anchor h-0" />
-      <OperatorPrompterScrollPresentation />
+      {showAllDemos && (
+        <>
+          <div id="ecommerce" className="toc-anchor h-0" />
+          <ConsultantBotScrollPresentation />
 
-      <div id="internal-assistant" className="toc-anchor h-0" />
-      <InternalAssistantScrollPresentation />
+          <div id="operator-souffleur" className="toc-anchor h-0" />
+          <OperatorPrompterScrollPresentation />
 
-      <div id="hr-bot" className="toc-anchor h-0" />
-      <HrBotScrollPresentation />
+          <div id="internal-assistant" className="toc-anchor h-0" />
+          <InternalAssistantScrollPresentation />
 
-      <div id="doc-bot" className="toc-anchor h-0" />
-      <DocumentBotScrollPresentation />
+          <div id="hr-bot" className="toc-anchor h-0" />
+          <HrBotScrollPresentation />
 
-      <div id="quality-control" className="toc-anchor h-0" />
-      <QualityControlScrollPresentation />
+          <div id="doc-bot" className="toc-anchor h-0" />
+          <DocumentBotScrollPresentation />
 
+          <div id="quality-control" className="toc-anchor h-0" />
+          <QualityControlScrollPresentation />
+        </>
+      )}
 
       <FAQ items={landingContent.faqItems} />
 

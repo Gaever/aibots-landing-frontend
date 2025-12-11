@@ -495,8 +495,8 @@ export const landingContent = {
     },
     avitoChat: {
       header: {
-        title: "Вывоз мебели - Антихлам",
-        subtitle: "Вывоз садового мусора и ... · от 2 000 ₽",
+        title: "Одежда Lux",
+        subtitle: "Твой неповторимый стиль",
         rating: "4,9",
         avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8QjKj5j5j5j5j5j5j5j5j5j5j5j5j5j5j5w&s",
       },
