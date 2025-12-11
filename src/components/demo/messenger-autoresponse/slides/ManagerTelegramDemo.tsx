@@ -18,7 +18,7 @@ interface ManagerTelegramDemoProps {
 
 // Simple markdown parser for bold (**text**) and newlines (\n)
 const SimpleMarkdown = ({ content }: { content: string }) => {
-  const lines = content.split('\n');
+  const lines = content.split("\n");
 
   return (
     <>
@@ -28,8 +28,12 @@ const SimpleMarkdown = ({ content }: { content: string }) => {
         return (
           <p key={i} className="m-0">
             {parts.map((part, j) => {
-              if (part.startsWith('**') && part.endsWith('**')) {
-                return <span key={j} className="font-bold">{part.slice(2, -2)}</span>;
+              if (part.startsWith("**") && part.endsWith("**")) {
+                return (
+                  <span key={j} className="font-bold">
+                    {part.slice(2, -2)}
+                  </span>
+                );
               }
               return part;
             })}
@@ -87,28 +91,40 @@ export function ManagerTelegramDemo({
           <div className="animate-slideIn">
             {/* Сообщение от бота - используем точно такой же стиль как в TelegramChatDemo */}
             <div className="flex justify-start">
-              <div className="max-w-[75%] rounded-2xl bg-[#182533] text-white rounded-tl-md px-3 py-2 shadow-lg">
-                <div className="mb-2">
-                  <span className="text-xl mr-1.5">🔔</span>
-                  <span className="text-[15px] font-bold">{content.notification.title.replace("🔔 ", "")}</span>
+              <div className="max-w-[75%] w-full">
+                <div className="w-full rounded-2xl bg-[#182533] text-white rounded-tl-md px-3 py-2.5 shadow-lg">
+                  {/* Заголовок отправителя как в Telegram */}
+                  {content.notification.sender && (
+                    <div className="mb-0.5 text-[13px] font-semibold text-[#2481CC] leading-[15px]">
+                      {content.notification.sender}
+                    </div>
+                  )}
+
+                  <div className="mb-1.5 flex items-center">
+                    <span className="text-[18px] mr-1.5 leading-none">🔔</span>
+                    <span className="text-[14px] font-bold leading-[18px]">
+                      {content.notification.title.replace("🔔 ", "")}
+                    </span>
+                  </div>
+
+                  <div className="text-[13px] leading-[18px] whitespace-pre-line [&>p]:mb-0 [&>p]:leading-[18px]">
+                    <SimpleMarkdown content={notification.contentMd} />
+                  </div>
+
+                  <div className="text-[10px] mt-1 text-[#8E8E93] text-right">{notification.timestamp}</div>
                 </div>
 
-                <div className="text-[15px] leading-[20px] whitespace-pre-line [&>p]:mb-0 [&>p]:leading-[20px]">
-                  <SimpleMarkdown content={notification.contentMd} />
+                {/* Кнопки под сообщением - точно такой же цвет как фон сообщения */}
+                <div className="mt-1 space-y-[2px]">
+                  {content.notification.buttons.map((btn, i) => (
+                    <button
+                      key={i}
+                      className="w-full py-[9px] px-3 bg-[#182533] text-white text-center rounded-lg text-[13px] leading-[16px] hover:bg-[#1f2d3d] transition-colors"
+                    >
+                      {btn}
+                    </button>
+                  ))}
                 </div>
-
-                <div className="text-[11px] mt-1 text-[#8E8E93] text-right">{notification.timestamp}</div>
-              </div>
-            </div>
-
-            {/* Кнопки под сообщением - точно такой же цвет как фон сообщения */}
-            <div className="flex justify-start mt-1">
-              <div className="max-w-[75%] space-y-[2px]">
-                {content.notification.buttons.map((btn, i) => (
-                  <button key={i} className="w-full py-2 px-3 bg-[#182533] text-white text-center rounded-lg text-[15px] hover:bg-[#1f2d3d] transition-colors">
-                    {btn}
-                  </button>
-                ))}
               </div>
             </div>
           </div>

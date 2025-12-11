@@ -207,10 +207,10 @@ export function ContactForm({
           </div>
         </form>
 
-        <div className="mt-12 text-center p-8 rounded-xl bg-white border border-gray-200">
+        {/* <div className="mt-12 text-center p-8 rounded-xl bg-white border border-gray-200">
           <p className="text-gray-600 mb-2 text-base font-light">{stillDoubting}</p>
           <p className="text-lg text-gray-900 font-semibold">{demoText}</p>
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -1,8 +1,8 @@
 // hrBotPresentation.ts
 
 export const hrBotPresentation = {
-  headerTitle: "HR-бот для найма и адаптации",
-  headerSubtitle: "Автоматизирует подбор, проводит интервью и помогает новичкам",
+  headerTitle: "HR-бот для найма",
+  headerSubtitle: "Автоматизирует первичную воронку по поиску кандидатов",
   sections: [
     {
       id: "candidate-interview",
