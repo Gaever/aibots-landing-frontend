@@ -153,8 +153,6 @@ export default function Home() {
           name: landingContent.form.nameLabel,
           email: landingContent.form.emailLabel,
           phone: landingContent.form.phoneLabel,
-          link: landingContent.form.linkLabel,
-          revenue: landingContent.form.revenueLabel,
           service: landingContent.form.serviceLabel,
           submit: landingContent.form.submitLabel,
           projectDescription: landingContent.form.projectDescriptionLabel,
@@ -163,12 +161,9 @@ export default function Home() {
           name: landingContent.form.namePlaceholder,
           email: landingContent.form.emailPlaceholder,
           phone: landingContent.form.phonePlaceholder,
-          link: landingContent.form.linkPlaceholder,
-          revenue: landingContent.form.revenuePlaceholder,
           service: landingContent.form.servicePlaceholder,
           projectDescription: landingContent.form.projectDescriptionPlaceholder,
         }}
-        revenueOptions={landingContent.form.revenueOptions}
         serviceOptions={landingContent.form.serviceOptions}
       />
 
