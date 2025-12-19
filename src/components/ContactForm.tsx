@@ -34,6 +34,10 @@ interface ContactFormProps {
     projectDescription: string;
   };
   serviceOptions: string[];
+  messages: {
+    success: string;
+    error: string;
+  };
 }
 
 export function ContactForm({
@@ -46,6 +50,7 @@ export function ContactForm({
   labels,
   placeholders,
   serviceOptions,
+  messages,
 }: ContactFormProps) {
   const [formData, setFormData] = useState<FormState>({
     name: "",
@@ -92,6 +97,8 @@ export function ContactForm({
         service: "",
         projectDescription: "",
       });
+      // Show success message briefly before clearing or just keep it there
+      // We'll use mutation state for this
     },
   });
 
@@ -103,6 +110,8 @@ export function ContactForm({
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
+    // Clear success/error status on change if we want, but TanStack query handles it better via reset or just staying there.
+    // For now we just let the mutation state handle it.
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -123,6 +132,28 @@ export function ContactForm({
           className="p-8 md:p-10 rounded-2xl bg-white border border-gray-200 shadow-lg"
         >
           <div className="space-y-6">
+            {sendToTelegramMutation.isSuccess && (
+              <div className="p-4 rounded-xl bg-teal-50 border border-teal-100 text-teal-800 animate-in fade-in slide-in-from-top-4 duration-300">
+                <div className="flex items-center gap-3">
+                  <svg className="w-5 h-5 text-teal-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-sm font-medium">{messages.success}</p>
+                </div>
+              </div>
+            )}
+
+            {sendToTelegramMutation.isError && (
+              <div className="p-4 rounded-xl bg-red-50 border border-red-100 text-red-800 animate-in fade-in slide-in-from-top-4 duration-300">
+                <div className="flex items-center gap-3">
+                  <svg className="w-5 h-5 text-red-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <p className="text-sm font-medium">{messages.error}</p>
+                </div>
+              </div>
+            )}
+
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">

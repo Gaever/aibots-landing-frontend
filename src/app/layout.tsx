@@ -25,7 +25,7 @@ const unbounded = Unbounded({
 });
 
 export const metadata: Metadata = {
-  title: "ИИ-боты под ключ | AI Business Solutions",
+  title: "ИИ-боты под ключ",
   description: "Автоматизируйте продажи, поддержку и бизнес с помощью искусственного интеллекта",
   icons: {
     icon: "/favicon.svg",

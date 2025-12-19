@@ -165,6 +165,7 @@ export default function Home() {
           projectDescription: landingContent.form.projectDescriptionPlaceholder,
         }}
         serviceOptions={landingContent.form.serviceOptions}
+        messages={landingContent.form.messages}
       />
 
       <FAQ items={landingContent.faqItems} />
