@@ -277,6 +277,8 @@ export const landingContent = {
     revenueOptions: ["До 100 тыс рублей", "До 500 тыс рублей", "До 1 млн рублей", "До 3 млн рублей", "Свыше 3 млн"],
     serviceLabel: "Какая услуга интересует?",
     servicePlaceholder: "Выберите услугу",
+    projectDescriptionPlaceholder: "",
+    projectDescriptionLabel: "Опишите задачу",
     serviceOptions: [
       "Автоответы в чатах",
       "Автоответы на отзывы",

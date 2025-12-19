@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useRef, useEffect } from "react";
+import { ReactNode, useRef, useEffect, useState } from "react";
 import { usePlatform } from "@/hooks/usePlatform";
 
 interface AvitoFrameProps {
@@ -30,6 +30,28 @@ export function AvitoFrame({
 }: AvitoFrameProps) {
   const platform = usePlatform();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const updateScale = () => {
+      if (typeof window === "undefined" || window.innerWidth < 1024) {
+        setScale(1);
+        return;
+      }
+      const vh = window.innerHeight;
+      const frameHeight = 844;
+      const targetHeight = vh - 120; // Increased margin
+      if (targetHeight < frameHeight) {
+        setScale(Math.max(0.4, targetHeight / frameHeight));
+      } else {
+        setScale(1);
+      }
+    };
+
+    window.addEventListener("resize", updateScale);
+    updateScale();
+    return () => window.removeEventListener("resize", updateScale);
+  }, []);
 
   useEffect(() => {
     if (scrollContainerRef.current) {
@@ -41,10 +63,13 @@ export function AvitoFrame({
     <div className="w-full max-w-[390px] mx-auto">
       {/* Полная имитация мобильного экрана */}
       <div
-        className={`relative bg-white ${
-          platform === "ios" ? "rounded-[40px]" : "rounded-[24px]"
-        } overflow-hidden shadow-2xl font-sans`}
-        style={{ aspectRatio: "390/844" }}
+        className={`relative bg-white ${platform === "ios" ? "rounded-[40px]" : "rounded-[24px]"
+          } overflow-hidden shadow-2xl font-sans transition-transform duration-300`}
+        style={{
+          aspectRatio: "390/844",
+          transform: `scale(${scale})`,
+          transformOrigin: "center center",
+        }}
       >
         {/* Dynamic Island / Camera */}
         {platform === "ios" ? (
@@ -99,9 +124,8 @@ export function AvitoFrame({
 
         {/* Avito Header */}
         <div
-          className={`absolute ${
-            platform === "ios" ? "top-11" : "top-8"
-          } left-0 right-0 bg-white px-4 py-2 flex items-center gap-3 z-30 border-b border-gray-100`}
+          className={`absolute ${platform === "ios" ? "top-11" : "top-8"
+            } left-0 right-0 bg-white px-4 py-2 flex items-center gap-3 z-30 border-b border-gray-100`}
         >
           {/* Back button */}
           {/* Back button */}
@@ -170,9 +194,8 @@ export function AvitoFrame({
         {/* Input Area */}
         {showInput && (
           <div
-            className={`absolute ${
-              platform === "ios" ? "bottom-6" : "bottom-12"
-            } left-0 right-0 bg-white px-3 py-2 flex items-center gap-3 border-t border-gray-100`}
+            className={`absolute ${platform === "ios" ? "bottom-6" : "bottom-12"
+              } left-0 right-0 bg-white px-3 py-2 flex items-center gap-3 border-t border-gray-100`}
           >
             {/* Plus button */}
             {/* Plus/Paperclip button */}

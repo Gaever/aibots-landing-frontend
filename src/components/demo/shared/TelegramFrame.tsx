@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { usePlatform } from "@/hooks/usePlatform";
 
 interface TelegramFrameProps {
@@ -21,14 +21,40 @@ export function TelegramFrame({
   avatar = "🤖",
 }: TelegramFrameProps) {
   const platform = usePlatform();
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const updateScale = () => {
+      if (typeof window === "undefined" || window.innerWidth < 1024) {
+        setScale(1);
+        return;
+      }
+      const vh = window.innerHeight;
+      const frameHeight = 844;
+      const targetHeight = vh - 120; // Increased margin
+      if (targetHeight < frameHeight) {
+        setScale(Math.max(0.4, targetHeight / frameHeight));
+      } else {
+        setScale(1);
+      }
+    };
+
+    window.addEventListener("resize", updateScale);
+    updateScale();
+    return () => window.removeEventListener("resize", updateScale);
+  }, []);
+
   return (
     <div className="w-full max-w-[390px] mx-auto">
       {/* Полная имитация мобильного экрана */}
       <div
-        className={`relative bg-[#17212b] ${
-          platform === "ios" ? "rounded-[40px]" : "rounded-[24px]"
-        } overflow-hidden shadow-2xl`}
-        style={{ aspectRatio: "390/844" }}
+        className={`relative bg-[#17212b] ${platform === "ios" ? "rounded-[40px]" : "rounded-[24px]"
+          } overflow-hidden shadow-2xl transition-transform duration-300`}
+        style={{
+          aspectRatio: "390/844",
+          transform: `scale(${scale})`,
+          transformOrigin: "center center",
+        }}
       >
         {/* Dynamic Island / Camera */}
         {platform === "ios" ? (
@@ -82,9 +108,8 @@ export function TelegramFrame({
 
         {/* Telegram Header */}
         <div
-          className={`absolute ${
-            platform === "ios" ? "top-11" : "top-8"
-          } left-0 right-0 bg-[#17212b] px-4 py-2.5 flex items-center gap-3 z-30`}
+          className={`absolute ${platform === "ios" ? "top-11" : "top-8"
+            } left-0 right-0 bg-[#17212b] px-4 py-2.5 flex items-center gap-3 z-30`}
         >
           {/* Back button */}
           <button className="text-[#8BBEF6] flex items-center -ml-1">
@@ -143,9 +168,8 @@ export function TelegramFrame({
         {/* Input Area */}
         {showInput && (
           <div
-            className={`absolute ${
-              platform === "ios" ? "bottom-6" : "bottom-12"
-            } left-0 right-0 bg-[#17212b] px-2 py-2 flex items-center gap-2`}
+            className={`absolute ${platform === "ios" ? "bottom-6" : "bottom-12"
+              } left-0 right-0 bg-[#17212b] px-2 py-2 flex items-center gap-2`}
           >
             <button className="w-9 h-9 flex items-center justify-center text-[#8E8E93]">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

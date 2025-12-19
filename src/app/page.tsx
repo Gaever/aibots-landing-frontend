@@ -157,6 +157,7 @@ export default function Home() {
           revenue: landingContent.form.revenueLabel,
           service: landingContent.form.serviceLabel,
           submit: landingContent.form.submitLabel,
+          projectDescription: landingContent.form.projectDescriptionLabel,
         }}
         placeholders={{
           name: landingContent.form.namePlaceholder,
@@ -165,6 +166,7 @@ export default function Home() {
           link: landingContent.form.linkPlaceholder,
           revenue: landingContent.form.revenuePlaceholder,
           service: landingContent.form.servicePlaceholder,
+          projectDescription: landingContent.form.projectDescriptionPlaceholder,
         }}
         revenueOptions={landingContent.form.revenueOptions}
         serviceOptions={landingContent.form.serviceOptions}
