@@ -16,6 +16,30 @@ const shimmerTextStyle: React.CSSProperties = {
   animation: "text-shimmer 6s ease-in-out infinite",
 };
 
+const EMAIL_CONFIG = {
+  address: "hello@aifaqbot.ru",
+  subject: "Заявка на интеграцию ИИ-бота",
+  body: `Здравствуйте!
+
+Хочу обсудить запуск ИИ-бота для моего бизнеса.
+
+Несколько данных обо мне:
+• Ниша и тип бизнеса: 
+• Средний месячный оборот: 
+• Каналы, где хотели бы запустить бота (сайт, мессенджеры, CRM и др.): 
+• Основная цель (продажи, поддержка, увеличение LTV и др.): 
+
+Буду благодарен за обратную связь и идеи по оптимальному сценарию.
+
+С уважением,`,
+};
+
+function getMailtoUrl() {
+  const subject = encodeURIComponent(EMAIL_CONFIG.subject);
+  const body = encodeURIComponent(EMAIL_CONFIG.body);
+  return `mailto:${EMAIL_CONFIG.address}?subject=${subject}&body=${body}`;
+}
+
 export function Hero({ title, subtitle }: HeroProps) {
   // Случайные точки на фоне
   const [dots, setDots] = useState<
@@ -127,60 +151,32 @@ export function Hero({ title, subtitle }: HeroProps) {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                {/* Telegram CTA - frosted glass */}
-                <a
-                  href="https://t.me/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center justify-center gap-2 px-5 py-3 text-gray-700 text-sm font-medium rounded-xl transition-all duration-300 whitespace-nowrap hover:scale-105"
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("contact-form");
+                    if (el) {
+                      const rect = el.getBoundingClientRect();
+                      const offset = window.innerWidth >= 1280 ? 0 : window.innerWidth >= 1024 ? 0 : 0;
+                      window.scrollTo({
+                        top: window.scrollY + rect.top - offset,
+                        behavior: "smooth",
+                      });
+                    }
+                  }}
+                  className="group inline-flex items-center justify-center gap-2 px-8 py-4 text-gray-700 text-base font-semibold rounded-xl transition-all duration-300 whitespace-nowrap hover:scale-105 active:scale-95"
                   style={{
-                    background: "rgba(255, 255, 255, 0.6)",
+                    background: "rgba(255, 255, 255, 0.7)",
                     backdropFilter: "blur(12px)",
                     WebkitBackdropFilter: "blur(12px)",
                     border: "1px solid rgba(255, 255, 255, 0.8)",
-                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8)",
+                    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8)",
                   }}
                 >
-                  <svg className="w-4 h-4 text-[#2AABEE]" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.654-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
+                  <svg className="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                   {landingContent.hero.primaryCta}
-                </a>
-                {/* Email CTA - frosted glass */}
-                <a
-                  href="mailto:hello@aifaqbot.ru?subject=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D0%B8%D0%BD%D1%82%D0%B5%D0%B3%D1%80%D0%B0%D1%86%D0%B8%D1%8E%20II-%D0%B1%D0%BE%D1%82%D0%B0&body=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%0A%0A%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D0%BA%20II-%D0%B1%D0%BE%D1%82%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D0%BC%D0%BE%D0%B5%D0%B3%D0%BE%20%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%B0.%0A%0A%D0%9D%D0%B5%D1%81%D0%BA%D0%BE%D0%BB%D1%8C%D0%BA%D0%BE%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20%D0%BE%D0%B1%D0%BE%20%D0%BC%D0%BD%D0%B5%3A%0A%E2%80%A2%20%D0%9D%D0%B8%D1%88%D0%B0%20%D0%B8%20%D1%82%D0%B8%D0%BF%20%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%B0%3A%20%0A%E2%80%A2%20%D0%A1%D1%80%D0%B5%D0%B4%D0%BD%D0%B8%D0%B9%20%D0%BC%D0%B5%D1%81%D1%8F%D1%87%D0%BD%D1%8B%D0%B9%20%D0%BE%D0%B1%D0%BE%D1%80%D0%BE%D1%82%3A%20%0A%E2%80%A2%20%D0%9A%D0%B0%D0%BD%D0%B0%D0%BB%D1%8B%2C%20%D0%B3%D0%B4%D0%B5%20%D1%85%D0%BE%D1%82%D0%B5%D0%BB%D0%B8%20%D0%B1%D1%8B%20%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D1%82%D0%B8%D1%82%D1%8C%20%D0%B1%D0%BE%D1%82%D0%B0%20(%D1%81%D0%B0%D0%B9%D1%82%2C%20%D0%BC%D0%B5%D1%81%D1%81%D0%B5%D0%BD%D0%B4%D0%B6%D0%B5%D1%80%D1%8B%2C%20CRM%20%D0%B8%20%D0%B4%D1%80.)%3A%20%0A%E2%80%A2%20%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D0%B0%D1%8F%20%D1%86%D0%B5%D0%BB%D1%8C%20(%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B8%2C%20%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0%2C%20%D1%83%D0%B2%D0%B5%D0%BB%D0%B8%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20LTV%20%D0%B8%20%D0%B4%D1%80.)%3A%20%0A%0A%D0%91%D1%83%D0%B4%D1%83%20%D0%B1%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%80%D0%B5%D0%BD%20%D0%B7%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%BD%D1%83%D1%8E%20%D1%81%D0%B2%D1%8F%D0%B7%D1%8C%20%D0%B8%20%D0%B8%D0%B4%D0%B5%D0%B8%20%D0%BF%D0%BE%20%D0%BE%D0%BF%D1%82%D0%B8%D0%BC%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%BC%D1%83%20%D1%81%D1%86%D0%B5%D0%BD%D0%B0%D1%80%D0%B8%D1%8E.%0A%0A%D0%A1%20%D1%83%D0%B2%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%D0%BC%2C%0A"
-                  className="group inline-flex items-center justify-center gap-2 px-5 py-3 text-gray-700 text-sm font-medium rounded-xl transition-all duration-300 whitespace-nowrap hover:scale-105"
-                  style={{
-                    background: "rgba(255, 255, 255, 0.4)",
-                    backdropFilter: "blur(12px)",
-                    WebkitBackdropFilter: "blur(12px)",
-                    border: "1px solid rgba(255, 255, 255, 0.6)",
-                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6)",
-                  }}
-                >
-                  <svg
-                    className="w-5 h-5 text-sky-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4.75 5.75h14.5A1.75 1.75 0 0 1 21 7.5v9a1.75 1.75 0 0 1-1.75 1.75H4.75A1.75 1.75 0 0 1 3 16.5v-9A1.75 1.75 0 0 1 4.75 5.75Z"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M5 7.5 11.41 12a1 1 0 0 0 1.18 0L19 7.5"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <span>Оставить заявку на email</span>
-                </a>
+                </button>
               </div>
             </div>
 

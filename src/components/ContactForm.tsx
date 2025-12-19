@@ -119,7 +119,7 @@ export function ContactForm({
   };
 
   return (
-    <section className="relative px-4 py-20">
+    <section id="contact-form" className="relative px-4 py-20">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-gray-900">
@@ -129,7 +129,7 @@ export function ContactForm({
 
         <form
           onSubmit={handleSubmit}
-          className="p-8 md:p-10 rounded-2xl bg-white border border-gray-200 shadow-lg"
+          className="p-6 sm:p-8 md:p-10 rounded-2xl bg-white md:border md:border-gray-200 md:shadow-lg"
         >
           <div className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
@@ -233,16 +233,18 @@ export function ContactForm({
               />
             </div>
 
-            <button
-              type="submit"
-              className="w-full py-4 rounded-xl bg-indigo-600 text-white font-semibold text-base
-                hover:bg-indigo-700 transition-all duration-200 shadow-lg
-                shadow-indigo-600/25 hover:shadow-xl hover:shadow-indigo-600/40
-                hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed"
-              disabled={sendToTelegramMutation.isPending}
-            >
-              {labels.submit}
-            </button>
+            <div className="px-4 md:px-0">
+              <button
+                type="submit"
+                className="w-full py-4 rounded-xl bg-indigo-600 text-white font-semibold text-base
+                  hover:bg-indigo-700 transition-all duration-200 shadow-lg
+                  shadow-indigo-600/25 hover:shadow-xl hover:shadow-indigo-600/40
+                  hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed"
+                disabled={sendToTelegramMutation.isPending}
+              >
+                {labels.submit}
+              </button>
+            </div>
 
             {sendToTelegramMutation.isSuccess && (
               <div className="p-4 rounded-xl bg-teal-500 text-white shadow-lg shadow-teal-500/20 animate-in fade-in slide-in-from-top-2 duration-300">

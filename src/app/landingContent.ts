@@ -13,8 +13,8 @@ export const landingContent = {
   hero: {
     title: "ИИ-боты для клиентов и сотрудников под ключ",
     subtitle: "Автоматизируйте продажи, поддержку и бизнес с помощью искусственного интеллекта",
-    primaryCta: "Оставить заявку в Telegram",
-    secondaryCta: "Оставить заявку в WhatsApp",
+    primaryCta: "Оставить заявку",
+    secondaryCta: "Узнать подробнее",
   },
 
   pains: {

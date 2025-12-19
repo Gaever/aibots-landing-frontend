@@ -48,21 +48,39 @@ export function CTASection({
         {subtitle || landingContent.demoComponents.common.cta.subtitle}
       </p>
       <div className="flex flex-col sm:flex-row gap-4">
-        <a
-          href="https://t.me/yourusername"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-base md:text-lg hover:bg-gray-100 transition-all duration-200 hover:scale-105 shadow-xl"
+        <button
+          onClick={() => {
+            const el = document.getElementById("contact-form");
+            if (el) {
+              const rect = el.getBoundingClientRect();
+              const offset = window.innerWidth >= 1280 ? 144 : window.innerWidth >= 1024 ? 120 : 88;
+              window.scrollTo({
+                top: window.scrollY + rect.top - offset,
+                behavior: "smooth",
+              });
+            }
+          }}
+          className="px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-base md:text-lg hover:bg-gray-100 transition-all duration-200 hover:scale-105 shadow-xl cursor-pointer"
         >
           {primaryBtn || landingContent.demoComponents.common.cta.primaryBtn}
-        </a>
+        </button>
         {secondaryBtn !== null && (
-          <a
-            href="#pricing"
-            className="px-8 py-4 bg-white/20 backdrop-blur-sm border-2 border-white/50 text-white rounded-xl font-bold text-base md:text-lg hover:bg-white/30 transition-all duration-200"
+          <button
+            onClick={() => {
+              const el = document.getElementById("contact-form");
+              if (el) {
+                const rect = el.getBoundingClientRect();
+                const offset = window.innerWidth >= 1280 ? 144 : window.innerWidth >= 1024 ? 120 : 88;
+                window.scrollTo({
+                  top: window.scrollY + rect.top - offset,
+                  behavior: "smooth",
+                });
+              }
+            }}
+            className="px-8 py-4 bg-white/20 backdrop-blur-sm border-2 border-white/50 text-white rounded-xl font-bold text-base md:text-lg hover:bg-white/30 transition-all duration-200 cursor-pointer"
           >
             {secondaryBtn || landingContent.demoComponents.common.cta.secondaryBtn}
-          </a>
+          </button>
         )}
       </div>
       <div className="mt-8 flex items-center gap-8 text-white/80 text-sm">
