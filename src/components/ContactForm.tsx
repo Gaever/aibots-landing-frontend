@@ -132,28 +132,6 @@ export function ContactForm({
           className="p-8 md:p-10 rounded-2xl bg-white border border-gray-200 shadow-lg"
         >
           <div className="space-y-6">
-            {sendToTelegramMutation.isSuccess && (
-              <div className="p-4 rounded-xl bg-teal-50 border border-teal-100 text-teal-800 animate-in fade-in slide-in-from-top-4 duration-300">
-                <div className="flex items-center gap-3">
-                  <svg className="w-5 h-5 text-teal-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <p className="text-sm font-medium">{messages.success}</p>
-                </div>
-              </div>
-            )}
-
-            {sendToTelegramMutation.isError && (
-              <div className="p-4 rounded-xl bg-red-50 border border-red-100 text-red-800 animate-in fade-in slide-in-from-top-4 duration-300">
-                <div className="flex items-center gap-3">
-                  <svg className="w-5 h-5 text-red-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <p className="text-sm font-medium">{messages.error}</p>
-                </div>
-              </div>
-            )}
-
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
@@ -265,6 +243,32 @@ export function ContactForm({
             >
               {labels.submit}
             </button>
+
+            {sendToTelegramMutation.isSuccess && (
+              <div className="p-4 rounded-xl bg-teal-500 text-white shadow-lg shadow-teal-500/20 animate-in fade-in slide-in-from-top-2 duration-300">
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/20 p-1 rounded-full">
+                    <svg className="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <p className="text-sm font-semibold">{messages.success}</p>
+                </div>
+              </div>
+            )}
+
+            {sendToTelegramMutation.isError && (
+              <div className="p-4 rounded-xl bg-red-500 text-white shadow-lg shadow-red-500/20 animate-in fade-in slide-in-from-top-2 duration-300">
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/20 p-1 rounded-full">
+                    <svg className="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <p className="text-sm font-semibold">{messages.error}</p>
+                </div>
+              </div>
+            )}
 
             <p className="text-sm text-gray-500 text-center leading-relaxed font-light">
               {footnote}

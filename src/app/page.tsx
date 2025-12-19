@@ -113,7 +113,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => setShowAllDemos(true)}
-            className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 py-6 px-8 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white text-lg md:text-xl font-semibold shadow-2xl cursor-pointer transform hover:scale-[1.01] active:scale-[0.99] hover:brightness-110 transition duration-200 ease-out"
+            className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 py-6 px-8 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 text-white text-lg md:text-xl font-semibold shadow-2xl cursor-pointer transform hover:scale-[1.01] active:scale-[0.99] hover:brightness-110 transition duration-200 ease-out"
           >
             Показать ещё примеры
           </button>
