@@ -1,0 +1,25 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00F2FE" />
+      <stop offset="100%" stop-color="#FB1DFB" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer glow layers (Atmospheric) -->
+  <rect x="40" y="40" width="432" height="432" rx="110" stroke="url(#grad)" stroke-width="2" stroke-opacity="0.1" />
+  <rect x="60" y="60" width="392" height="392" rx="100" stroke="url(#grad)" stroke-width="2" stroke-opacity="0.2" />
+  <rect x="80" y="80" width="352" height="352" rx="90" stroke="url(#grad)" stroke-width="2" stroke-opacity="0.3" />
+  
+  <!-- Stacked Backgrounds -->
+  <rect x="100" y="100" width="312" height="312" rx="85" fill="url(#grad)" fill-opacity="0.1" />
+  <rect x="120" y="120" width="272" height="272" rx="75" fill="url(#grad)" fill-opacity="0.2" />
+  <rect x="140" y="140" width="232" height="232" rx="65" fill="url(#grad)" fill-opacity="0.4" />
+  
+  <!-- Core Shape -->
+  <rect x="160" y="160" width="192" height="192" rx="55" fill="url(#grad)" />
+  
+  <!-- Inner Glow/Depth -->
+  <rect x="190" y="190" width="132" height="132" rx="40" fill="white" fill-opacity="0.2" />
+  <rect x="220" y="220" width="72" height="72" rx="25" fill="white" fill-opacity="0.1" />
+</svg>
