@@ -129,7 +129,7 @@ export function ContactForm({
 
         <form
           onSubmit={handleSubmit}
-          className="p-6 sm:p-8 md:p-10 rounded-2xl bg-white md:border md:border-gray-200 md:shadow-lg"
+          className="p-0 sm:p-8 md:p-10 rounded-2xl bg-white md:border md:border-gray-200 md:shadow-lg"
         >
           <div className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
@@ -233,7 +233,7 @@ export function ContactForm({
               />
             </div>
 
-            <div className="px-4 md:px-0">
+            <div className="px-0">
               <button
                 type="submit"
                 className="w-full py-4 rounded-xl bg-indigo-600 text-white font-semibold text-base

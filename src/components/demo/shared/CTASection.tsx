@@ -53,7 +53,7 @@ export function CTASection({
             const el = document.getElementById("contact-form");
             if (el) {
               const rect = el.getBoundingClientRect();
-              const offset = window.innerWidth >= 1280 ? 144 : window.innerWidth >= 1024 ? 120 : 88;
+              const offset = window.innerWidth >= 1280 ? 0 : window.innerWidth >= 1024 ? 0 : 0;
               window.scrollTo({
                 top: window.scrollY + rect.top - offset,
                 behavior: "smooth",
@@ -70,7 +70,7 @@ export function CTASection({
               const el = document.getElementById("contact-form");
               if (el) {
                 const rect = el.getBoundingClientRect();
-                const offset = window.innerWidth >= 1280 ? 144 : window.innerWidth >= 1024 ? 120 : 88;
+                const offset = window.innerWidth >= 1280 ? 0 : window.innerWidth >= 1024 ? 0 : 0;
                 window.scrollTo({
                   top: window.scrollY + rect.top - offset,
                   behavior: "smooth",
