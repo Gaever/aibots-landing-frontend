@@ -142,8 +142,6 @@ export default function Home() {
         </>
       )}
 
-      <FAQ items={landingContent.faqItems} />
-
       <ContactForm
         title={landingContent.closingCta.title}
         subtitle={landingContent.closingCta.subtitle}
@@ -171,6 +169,8 @@ export default function Home() {
         revenueOptions={landingContent.form.revenueOptions}
         serviceOptions={landingContent.form.serviceOptions}
       />
+
+      <FAQ items={landingContent.faqItems} />
 
       <Footer text={landingContent.footer.text} />
     </main>

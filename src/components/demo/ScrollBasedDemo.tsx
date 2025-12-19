@@ -200,9 +200,8 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
 
                 {/* Section title */}
                 <h3
-                  className={`text-2xl lg:text-3xl font-bold mb-6 transition-colors ${
-                    activeSection === index ? "text-gray-900" : "text-gray-500"
-                  }`}
+                  className={`text-2xl lg:text-3xl font-bold mb-6 transition-colors ${activeSection === index ? "text-gray-900" : "text-gray-500"
+                    }`}
                 >
                   {index + 1}. {section.title}
                 </h3>
@@ -213,9 +212,8 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                     <MarkdownText
                       key={idx}
                       text={paragraph}
-                      className={`text-lg leading-relaxed transition-colors ${
-                        activeSection === index ? "text-gray-800" : "text-gray-400"
-                      }`}
+                      className={`text-lg leading-relaxed transition-colors ${activeSection === index ? "text-gray-800" : "text-gray-400"
+                        }`}
                     />
                   ))}
                 </div>
@@ -226,9 +224,8 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                     {section.highlights.map((highlight, idx) => (
                       <div
                         key={idx}
-                        className={`flex items-center gap-3 transition-all duration-300 ${
-                          activeSection === index ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
-                        }`}
+                        className={`flex items-center gap-3 transition-all duration-300 ${activeSection === index ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                          }`}
                         style={{ transitionDelay: `${idx * 100}ms` }}
                       >
                         <div className="w-6 h-6 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shrink-0">
@@ -276,9 +273,8 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
                 {sections.map((_, index) => (
                   <div
                     key={index}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      index === activeSection ? "w-12 bg-black" : "w-2 bg-gray-400"
-                    }`}
+                    className={`h-2 rounded-full transition-all duration-300 ${index === activeSection ? "w-12 bg-black" : "w-2 bg-gray-400"
+                      }`}
                   />
                 ))}
               </div>
@@ -337,16 +333,15 @@ export function ScrollBasedDemo({ sections, headerTitle, headerSubtitle, headerI
 
               <div className={section.mobileConfig?.containerClassName}>
                 <div
-                  className={`bg-white ${
-                    section.mobileConfig?.noScale ? "" : section.mobileConfig?.marginBottom || ""
-                  } ${section.mobileConfig?.className || ""} ${section.mobileConfig?.height || ""}`}
+                  className={`bg-white ${section.mobileConfig?.noScale ? "" : section.mobileConfig?.marginBottom || ""
+                    } ${section.mobileConfig?.className || ""} ${section.mobileConfig?.height || ""}`}
                   style={
                     section.mobileConfig?.noScale
                       ? {}
                       : {
-                          transform: `scale(${section.mobileConfig?.scale || 0.9})`,
-                          transformOrigin: section.mobileConfig?.transformOrigin || "top center",
-                        }
+                        transform: `scale(${section.mobileConfig?.scale || 0.9})`,
+                        transformOrigin: section.mobileConfig?.transformOrigin || "top center",
+                      }
                   }
                 >
                   <MobileDemoItem>{section.demoComponent}</MobileDemoItem>
