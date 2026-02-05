@@ -6,6 +6,7 @@ import { Check } from "lucide-react";
 
 interface HealthChatProps {
   autoStart?: boolean;
+  light?: boolean;
 }
 
 interface Message {
@@ -18,10 +19,29 @@ interface Message {
   isEdited?: boolean;
 }
 
-export function HealthChat({ autoStart = true }: HealthChatProps) {
+export function HealthChat({ autoStart = true, light = false }: HealthChatProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Message bubble colors based on theme
+  const bubbleStyles = light
+    ? {
+      user: "bg-[#64A3E8] text-white rounded-tr-sm",
+      bot: "bg-white/90 text-slate-800 rounded-tl-sm shadow-sm",
+      botMeta: "text-slate-500",
+      botTime: "text-slate-400",
+      typing: "bg-white/90 text-slate-800 shadow-sm",
+      typingDot: "bg-slate-400",
+    }
+    : {
+      user: "bg-[#64A3E8] text-white rounded-tr-sm",
+      bot: "bg-[#25303E] text-white rounded-tl-sm",
+      botMeta: "text-gray-400",
+      botTime: "text-gray-400",
+      typing: "bg-[#25303E] text-white",
+      typingDot: "bg-gray-400",
+    };
 
   // Auto-scroll ONLY inside the chat container
   useEffect(() => {
@@ -139,7 +159,7 @@ export function HealthChat({ autoStart = true }: HealthChatProps) {
   }, [autoStart]);
 
   return (
-    <TelegramFrame title="ИИ Терапевт" subtitle={isTyping ? "печатает..." : "online"} avatar="👨‍⚕️">
+    <TelegramFrame title="ИИ Терапевт" subtitle={isTyping ? "печатает..." : "online"} avatar="👨‍⚕️" light={light}>
       <div
         ref={scrollContainerRef}
         className="flex flex-col space-y-3 p-2 h-full overflow-y-auto pb-4"
@@ -151,14 +171,14 @@ export function HealthChat({ autoStart = true }: HealthChatProps) {
           >
             <div
               className={`max-w-[85%] rounded-2xl px-3 py-2 text-[15px] leading-5 relative ${msg.role === "user"
-                ? "bg-[#64A3E8] text-white rounded-tr-sm"
-                : "bg-[#25303E] text-white rounded-tl-sm"
+                ? bubbleStyles.user
+                : bubbleStyles.bot
                 }`}
             >
               <div className="whitespace-pre-wrap">
                 {msg.text}
                 {(msg.isAi || msg.isVerified) && (
-                  <span className="block text-[11px] text-gray-400 italic mt-1">
+                  <span className={`block text-[11px] ${bubbleStyles.botMeta} italic mt-1`}>
                     {msg.isAi && "Ответ ИИ"}
                     {msg.isAi && msg.isVerified && ". "}
                     {msg.isVerified && "Проверено врачом"}
@@ -167,9 +187,9 @@ export function HealthChat({ autoStart = true }: HealthChatProps) {
               </div>
               <div className="flex items-center justify-end gap-1 mt-1">
                 {msg.isEdited && (
-                  <span className="text-[10px] text-gray-500 mr-auto">изменено</span>
+                  <span className={`text-[10px] ${bubbleStyles.botTime} mr-auto`}>изменено</span>
                 )}
-                <span className="text-[11px] text-gray-400">{msg.time}</span>
+                <span className={`text-[11px] ${bubbleStyles.botTime}`}>{msg.time}</span>
                 {msg.role === "user" && <Check className="w-3 h-3 text-white" />}
               </div>
             </div>
@@ -177,10 +197,10 @@ export function HealthChat({ autoStart = true }: HealthChatProps) {
         ))}
         {isTyping && (
           <div className="flex justify-start animate-fade-in">
-            <div className="bg-[#25303E] text-white rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm flex gap-1 items-center h-9">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></div>
+            <div className={`${bubbleStyles.typing} rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1 items-center h-9`}>
+              <div className={`w-1.5 h-1.5 ${bubbleStyles.typingDot} rounded-full animate-bounce [animation-delay:-0.3s]`}></div>
+              <div className={`w-1.5 h-1.5 ${bubbleStyles.typingDot} rounded-full animate-bounce [animation-delay:-0.15s]`}></div>
+              <div className={`w-1.5 h-1.5 ${bubbleStyles.typingDot} rounded-full animate-bounce`}></div>
             </div>
           </div>
         )}
