@@ -2,6 +2,7 @@
 
 import { HealthChat } from "@/components/HealthChat";
 import { Check, ShieldCheck } from "lucide-react";
+import Image from "next/image";
 
 export default function HealthPage() {
   const scrollToPricing = () => {
@@ -157,11 +158,14 @@ export default function HealthPage() {
           <div className="grid sm:grid-cols-2 gap-8 md:gap-12 max-w-3xl mx-auto">
             {/* Doctor 1 - Female */}
             <div className="flex flex-col items-center text-center">
-              <img
-                src="/doctor_w.jpg"
-                alt="Анна Михайлова"
-                className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover mb-4 border-4 border-cyan-100 shadow-lg"
-              />
+              <div className="relative w-24 h-24 md:w-32 md:h-32 mb-4">
+                <Image
+                  src="/doctor_w.jpg"
+                  alt="Анна Михайлова"
+                  fill
+                  className="rounded-full object-cover object-top border-4 border-cyan-100 shadow-lg"
+                />
+              </div>
               <h3 className="text-lg md:text-xl font-bold text-slate-800 mb-1">Анна Михайлова</h3>
               <p className="text-cyan-600 font-medium text-sm mb-2">Терапевт, к.м.н.</p>
               <p className="text-slate-600 text-sm leading-relaxed">
@@ -171,11 +175,14 @@ export default function HealthPage() {
 
             {/* Doctor 2 - Male */}
             <div className="flex flex-col items-center text-center">
-              <img
-                src="/doctor_m.jpg"
-                alt="Дмитрий Соколов"
-                className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover mb-4 border-4 border-cyan-100 shadow-lg"
-              />
+              <div className="relative w-24 h-24 md:w-32 md:h-32 mb-4">
+                <Image
+                  src="/doctor_m.jpg"
+                  alt="Дмитрий Соколов"
+                  fill
+                  className="rounded-full object-cover object-top border-4 border-cyan-100 shadow-lg"
+                />
+              </div>
               <h3 className="text-lg md:text-xl font-bold text-slate-800 mb-1">Дмитрий Соколов</h3>
               <p className="text-cyan-600 font-medium text-sm mb-2">Врач общей практики</p>
               <p className="text-slate-600 text-sm leading-relaxed">
