@@ -14,16 +14,24 @@
     overflow-x: hidden;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
   h6 {
     font-family: var(--font-unbounded), sans-serif;
   }
 }
-/* Add these animations to your global CSS or tailwind.config.js */
+
+@theme {
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
+}
 
 @keyframes blob {
   0%,
@@ -201,3 +209,5 @@
     transform: translateZ(100px) rotate(15deg) translateX(-9px) translateY(-11px);
   }
 }
+
+

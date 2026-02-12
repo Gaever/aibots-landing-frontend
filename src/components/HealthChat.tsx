@@ -159,7 +159,7 @@ export function HealthChat({ autoStart = true, light = false }: HealthChatProps)
   }, [autoStart]);
 
   return (
-    <TelegramFrame title="ИИ Терапевт" subtitle={isTyping ? "печатает..." : "online"} avatar="👨‍⚕️" light={light}>
+    <TelegramFrame title="HealthZen" subtitle={isTyping ? "печатает..." : "online"} avatar="👨‍⚕️" light={light} hideNotch={true}>
       <div
         ref={scrollContainerRef}
         className="flex flex-col space-y-3 p-2 h-full overflow-y-auto pb-4"

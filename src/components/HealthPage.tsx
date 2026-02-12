@@ -1,13 +1,14 @@
 "use client";
 
 import { HealthChat } from "@/components/HealthChat";
-import { Check, ShieldCheck } from "lucide-react";
+import { Check, ShieldCheck, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useState, useEffect } from "react";
 
 export default function HealthPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openFaqId, setOpenFaqId] = useState<string | null>(null);
   const [contactType, setContactType] = useState<"telegram" | "phone">("telegram");
   const [contactValue, setContactValue] = useState("");
   const [isAgreed, setIsAgreed] = useState(false);
@@ -63,37 +64,60 @@ export default function HealthPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-cyan-50 via-cyan-50 to-white font-sans text-slate-800">
+    <main className="min-h-screen bg-white font-sans text-slate-800">
 
       {/* --- HERO SECTION --- */}
-      <section className="relative overflow-hidden pb-16 pt-24 md:pb-24 md:pt-32 lg:pb-32 lg:pt-40">
+      <section className="relative overflow-hidden pb-16 pt-24 md:pb-24 md:pt-32 lg:pb-32 lg:pt-40 bg-gradient-to-br from-cyan-50 via-white to-teal-50">
+
+        {/* Animated background orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-cyan-300/30 rounded-full blur-[120px] animate-blob" />
+          <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-teal-200/25 rounded-full blur-[100px] animate-blob animation-delay-2000" />
+          <div className="absolute -bottom-20 left-1/3 w-[600px] h-[600px] bg-sky-200/20 rounded-full blur-[140px] animate-blob animation-delay-4000" />
+        </div>
+
+        {/* Subtle dot pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.04]" style={{
+          backgroundImage: `radial-gradient(circle, rgba(0,0,0,0.5) 1px, transparent 1px)`,
+          backgroundSize: '32px 32px'
+        }} />
+
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
 
             {/* Left Content */}
             <div className="flex-1 text-center lg:text-left">
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-800 mb-6 leading-[1.1]">
+              <div className="mb-5">
+                <span className="text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-teal-500 to-cyan-500 bg-clip-text text-transparent">
+                  Health
+                </span>
+                <span className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-700">
+                  Zen
+                </span>
+              </div>
+
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-800 mb-5 leading-[1.1]">
                 ИИ терапевт, <br className="hidden sm:block" />
                 <span className="bg-gradient-to-r from-teal-500 to-cyan-500 bg-clip-text text-transparent">
                   проверяемый врачами
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-base sm:text-lg text-slate-500 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                 Сервис, где искусственный интеллект проводит первичную диагностику, а настоящие врачи проверяют каждый диагноз. Быстро, доступно, безопасно.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                 <button
                   onClick={scrollToPricing}
-                  className="w-full sm:w-auto px-8 py-4 bg-cyan-500 text-white rounded-xl font-semibold hover:bg-cyan-600 transition-colors shadow-lg shadow-cyan-500/25"
+                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-cyan-500 to-teal-400 text-white rounded-xl font-semibold hover:from-cyan-400 hover:to-teal-300 transition-all shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/35 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   Попробовать бесплатно
                 </button>
                 <button
                   onClick={scrollToSolution}
-                  className="w-full sm:w-auto px-8 py-4 bg-white/80 text-slate-700 rounded-xl font-semibold hover:bg-white transition-colors border border-slate-200"
+                  className="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition-all border border-slate-200 shadow-sm"
                 >
                   Узнать больше
                 </button>
@@ -279,15 +303,11 @@ export default function HealthPage() {
               <ul className="space-y-3 md:space-y-4 text-left mb-6 md:mb-8 flex-1">
                 <li className="flex items-center gap-3">
                   <Check className="w-5 h-5 text-cyan-500 shrink-0" />
-                  <span className="text-slate-700 text-sm md:text-base">3 ответа в сутки</span>
+                  <span className="text-slate-700 text-sm md:text-base">Бесплатный чат с ИИ</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-5 h-5 text-cyan-500 shrink-0" />
                   <span className="text-slate-700 text-sm md:text-base">Базовые рекомендации</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-cyan-500 shrink-0" />
-                  <span className="text-slate-700 text-sm md:text-base">Проверка врачом</span>
                 </li>
               </ul>
 
@@ -325,10 +345,10 @@ export default function HealthPage() {
                   <Check className="w-5 h-5 text-cyan-500 shrink-0" />
                   <span className="text-slate-700 font-medium text-sm md:text-base">Проверка диагноза врачом</span>
                 </li>
-                <li className="flex items-center gap-3">
+                {/* <li className="flex items-center gap-3">
                   <Check className="w-5 h-5 text-cyan-500 shrink-0" />
                   <span className="text-slate-700 font-medium text-sm md:text-base">Приоритетная поддержка</span>
-                </li>
+                </li> */}
                 <li className="flex items-center gap-3">
                   <Check className="w-5 h-5 text-cyan-500 shrink-0" />
                   <span className="text-slate-700 font-medium text-sm md:text-base">Хранение истории болезни</span>
@@ -347,6 +367,63 @@ export default function HealthPage() {
               </button>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* --- FAQ --- */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <h2 className="text-2xl sm:text-3xl text-center font-bold text-slate-800 mb-8 md:mb-12">Частые вопросы</h2>
+
+          <div className="space-y-4">
+            {[
+              {
+                id: "item-1",
+                q: "Как быстро отвечает врач?",
+                a: "Обычно врач подключается к проверке диагноза в течение 15-30 минут в рабочее время. ИИ отвечает моментально."
+              },
+              {
+                id: "item-2",
+                q: "Врачи настоящие?",
+                a: "Да, мы сотрудничаем только с дипломированными терапевтами и врачами общей практики, прошедшими нашу верификацию."
+              },
+              {
+                id: "item-3",
+                q: "Это заменяет очный прием?",
+                a: "Нет. Наш сервис помогает получить второе мнение, расшифровать анализы или понять, к какому специалисту обратиться. Для постановки окончательного диагноза и назначения рецептурных препаратов нужен очный осмотр."
+              },
+              {
+                id: "item-4",
+                q: "Мои данные в безопасности?",
+                a: "Абсолютно. Мы используем шифрование и соблюдаем закон о персональных данных. Вашу переписку видит только лечащий врач."
+              },
+              {
+                id: "item-5",
+                q: "Можно ли показать результаты анализов?",
+                a: "Да, вы можете загрузить фото или PDF с результатами анализов в чат. Врач расшифрует их и даст пояснения."
+              },
+            ].map((item) => (
+              <div key={item.id} className="bg-slate-50 border border-slate-100 rounded-xl overflow-hidden transition-all">
+                <button
+                  onClick={() => setOpenFaqId(openFaqId === item.id ? null : item.id)}
+                  className="flex w-full items-center justify-between p-5 text-left font-semibold text-slate-800 hover:bg-slate-100 transition-colors w-full"
+                  aria-expanded={openFaqId === item.id}
+                >
+                  {item.q}
+                  <ChevronDown className={`h-5 w-5 text-slate-400 transition-transform duration-300 ${openFaqId === item.id ? 'rotate-180' : ''}`} />
+                </button>
+                <div
+                  className={`grid transition-all duration-300 ease-in-out ${openFaqId === item.id ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="px-5 pb-5 pt-0 leading-relaxed text-sm text-slate-600">
+                      {item.a}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -370,7 +447,10 @@ export default function HealthPage() {
       <Dialog.Root open={isModalOpen} onOpenChange={setIsModalOpen}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 animate-in fade-in duration-300" />
-          <Dialog.Content className="fixed left-[50%] top-[50%] z-50 w-full max-w-lg translate-x-[-50%] translate-y-[-50%] rounded-2xl bg-white p-8 shadow-2xl animate-in zoom-in-95 duration-300 focus:outline-none border border-slate-100">
+          <Dialog.Content className="fixed z-50 w-full bg-white p-6 shadow-2xl animate-in zoom-in-95 duration-300 focus:outline-none 
+            h-full inset-0 rounded-none 
+            md:h-auto md:inset-auto md:left-[50%] md:top-[50%] md:max-w-lg md:translate-x-[-50%] md:translate-y-[-50%] md:rounded-2xl md:p-8 md:border md:border-slate-100">
+
 
             <div className={`flex flex-col gap-6 transition-all duration-300 ${submitStatus === "success" || (typeof window !== 'undefined' && localStorage.getItem('heals_early_access') === 'true') ? "items-center text-center py-8" : ""}`}>
 
@@ -456,7 +536,7 @@ export default function HealthPage() {
                         />
                       </div>
                       <label htmlFor="consent" className="text-sm text-slate-500 leading-snug cursor-pointer select-none">
-                        Я даю согласие на обработку персональных данных и получение информационных сообщений
+                        Я даю согласие на обработку персональных данных и принимаю условия <a href="/user-agreement" target="_blank" className="text-cyan-600 hover:text-cyan-700 underline" onClick={(e) => e.stopPropagation()}>пользовательского соглашения</a>
                       </label>
                     </div>
 

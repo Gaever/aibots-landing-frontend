@@ -11,6 +11,7 @@ interface TelegramFrameProps {
   inputPlaceholder?: string;
   avatar?: string;
   light?: boolean;
+  hideNotch?: boolean;
 }
 
 export function TelegramFrame({
@@ -21,6 +22,7 @@ export function TelegramFrame({
   inputPlaceholder = "Сообщение",
   avatar = "🤖",
   light = false,
+  hideNotch = false,
 }: TelegramFrameProps) {
   // Theme colors
   const theme = light
@@ -95,11 +97,11 @@ export function TelegramFrame({
         }}
       >
         {/* Dynamic Island / Camera */}
-        {platform === "ios" ? (
+        {!hideNotch && (platform === "ios" ? (
           <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-[120px] h-[37px] bg-black rounded-[20px] z-50" />
         ) : (
           <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black rounded-full z-50" />
-        )}
+        ))}
 
         {/* Status bar */}
         {platform === "ios" ? (
