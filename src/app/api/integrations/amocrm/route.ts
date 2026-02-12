@@ -35,12 +35,12 @@ export async function POST(request: Request) {
     if (type === 'phone' && PHONE_FIELD_ID) {
       contactCustomFields.push({
         field_id: PHONE_FIELD_ID,
-        values: [{ value: contact, enum_code: 'WORK' }]
+        values: [{ value: contact }]
       });
     } else if (type === 'telegram' && TELEGRAM_FIELD_ID) {
       contactCustomFields.push({
         field_id: TELEGRAM_FIELD_ID,
-        values: [{ value: contact, enum_code: 'WORK' }]
+        values: [{ value: contact }]
       });
     } else {
       // Fallback if IDs are missing but we want to save *something*
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
       if (type === 'phone') {
         contactCustomFields.push({
           field_code: 'PHONE',
-          values: [{ value: contact, enum_code: 'WORK' }]
+          values: [{ value: contact }]
         });
       }
       // Telegram has no standard code, usually.
@@ -57,6 +57,18 @@ export async function POST(request: Request) {
 
     // Construct the "Complex" payload
     // This creates a Lead + Linked Contact in one atomic request
+
+    // Check for Consent Field ID
+    const CONSENT_FIELD_ID = Number(process.env.AMOCRM_CONSENT_FIELD_ID || 0);
+
+    // If consent is true and we have a field ID, add it to custom fields
+    if (CONSENT_FIELD_ID) {
+      contactCustomFields.push({
+        field_id: CONSENT_FIELD_ID,
+        values: [{ value: true }] // Adjust value format as needed for checkbox/boolean in Amo
+      });
+    }
+
     const leadData = [
       {
         name: `Early Access: ${contact}`,

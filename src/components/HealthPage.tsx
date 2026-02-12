@@ -4,14 +4,22 @@ import { HealthChat } from "@/components/HealthChat";
 import { Check, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import * as Dialog from "@radix-ui/react-dialog";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function HealthPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [contactType, setContactType] = useState<"telegram" | "phone">("telegram");
   const [contactValue, setContactValue] = useState("");
+  const [isAgreed, setIsAgreed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [hasAlreadySubscribed, setHasAlreadySubscribed] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && localStorage.getItem('heals_early_access') === 'true') {
+      setHasAlreadySubscribed(true);
+    }
+  }, []);
 
   const scrollToPricing = () => {
     document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
@@ -23,6 +31,8 @@ export default function HealthPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAgreed) return;
+
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
@@ -30,12 +40,18 @@ export default function HealthPage() {
       const response = await fetch("/api/integrations/amocrm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contact: contactValue, type: contactType }),
+        body: JSON.stringify({
+          contact: contactValue,
+          type: contactType,
+          consent: isAgreed
+        }),
       });
 
       if (response.ok) {
         setSubmitStatus("success");
-        setTimeout(() => setIsModalOpen(false), 2000);
+        localStorage.setItem("heals_early_access", "true");
+        setHasAlreadySubscribed(true);
+        // No auto-close logic here anymore, UI handles the switch
       } else {
         setSubmitStatus("error");
       }
@@ -336,7 +352,7 @@ export default function HealthPage() {
       </section>
 
       {/* --- FOOTER CTA --- */}
-      <section className="py-16 md:py-20 bg-linear-to-r from-cyan-500 to-cyan-600 text-white text-center">
+      {/* <section className="py-16 md:py-20 bg-linear-to-r from-cyan-500 to-cyan-600 text-white text-center">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 md:mb-8">Начните заботиться о здоровье умнее</h2>
           <a
@@ -348,83 +364,133 @@ export default function HealthPage() {
             Запустить ИИ-терапевта
           </a>
         </div>
-      </section>
+      </section> */}
 
       {/* --- EARLY ACCESS MODAL --- */}
       <Dialog.Root open={isModalOpen} onOpenChange={setIsModalOpen}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 animate-in fade-in duration-200" />
-          <Dialog.Content className="fixed left-[50%] top-[50%] z-50 w-full max-w-md translate-x-[-50%] translate-y-[-50%] rounded-2xl bg-white p-6 shadow-2xl animate-in zoom-in-95 duration-200 focus:outline-none">
+          <Dialog.Overlay className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 animate-in fade-in duration-300" />
+          <Dialog.Content className="fixed left-[50%] top-[50%] z-50 w-full max-w-lg translate-x-[-50%] translate-y-[-50%] rounded-2xl bg-white p-8 shadow-2xl animate-in zoom-in-95 duration-300 focus:outline-none border border-slate-100">
 
-            <div className="flex flex-col gap-4">
-              <div className="text-center">
-                <Dialog.Title className="text-xl font-bold text-slate-900">
-                  Ранний доступ
-                </Dialog.Title>
-                <Dialog.Description className="text-slate-500 mt-2 text-sm">
-                  Функционал подписки находится в разработке. Оставьте свои контакты, и мы подарим вам <span className="font-bold text-cyan-600">месяц бесплатного доступа</span> на старте!
-                </Dialog.Description>
-              </div>
+            <div className={`flex flex-col gap-6 transition-all duration-300 ${submitStatus === "success" || (typeof window !== 'undefined' && localStorage.getItem('heals_early_access') === 'true') ? "items-center text-center py-8" : ""}`}>
 
-              <form onSubmit={handleSubmit} className="space-y-4 mt-2">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">Как с вами связаться?</label>
-                  <div className="flex rounded-lg shadow-sm">
-                    <button
-                      type="button"
-                      onClick={() => setContactType("telegram")}
-                      className={`flex-1 px-4 py-2 text-sm font-medium border rounded-l-lg focus:z-10 focus:ring-2 focus:ring-cyan-500 ${contactType === "telegram"
-                        ? "bg-cyan-50 border-cyan-200 text-cyan-700 z-10"
-                        : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
-                        }`}
-                    >
-                      Telegram
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setContactType("phone")}
-                      className={`flex-1 px-4 py-2 text-sm font-medium border-t border-b border-r rounded-r-lg focus:z-10 focus:ring-2 focus:ring-cyan-500 ${contactType === "phone"
-                        ? "bg-cyan-50 border-cyan-200 text-cyan-700 z-10"
-                        : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
-                        }`}
-                    >
-                      Телефон
-                    </button>
+              {(submitStatus === "success" || (typeof window !== 'undefined' && localStorage.getItem('heals_early_access') === 'true')) ? (
+                <>
+                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-2 animate-in zoom-in spin-in-12 duration-500">
+                    <span className="text-4xl">🎉</span>
                   </div>
-                </div>
+                  <Dialog.Title className="text-2xl font-bold text-slate-900">
+                    Спасибо! Вы в списке
+                  </Dialog.Title>
+                  <Dialog.Description className="text-slate-600 mt-2 text-lg leading-relaxed max-w-sm mx-auto">
+                    Мы уже получили ваши контакты. Как только все будет готово, мы сразу свяжемся с вами и подарим месяц бесплатного доступа!
+                  </Dialog.Description>
+                  <button
+                    onClick={() => setIsModalOpen(false)}
+                    className="mt-6 px-8 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors"
+                  >
+                    Закрыть
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                      🎁
+                    </div>
+                    <Dialog.Title className="text-2xl font-bold text-slate-900">
+                      Получите месяц бесплатно
+                    </Dialog.Title>
+                    <Dialog.Description className="text-slate-600 mt-2 text-base leading-relaxed">
+                      Мы запускаем подписку уже совсем скоро. Оставьте контакты сейчас, и мы подарим вам <span className="font-bold text-cyan-600">30 дней полного доступа</span> на старте!
+                    </Dialog.Description>
+                  </div>
 
-                <div>
-                  <input
-                    type={contactType === "phone" ? "tel" : "text"}
-                    required
-                    placeholder={contactType === "phone" ? "+7 (999) 000-00-00" : "@username"}
-                    value={contactValue}
-                    onChange={(e) => setContactValue(e.target.value)}
-                    className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
-                  />
-                </div>
+                  <form onSubmit={handleSubmit} className="space-y-5 mt-2">
+                    <div className="space-y-3">
+                      <label className="text-sm font-semibold text-slate-700 block">Куда отправить приглашение?</label>
+                      <div className="flex p-1 bg-slate-100 rounded-xl">
+                        <button
+                          type="button"
+                          onClick={() => setContactType("telegram")}
+                          className={`flex-1 px-4 py-2.5 text-sm font-semibold rounded-lg transition-all ${contactType === "telegram"
+                            ? "bg-white text-cyan-700 shadow-sm"
+                            : "text-slate-500 hover:text-slate-700"
+                            }`}
+                        >
+                          Telegram
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setContactType("phone")}
+                          className={`flex-1 px-4 py-2.5 text-sm font-semibold rounded-lg transition-all ${contactType === "phone"
+                            ? "bg-white text-cyan-700 shadow-sm"
+                            : "text-slate-500 hover:text-slate-700"
+                            }`}
+                        >
+                          Телефон
+                        </button>
+                      </div>
+                    </div>
 
-                {submitStatus === "error" && (
-                  <p className="text-red-500 text-sm text-center">Произошла ошибка. Попробуйте еще раз.</p>
-                )}
+                    <div>
+                      <input
+                        type={contactType === "phone" ? "tel" : "text"}
+                        required
+                        placeholder={contactType === "phone" ? "+7 (999) 000-00-00" : "@username"}
+                        value={contactValue}
+                        onChange={(e) => setContactValue(e.target.value)}
+                        className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-lg"
+                      />
+                    </div>
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting || submitStatus === "success"}
-                  className="w-full py-3 bg-cyan-600 text-white font-bold rounded-xl hover:bg-cyan-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? "Отправка..." : submitStatus === "success" ? "Отправлено! 🎉" : "Получить доступ"}
-                </button>
-              </form>
+                    <div className="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                      <div className="flex h-6 items-center">
+                        <input
+                          id="consent"
+                          type="checkbox"
+                          checked={isAgreed}
+                          onChange={(e) => setIsAgreed(e.target.checked)}
+                          className="h-5 w-5 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500 cursor-pointer"
+                          required
+                        />
+                      </div>
+                      <label htmlFor="consent" className="text-sm text-slate-500 leading-snug cursor-pointer select-none">
+                        Я даю согласие на обработку персональных данных и получение информационных сообщений
+                      </label>
+                    </div>
+
+                    {submitStatus === "error" && (
+                      <div className="p-3 bg-red-50 text-red-600 text-sm rounded-lg text-center font-medium">
+                        Что-то пошло не так. Попробуйте еще раз.
+                      </div>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={isSubmitting || !isAgreed}
+                      className="w-full py-4 bg-cyan-600 text-white font-bold text-lg rounded-xl hover:bg-cyan-700 transition-all transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-cyan-500/25"
+                    >
+                      {isSubmitting ? "Отправка..." : "Забрать подарок"}
+                    </button>
+                  </form>
+                </>
+              )}
             </div>
 
-            <Dialog.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-slate-100 dark:ring-offset-slate-950 dark:focus:ring-slate-800 dark:data-[state=open]:bg-slate-800">
+            <Dialog.Close className="absolute right-5 top-5 p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-500">
               <span className="sr-only">Close</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </Dialog.Close>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
+
+      <footer className="py-4 bg-slate-50 border-t border-slate-200">
+        <div className="container mx-auto px-4 text-center text-slate-500 text-sm">
+          <p className="mb-2">{new Date().getFullYear()} <a href="/user-agreement" className="hover:text-cyan-600 transition-colors">Пользовательское соглашение</a></p>
+        </div>
+      </footer>
 
     </main>
   );
