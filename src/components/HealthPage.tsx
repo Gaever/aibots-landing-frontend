@@ -3,14 +3,47 @@
 import { HealthChat } from "@/components/HealthChat";
 import { Check, ShieldCheck } from "lucide-react";
 import Image from "next/image";
+import * as Dialog from "@radix-ui/react-dialog";
+import { useState } from "react";
 
 export default function HealthPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [contactType, setContactType] = useState<"telegram" | "phone">("telegram");
+  const [contactValue, setContactValue] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
   const scrollToPricing = () => {
     document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
   };
 
   const scrollToSolution = () => {
     document.getElementById("solution")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      const response = await fetch("/api/integrations/amocrm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contact: contactValue, type: contactType }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        setTimeout(() => setIsModalOpen(false), 2000);
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -242,9 +275,14 @@ export default function HealthPage() {
                 </li>
               </ul>
 
-              <button className="w-full py-3 md:py-4 bg-cyan-50 text-cyan-700 font-semibold rounded-xl hover:bg-cyan-100 transition-colors">
+              <a
+                href={process.env.NEXT_PUBLIC_TELEGRAM_BOT_URL || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full py-3 md:py-4 bg-cyan-50 text-cyan-700 font-semibold rounded-xl hover:bg-cyan-100 transition-colors text-center"
+              >
                 Попробовать
-              </button>
+              </a>
             </div>
 
             {/* Pro Tier UI */}
@@ -285,7 +323,10 @@ export default function HealthPage() {
                 </li>
               </ul>
 
-              <button className="w-full py-3 md:py-4 bg-cyan-500 text-white font-semibold rounded-xl hover:bg-cyan-600 transition-colors shadow-lg shadow-cyan-500/25">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="w-full py-3 md:py-4 bg-cyan-500 text-white font-semibold rounded-xl hover:bg-cyan-600 transition-colors shadow-lg shadow-cyan-500/25"
+              >
                 Оформить подписку
               </button>
             </div>
@@ -295,14 +336,95 @@ export default function HealthPage() {
       </section>
 
       {/* --- FOOTER CTA --- */}
-      <section className="py-16 md:py-20 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white text-center">
+      <section className="py-16 md:py-20 bg-linear-to-r from-cyan-500 to-cyan-600 text-white text-center">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 md:mb-8">Начните заботиться о здоровье умнее</h2>
-          <button className="px-8 md:px-10 py-4 md:py-5 bg-white text-cyan-600 text-lg md:text-xl font-bold rounded-xl hover:bg-cyan-50 transition-colors shadow-xl">
+          <a
+            href={process.env.NEXT_PUBLIC_TELEGRAM_BOT_URL || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-8 md:px-10 py-4 md:py-5 bg-white text-cyan-600 text-lg md:text-xl font-bold rounded-xl hover:bg-cyan-50 transition-colors shadow-xl"
+          >
             Запустить ИИ-терапевта
-          </button>
+          </a>
         </div>
       </section>
+
+      {/* --- EARLY ACCESS MODAL --- */}
+      <Dialog.Root open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 animate-in fade-in duration-200" />
+          <Dialog.Content className="fixed left-[50%] top-[50%] z-50 w-full max-w-md translate-x-[-50%] translate-y-[-50%] rounded-2xl bg-white p-6 shadow-2xl animate-in zoom-in-95 duration-200 focus:outline-none">
+
+            <div className="flex flex-col gap-4">
+              <div className="text-center">
+                <Dialog.Title className="text-xl font-bold text-slate-900">
+                  Ранний доступ
+                </Dialog.Title>
+                <Dialog.Description className="text-slate-500 mt-2 text-sm">
+                  Функционал подписки находится в разработке. Оставьте свои контакты, и мы подарим вам <span className="font-bold text-cyan-600">месяц бесплатного доступа</span> на старте!
+                </Dialog.Description>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-4 mt-2">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-700">Как с вами связаться?</label>
+                  <div className="flex rounded-lg shadow-sm">
+                    <button
+                      type="button"
+                      onClick={() => setContactType("telegram")}
+                      className={`flex-1 px-4 py-2 text-sm font-medium border rounded-l-lg focus:z-10 focus:ring-2 focus:ring-cyan-500 ${contactType === "telegram"
+                        ? "bg-cyan-50 border-cyan-200 text-cyan-700 z-10"
+                        : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
+                        }`}
+                    >
+                      Telegram
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setContactType("phone")}
+                      className={`flex-1 px-4 py-2 text-sm font-medium border-t border-b border-r rounded-r-lg focus:z-10 focus:ring-2 focus:ring-cyan-500 ${contactType === "phone"
+                        ? "bg-cyan-50 border-cyan-200 text-cyan-700 z-10"
+                        : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
+                        }`}
+                    >
+                      Телефон
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <input
+                    type={contactType === "phone" ? "tel" : "text"}
+                    required
+                    placeholder={contactType === "phone" ? "+7 (999) 000-00-00" : "@username"}
+                    value={contactValue}
+                    onChange={(e) => setContactValue(e.target.value)}
+                    className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                  />
+                </div>
+
+                {submitStatus === "error" && (
+                  <p className="text-red-500 text-sm text-center">Произошла ошибка. Попробуйте еще раз.</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting || submitStatus === "success"}
+                  className="w-full py-3 bg-cyan-600 text-white font-bold rounded-xl hover:bg-cyan-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? "Отправка..." : submitStatus === "success" ? "Отправлено! 🎉" : "Получить доступ"}
+                </button>
+              </form>
+            </div>
+
+            <Dialog.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-slate-100 dark:ring-offset-slate-950 dark:focus:ring-slate-800 dark:data-[state=open]:bg-slate-800">
+              <span className="sr-only">Close</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </Dialog.Close>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
 
     </main>
   );
